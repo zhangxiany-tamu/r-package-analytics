@@ -799,11 +799,16 @@ class RPackageAnalytics {
             this.cumulativeChart.destroy();
         }
 
-        const datasets = processedData.datasets.map((dataset, index) => {
+        // Prepare datasets with optional forecasting
+        const datasets = [];
+        const extendedLabels = [...processedData.labels];
+        
+        processedData.datasets.forEach((dataset, index) => {
             const color = this.colors[index % this.colors.length];
             const cumulativeData = this.calculateCumulativeData(dataset.data);
             
-            return {
+            // Historical cumulative data
+            const historicalDataset = {
                 label: dataset.label,
                 data: cumulativeData,
                 borderColor: color,
@@ -817,12 +822,82 @@ class RPackageAnalytics {
                 pointBorderColor: '#fff',
                 pointBorderWidth: 2
             };
+            
+            datasets.push(historicalDataset);
+            
+            // Add forecasting if enabled
+            if (this.showPredictions && dataset.data.length >= 7) {
+                // Adjust forecast periods based on the time range
+                let forecastPeriods = this.forecastPeriods;
+                if (shouldAggregate) {
+                    forecastPeriods = aggregationType === 'monthly' ? 6 : 12; // 6 months or 12 weeks
+                } else {
+                    forecastPeriods = Math.min(30, Math.floor(dataset.data.length * 0.3)); // 30 days max, or 30% of data length
+                }
+                
+                const forecasts = this.forecastWithSeasonality(dataset.data, forecastPeriods);
+                
+                if (forecasts.length > 0) {
+                    // Generate future labels (only once)
+                    if (index === 0) {
+                        for (let i = 1; i <= forecasts.length; i++) {
+                            let label;
+                            if (shouldAggregate) {
+                                if (aggregationType === 'monthly') {
+                                    label = `Forecast +${i}M`;
+                                } else {
+                                    label = `Forecast +${i}W`;
+                                }
+                            } else {
+                                label = `+${i}d`;
+                            }
+                            extendedLabels.push(label);
+                        }
+                    }
+                    
+                    // Calculate cumulative forecast data
+                    const lastCumulativeValue = cumulativeData[cumulativeData.length - 1];
+                    const cumulativeForecasts = [];
+                    let runningTotal = lastCumulativeValue;
+                    
+                    forecasts.forEach(forecast => {
+                        runningTotal += forecast;
+                        cumulativeForecasts.push(runningTotal);
+                    });
+                    
+                    // Create connector and forecast data for cumulative chart
+                    const connectorAndCumulativeForecastData = [
+                        ...new Array(cumulativeData.length - 1).fill(null),
+                        lastCumulativeValue, // Last historical cumulative value
+                        ...cumulativeForecasts // All cumulative forecast points
+                    ];
+                    
+                    // Cumulative forecast dataset
+                    const cumulativeForecastDataset = {
+                        label: `${dataset.label} (Predicted)`,
+                        data: connectorAndCumulativeForecastData,
+                        borderColor: color,
+                        backgroundColor: color + '05',
+                        borderWidth: 3,
+                        borderDash: [5, 5], // Dashed line for predictions
+                        fill: false,
+                        tension: 0.4,
+                        pointRadius: 3,
+                        pointHoverRadius: 5,
+                        pointBackgroundColor: color,
+                        pointBorderColor: '#fff',
+                        pointBorderWidth: 1
+                    };
+                    
+                    datasets.push(cumulativeForecastDataset);
+                }
+            }
         });
 
         this.cumulativeChart = new Chart(ctx, {
             type: 'line',
             data: {
-                labels: processedData.labels,
+                labels: extendedLabels,
                 datasets: datasets
             },
             options: {
