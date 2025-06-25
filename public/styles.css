@@ -100,18 +100,20 @@ header p {
 .theme-btn {
     background: var(--bg-secondary);
     border: 2px solid var(--border-color);
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    font-size: 1.5rem;
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-primary);
     cursor: pointer;
     transition: all 0.3s ease;
     box-shadow: var(--shadow);
 }
 
 .theme-btn:hover {
-    transform: scale(1.1);
+    transform: translateY(-2px);
     box-shadow: var(--shadow-hover);
+    border-color: var(--accent-color);
 }
 
 .chart-header {
@@ -126,8 +128,9 @@ header p {
     color: white;
     border: none;
     border-radius: 8px;
-    padding: 8px 12px;
-    font-size: 1.2rem;
+    padding: 8px 16px;
+    font-size: 0.9rem;
+    font-weight: 500;
     cursor: pointer;
     transition: all 0.3s ease;
     box-shadow: var(--shadow);
@@ -519,6 +522,37 @@ header p {
     gap: 30px;
 }
 
+.chart-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    background: var(--bg-secondary);
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+}
+
+.prediction-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    color: var(--text-primary);
+    transition: color 0.3s ease;
+}
+
+.prediction-toggle:hover {
+    color: var(--accent-color);
+}
+
+.prediction-toggle input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--accent-color);
+    cursor: pointer;
+}
+
 .chart-container {
     background: var(--bg-primary);
     padding: 20px;
@@ -577,6 +611,18 @@ header p {
 .legend-label {
     white-space: nowrap;
     user-select: none;
+}
+
+.prediction-legend {
+    opacity: 0.8;
+}
+
+.prediction-legend .legend-label {
+    font-style: italic;
+}
+
+.prediction-color {
+    background: transparent !important;
 }
 
 

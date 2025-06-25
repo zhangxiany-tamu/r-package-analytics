@@ -15,6 +15,10 @@ class RPackageAnalytics {
         // Search debounce timer
         this.searchTimeout = null;
         
+        // Forecasting settings
+        this.showPredictions = false;
+        this.forecastPeriods = 30; // Number of future periods to predict
+        
         this.initializeEventListeners();
     }
 
@@ -56,6 +60,12 @@ class RPackageAnalytics {
         const themeToggle = document.getElementById('themeToggle');
         if (themeToggle) {
             themeToggle.addEventListener('click', () => this.switchTheme());
+        }
+        
+        // Prediction toggle
+        const predictionToggle = document.getElementById('predictionToggle');
+        if (predictionToggle) {
+            predictionToggle.addEventListener('change', (e) => this.togglePredictions(e.target.checked));
         }
         
         // Load saved theme
@@ -624,10 +634,15 @@ class RPackageAnalytics {
             this.chart.destroy();
         }
 
-        const datasets = processedData.datasets.map((dataset, index) => {
+        // Prepare datasets with optional forecasting
+        const datasets = [];
+        const extendedLabels = [...processedData.labels];
+        
+        processedData.datasets.forEach((dataset, index) => {
             const color = this.colors[index % this.colors.length];
             
-            return {
+            // Historical data
+            const historicalDataset = {
                 label: dataset.label,
                 data: dataset.data,
                 borderColor: color,
@@ -641,12 +656,74 @@ class RPackageAnalytics {
                 pointBorderColor: '#fff',
                 pointBorderWidth: 2
             };
+            
+            datasets.push(historicalDataset);
+            
+            // Add forecasting if enabled
+            if (this.showPredictions && dataset.data.length >= 7) {
+                // Adjust forecast periods based on the time range
+                let forecastPeriods = this.forecastPeriods;
+                if (shouldAggregate) {
+                    forecastPeriods = aggregationType === 'monthly' ? 6 : 12; // 6 months or 12 weeks
+                } else {
+                    forecastPeriods = Math.min(30, Math.floor(dataset.data.length * 0.3)); // 30 days max, or 30% of data length
+                }
+                
+                const forecasts = this.forecastWithSeasonality(dataset.data, forecastPeriods);
+                
+                if (forecasts.length > 0) {
+                    // Generate future labels
+                    if (index === 0) { // Only generate labels once
+                        for (let i = 1; i <= forecasts.length; i++) {
+                            let label;
+                            if (shouldAggregate) {
+                                if (aggregationType === 'monthly') {
+                                    label = `Forecast +${i}M`;
+                                } else {
+                                    label = `Forecast +${i}W`;
+                                }
+                            } else {
+                                label = `+${i}d`;
+                            }
+                            extendedLabels.push(label);
+                        }
+                    }
+                    
+                    // Create connector and forecast data
+                    // Connect last historical point to first forecast point
+                    const lastHistoricalValue = dataset.data[dataset.data.length - 1];
+                    const connectorAndForecastData = [
+                        ...new Array(dataset.data.length - 1).fill(null),
+                        lastHistoricalValue, // Last historical point
+                        ...forecasts // All forecast points
+                    ];
+                    
+                    // Forecast dataset with connector
+                    const forecastDataset = {
+                        label: `${dataset.label} (Predicted)`,
+                        data: connectorAndForecastData,
+                        borderColor: color,
+                        backgroundColor: color + '10',
+                        borderWidth: 2,
+                        borderDash: [5, 5], // Dashed line for predictions
+                        fill: false,
+                        tension: 0.4,
+                        pointRadius: 3,
+                        pointHoverRadius: 5,
+                        pointBackgroundColor: color,
+                        pointBorderColor: '#fff',
+                        pointBorderWidth: 1
+                    };
+                    
+                    datasets.push(forecastDataset);
+                }
+            }
         });
 
         this.chart = new Chart(ctx, {
             type: 'line',
             data: {
-                labels: processedData.labels,
+                labels: extendedLabels,
                 datasets: datasets
             },
             options: {
@@ -822,15 +899,27 @@ class RPackageAnalytics {
         
         if (!trendsLegend || !cumulativeLegend) return;
         
-        const legendHtml = this.packages.map((packageName, index) => {
+        let legendHtml = this.packages.map((packageName, index) => {
             const color = this.colors[index % this.colors.length];
             
-            return `
+            let items = `
                 <div class="legend-item">
                     <div class="legend-color" style="background-color: ${color};"></div>
                     <span class="legend-label">${packageName}</span>
                 </div>
             `;
+            
+            // Add prediction legend if enabled
+            if (this.showPredictions) {
+                items += `
+                    <div class="legend-item prediction-legend">
+                        <div class="legend-color prediction-color" style="background-color: ${color}; border: 2px dashed ${color}; background: transparent;"></div>
+                        <span class="legend-label">${packageName} (Predicted)</span>
+                    </div>
+                `;
+            }
+            
+            return items;
         }).join('');
         
         trendsLegend.innerHTML = legendHtml;
@@ -930,6 +1019,96 @@ class RPackageAnalytics {
             cumulative += value;
             return cumulative;
         });
+    }
+
+    // Simple time series forecasting using exponential smoothing
+    forecastTimeSeries(data, periods = 30) {
+        if (!data || data.length < 7) {
+            return []; // Need at least a week of data
+        }
+        
+        // Simple exponential smoothing with trend (Holt's method)
+        const alpha = 0.3; // Smoothing parameter for level
+        const beta = 0.1;  // Smoothing parameter for trend
+        
+        let level = data[0];
+        let trend = 0;
+        
+        // Calculate initial trend
+        if (data.length >= 2) {
+            trend = data[1] - data[0];
+        }
+        
+        // Apply exponential smoothing
+        for (let i = 1; i < data.length; i++) {
+            const newLevel = alpha * data[i] + (1 - alpha) * (level + trend);
+            const newTrend = beta * (newLevel - level) + (1 - beta) * trend;
+            
+            level = newLevel;
+            trend = newTrend;
+        }
+        
+        // Generate forecasts
+        const forecasts = [];
+        for (let i = 0; i < periods; i++) {
+            const forecast = Math.max(0, level + (i + 1) * trend);
+            forecasts.push(Math.round(forecast));
+        }
+        
+        return forecasts;
+    }
+
+    // Enhanced forecasting with seasonality detection
+    forecastWithSeasonality(data, periods = 30) {
+        if (!data || data.length < 14) {
+            return this.forecastTimeSeries(data, periods);
+        }
+        
+        // Detect weekly seasonality (7-day cycle)
+        const seasonLength = 7;
+        let seasonalFactors = [];
+        
+        if (data.length >= seasonLength * 2) {
+            // Calculate seasonal factors
+            seasonalFactors = new Array(seasonLength).fill(0);
+            const seasonCounts = new Array(seasonLength).fill(0);
+            
+            for (let i = 0; i < data.length; i++) {
+                const seasonIndex = i % seasonLength;
+                seasonalFactors[seasonIndex] += data[i];
+                seasonCounts[seasonIndex]++;
+            }
+            
+            // Average and normalize seasonal factors
+            const overallMean = data.reduce((a, b) => a + b, 0) / data.length;
+            seasonalFactors = seasonalFactors.map((sum, i) => {
+                const avg = seasonCounts[i] > 0 ? sum / seasonCounts[i] : overallMean;
+                return avg / overallMean;
+            });
+        }
+        
+        // Apply basic trend forecasting
+        const baseForecast = this.forecastTimeSeries(data, periods);
+        
+        // Apply seasonal adjustments if we have seasonal factors
+        if (seasonalFactors.length > 0) {
+            return baseForecast.map((value, i) => {
+                const seasonIndex = (data.length + i) % seasonLength;
+                const seasonalFactor = seasonalFactors[seasonIndex] || 1;
+                return Math.max(0, Math.round(value * seasonalFactor));
+            });
+        }
+        
+        return baseForecast;
+    }
+
+    togglePredictions(show) {
+        this.showPredictions = show;
+        
+        // Update charts if we have data
+        if (this.currentData && this.currentPeriod !== 'last-day') {
+            this.createCharts(this.currentData, this.currentPeriod);
+        }
     }
 
     getPeriodLabel(period) {
