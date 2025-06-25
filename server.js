@@ -8,9 +8,40 @@ const app = express();
 const port = process.env.PORT || 3000;
 const cache = new NodeCache({ stdTTL: 3600 }); // Cache for 1 hour
 
-// Cache for all CRAN packages (updated less frequently)
+// Load local CRAN packages list
 let allCranPackages = null;
-let lastPackageUpdate = 0;
+
+function loadLocalPackages() {
+  try {
+    const fs = require('fs');
+    console.log('Loading local CRAN package list...');
+    const packageData = JSON.parse(fs.readFileSync(path.join(__dirname, 'data', 'cran-packages.json'), 'utf8'));
+    allCranPackages = packageData.packages;
+    
+    console.log(`✅ Loaded ${allCranPackages.length} packages from local file`);
+    console.log(`📅 Package list last updated: ${packageData.lastUpdated}`);
+    
+    if (packageData.totalPackages) {
+      console.log(`📦 Total packages available: ${packageData.totalPackages}`);
+    }
+    
+    // Show some sample packages
+    console.log(`🔍 Sample packages: ${allCranPackages.slice(0, 5).join(', ')}...`);
+    
+  } catch (error) {
+    console.warn('⚠️  Could not load local package list:', error.message);
+    console.log('📝 Creating minimal fallback list...');
+    
+    // Fallback to a minimal list
+    allCranPackages = [
+      'ggplot2', 'dplyr', 'shiny', 'tidyverse', 'devtools', 'knitr', 'rmarkdown',
+      'plotly', 'DT', 'lubridate', 'stringr', 'readr', 'tidyr', 'purrr',
+      'data.table', 'magrittr', 'httr', 'jsonlite', 'xml2', 'rvest',
+      'caret', 'randomForest', 'forecast', 'leaflet', 'sf'
+    ];
+    console.log(`🔄 Using fallback package list with ${allCranPackages.length} packages`);
+  }
+}
 
 app.use(cors());
 app.use(express.json());
@@ -61,26 +92,9 @@ app.get('/api/downloads/:packages', async (req, res) => {
   }
 });
 
-// Helper function to get all CRAN packages
-async function getAllCranPackages() {
-  const now = Date.now();
-  // Refresh package list every 6 hours
-  if (!allCranPackages || (now - lastPackageUpdate) > 6 * 60 * 60 * 1000) {
-    try {
-      console.log('Fetching updated CRAN package list...');
-      const response = await axios.get('https://crandb.r-pkg.org/-/all');
-      allCranPackages = Object.keys(response.data);
-      lastPackageUpdate = now;
-      console.log(`Loaded ${allCranPackages.length} CRAN packages`);
-    } catch (error) {
-      console.error('Failed to fetch CRAN packages:', error.message);
-      // Return empty array if we can't fetch packages
-      if (!allCranPackages) {
-        allCranPackages = [];
-      }
-    }
-  }
-  return allCranPackages;
+// Helper function to get all CRAN packages (now uses local file)
+function getAllCranPackages() {
+  return allCranPackages || [];
 }
 
 // API endpoint to search packages by name
@@ -100,8 +114,8 @@ app.get('/api/search/:query', async (req, res) => {
       return res.json(cachedData);
     }
 
-    // Get all CRAN packages (cached)
-    const allPackages = await getAllCranPackages();
+    // Get all CRAN packages (from local file)
+    const allPackages = getAllCranPackages();
     
     // Filter packages that start with or contain the query
     const matchingPackages = allPackages
@@ -145,13 +159,9 @@ app.get('/api/package/:name', async (req, res) => {
   }
 });
 
-app.listen(port, async () => {
+app.listen(port, () => {
   console.log(`R Package Analytics server running at http://localhost:${port}`);
   
-  // Preload CRAN packages for faster first search
-  try {
-    await getAllCranPackages();
-  } catch (error) {
-    console.warn('Could not preload CRAN packages:', error.message);
-  }
+  // Load local CRAN packages
+  loadLocalPackages();
 });
