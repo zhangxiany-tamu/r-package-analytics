@@ -4,12 +4,13 @@ A simple web app to analyze R package download statistics from CRAN.
 
 ## Features
 
-- Search for any R package by name
-- View download trends with interactive charts
-- Compare multiple packages
-- Support for different time periods (day, week, month, year, all-time)
-- Light/dark theme toggle
-- Download charts as PNG images
+- **Complete CRAN search**: Autocomplete across all ~22,000 CRAN packages
+- **Interactive charts**: View download trends with Chart.js visualizations
+- **Multi-package comparison**: Compare multiple packages simultaneously
+- **Flexible time periods**: day, week, month, year, all-time analysis
+- **Theme support**: Light/dark theme toggle
+- **Export functionality**: Download charts as PNG images
+- **Package details**: Expandable information for each package
 
 ## Installation
 
@@ -34,12 +35,17 @@ A simple web app to analyze R package download statistics from CRAN.
    npm install
    ```
 
-4. **Start the server:**
+4. **Download CRAN package list** (first time setup):
+   ```bash
+   npm run update-packages
+   ```
+
+5. **Start the server:**
    ```bash
    npm start
    ```
 
-5. **Open your browser to:**
+6. **Open your browser to:**
    ```
    http://localhost:3000
    ```
@@ -52,14 +58,22 @@ If you don't have Git installed:
 2. Click the green "Code" button
 3. Select "Download ZIP"
 4. Extract the ZIP file
-5. Follow steps 2-5 above
+5. Follow steps 2-6 above
 
 ## Usage
 
-1. Type a package name (e.g., "ggplot2", "dplyr")
-2. Use autocomplete suggestions or add multiple packages
-3. Select a time period
-4. View download statistics and trends
+1. **Search packages**: Type any package name - autocomplete will suggest from all CRAN packages
+2. **Add multiple packages**: Use comma separation or click suggestions to add packages
+3. **Select time period**: Choose from day, week, month, year, or all-time
+4. **Analyze trends**: View interactive charts and detailed statistics
+5. **Compare packages**: Analyze multiple packages side-by-side
+6. **Export results**: Download charts as PNG images
+
+## Package Management
+
+- **Update package list**: Run `npm run update-packages` to refresh the CRAN package list
+- **Automatic fallback**: If package download fails, app uses popular packages list
+- **Complete coverage**: Search across all ~22,000 packages on CRAN
 
 ## Technology
 
@@ -69,4 +83,9 @@ If you don't have Git installed:
 
 ## Examples
 
-Try popular packages like: ggplot2, dplyr, shiny, tidyverse, data.table
+**Popular packages to try:**
+- **Data manipulation**: ggplot2, dplyr, tidyr, data.table
+- **Web applications**: shiny, shinydashboard, DT
+- **Statistics**: caret, randomForest, survival, lme4  
+- **Visualization**: plotly, leaflet, ggmap
+- **Collections**: tidyverse, tidymodels
