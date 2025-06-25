@@ -11,19 +11,48 @@ A simple web app to analyze R package download statistics from CRAN.
 - Light/dark theme toggle
 - Download charts as PNG images
 
-## Quick Start
+## Installation
 
-1. Install dependencies:
+### Prerequisites
+- [Node.js](https://nodejs.org/) (version 14 or higher)
+- [Git](https://git-scm.com/)
+
+### Install from GitHub
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/zhangxiany-tamu/r-package-analytics.git
+   ```
+
+2. **Navigate to the project directory:**
+   ```bash
+   cd r-package-analytics
+   ```
+
+3. **Install dependencies:**
    ```bash
    npm install
    ```
 
-2. Start the server:
+4. **Start the server:**
    ```bash
    npm start
    ```
 
-3. Open your browser to `http://localhost:3000`
+5. **Open your browser to:**
+   ```
+   http://localhost:3000
+   ```
+
+### Alternative: Download ZIP
+
+If you don't have Git installed:
+
+1. Go to https://github.com/zhangxiany-tamu/r-package-analytics
+2. Click the green "Code" button
+3. Select "Download ZIP"
+4. Extract the ZIP file
+5. Follow steps 2-5 above
 
 ## Usage
 
