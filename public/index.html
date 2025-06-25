@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>R Package Download Analytics</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/date-fns@2.29.3/index.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>R Package Download Analytics</h1>
+            <p>Analyze download statistics for R packages from CRAN</p>
+            <div class="theme-switcher">
+                <button id="themeToggle" class="theme-btn" title="Switch Theme">🎨</button>
+            </div>
+        </header>
+
+        <main>
+            <div class="search-section">
+                <div class="search-form">
+                    <div class="input-container">
+                        <input type="text" id="packageInput" placeholder="Enter package name(s) - separate multiple with commas" />
+                        <div id="packageSuggestions" class="package-suggestions"></div>
+                    </div>
+                    <button id="searchBtn">Add Packages</button>
+                </div>
+                <div class="packages-list" id="packagesList"></div>
+                <div class="period-selector" id="periodSelector" style="display: none;">
+                    <label>Time Period:</label>
+                    <div class="period-buttons">
+                        <button class="period-btn" data-period="last-day">Last Day</button>
+                        <button class="period-btn" data-period="last-week">Last Week</button>
+                        <button class="period-btn active" data-period="last-month">Last Month</button>
+                        <button class="period-btn" data-period="last-year">Last Year</button>
+                        <button class="period-btn" data-period="all-time">All Time</button>
+                    </div>
+                </div>
+                <div id="loadingIndicator" class="loading hidden">
+                    <div class="spinner"></div>
+                    <span>Fetching download data...</span>
+                </div>
+            </div>
+
+            <div id="results" class="results hidden">
+                <div class="package-info">
+                    <h2 id="packageTitle"></h2>
+                    <div id="packageDetails"></div>
+                </div>
+
+                <div class="stats-overview">
+                    <div class="stat-card">
+                        <h3>Total Downloads</h3>
+                        <div id="totalDownloads" class="stat-value">-</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Average Daily</h3>
+                        <div id="avgDaily" class="stat-value">-</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Peak Day</h3>
+                        <div id="peakDay" class="stat-value">-</div>
+                    </div>
+                </div>
+
+                <div id="packageSummaries" class="package-summaries"></div>
+
+                <div id="chartSection" class="chart-section">
+                    <div class="chart-container">
+                        <div class="chart-header">
+                            <h3>Download Trends</h3>
+                            <button class="download-btn" onclick="app.downloadChart('trends')" title="Download Chart">📥</button>
+                        </div>
+                        <div id="trendsLegend" class="custom-legend"></div>
+                        <canvas id="downloadsChart"></canvas>
+                    </div>
+                    <div class="chart-container" id="cumulativeChartContainer">
+                        <div class="chart-header">
+                            <h3>Cumulative Downloads</h3>
+                            <button class="download-btn" onclick="app.downloadChart('cumulative')" title="Download Chart">📥</button>
+                        </div>
+                        <div id="cumulativeLegend" class="custom-legend"></div>
+                        <canvas id="cumulativeChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div id="error" class="error hidden">
+                <p id="errorMessage"></p>
+            </div>
+        </main>
+
+        <footer>
+            <p>Data provided by <a href="https://cranlogs.r-pkg.org/" target="_blank">CRAN logs</a></p>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
