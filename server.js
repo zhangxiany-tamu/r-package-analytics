@@ -8,6 +8,10 @@ const app = express();
 const port = process.env.PORT || 3000;
 const cache = new NodeCache({ stdTTL: 3600 }); // Cache for 1 hour
 
+// Cache for all CRAN packages (updated less frequently)
+let allCranPackages = null;
+let lastPackageUpdate = 0;
+
 app.use(cors());
 app.use(express.json());
 app.use(express.static('public'));
@@ -57,6 +61,75 @@ app.get('/api/downloads/:packages', async (req, res) => {
   }
 });
 
+// Helper function to get all CRAN packages
+async function getAllCranPackages() {
+  const now = Date.now();
+  // Refresh package list every 6 hours
+  if (!allCranPackages || (now - lastPackageUpdate) > 6 * 60 * 60 * 1000) {
+    try {
+      console.log('Fetching updated CRAN package list...');
+      const response = await axios.get('https://crandb.r-pkg.org/-/all');
+      allCranPackages = Object.keys(response.data);
+      lastPackageUpdate = now;
+      console.log(`Loaded ${allCranPackages.length} CRAN packages`);
+    } catch (error) {
+      console.error('Failed to fetch CRAN packages:', error.message);
+      // Return empty array if we can't fetch packages
+      if (!allCranPackages) {
+        allCranPackages = [];
+      }
+    }
+  }
+  return allCranPackages;
+}
+
+// API endpoint to search packages by name
+app.get('/api/search/:query', async (req, res) => {
+  const query = req.params.query.toLowerCase();
+  const limit = parseInt(req.query.limit) || 10;
+  
+  if (query.length < 2) {
+    return res.json([]);
+  }
+  
+  try {
+    const cacheKey = `search-${query}-${limit}`;
+    const cachedData = cache.get(cacheKey);
+    
+    if (cachedData) {
+      return res.json(cachedData);
+    }
+
+    // Get all CRAN packages (cached)
+    const allPackages = await getAllCranPackages();
+    
+    // Filter packages that start with or contain the query
+    const matchingPackages = allPackages
+      .filter(pkg => 
+        pkg.toLowerCase().startsWith(query) || 
+        pkg.toLowerCase().includes(query)
+      )
+      .sort((a, b) => {
+        // Prioritize packages that start with the query
+        const aStarts = a.toLowerCase().startsWith(query);
+        const bStarts = b.toLowerCase().startsWith(query);
+        if (aStarts && !bStarts) return -1;
+        if (!aStarts && bStarts) return 1;
+        return a.localeCompare(b);
+      })
+      .slice(0, limit);
+
+    cache.set(cacheKey, matchingPackages, 1800); // Cache for 30 minutes
+    res.json(matchingPackages);
+  } catch (error) {
+    console.error('Search error:', error.message);
+    res.status(500).json({ 
+      error: 'Search failed',
+      message: error.message 
+    });
+  }
+});
+
 // API endpoint to get package info
 app.get('/api/package/:name', async (req, res) => {
   const packageName = req.params.name;
@@ -72,6 +145,13 @@ app.get('/api/package/:name', async (req, res) => {
   }
 });
 
-app.listen(port, () => {
+app.listen(port, async () => {
   console.log(`R Package Analytics server running at http://localhost:${port}`);
+  
+  // Preload CRAN packages for faster first search
+  try {
+    await getAllCranPackages();
+  } catch (error) {
+    console.warn('Could not preload CRAN packages:', error.message);
+  }
 });

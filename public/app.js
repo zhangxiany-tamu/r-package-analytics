@@ -12,17 +12,8 @@ class RPackageAnalytics {
             '#43e97b', '#38f9d7', '#ffecd2', '#fcb69f', '#a8edea', '#fed6e3'
         ];
         
-        // Popular R packages for autocomplete
-        this.popularPackages = [
-            'ggplot2', 'dplyr', 'shiny', 'tidyverse', 'devtools', 'knitr', 'rmarkdown',
-            'plotly', 'DT', 'lubridate', 'stringr', 'readr', 'tidyr', 'purrr',
-            'data.table', 'magrittr', 'httr', 'jsonlite', 'xml2', 'rvest',
-            'testthat', 'roxygen2', 'usethis', 'pkgdown', 'bookdown', 'blogdown',
-            'flexdashboard', 'shinydashboard', 'leaflet', 'sf', 'sp', 'rgdal',
-            'ggmap', 'forecast', 'zoo', 'xts', 'quantmod', 'TTR', 'PerformanceAnalytics',
-            'caret', 'randomForest', 'e1071', 'neuralnet', 'nnet', 'cluster',
-            'survival', 'boot', 'MASS', 'lattice', 'nlme', 'lme4', 'mgcv'
-        ];
+        // Search debounce timer
+        this.searchTimeout = null;
         
         this.initializeEventListeners();
     }
@@ -76,38 +67,65 @@ class RPackageAnalytics {
         const lastComma = query.lastIndexOf(',');
         const currentInput = lastComma >= 0 ? query.substring(lastComma + 1).trim() : query;
         
-        console.log('Input changed:', currentInput, 'Length:', currentInput.length); // Debug
+        // Clear previous timeout
+        if (this.searchTimeout) {
+            clearTimeout(this.searchTimeout);
+        }
         
-        if (currentInput.length >= 1) {
-            this.showSuggestions(currentInput, lastComma);
+        if (currentInput.length >= 2) {
+            // Debounce search requests
+            this.searchTimeout = setTimeout(() => {
+                this.searchPackages(currentInput, lastComma);
+            }, 300);
         } else {
             this.hideSuggestions();
         }
     }
 
-    showSuggestions(query, lastCommaIndex) {
-        console.log('showSuggestions called with query:', query); // Debug
-        console.log('Available packages:', this.popularPackages.slice(0, 5)); // Debug
+    async searchPackages(query, lastCommaIndex) {
+        // Show loading indicator
+        this.showSearchLoading();
         
-        const suggestions = this.popularPackages
-            .filter(pkg => 
-                pkg.toLowerCase().includes(query.toLowerCase()) && 
-                !this.packages.includes(pkg)
-            )
-            .slice(0, 8);
-        
-        console.log('Found suggestions:', suggestions); // Debug
-        
+        try {
+            const response = await fetch(`/api/search/${encodeURIComponent(query)}?limit=8`);
+            
+            if (!response.ok) {
+                console.error('Search request failed:', response.status);
+                this.hideSuggestions();
+                return;
+            }
+            
+            const suggestions = await response.json();
+            
+            // Filter out packages already added
+            const filteredSuggestions = suggestions.filter(pkg => !this.packages.includes(pkg));
+            
+            this.showSuggestions(filteredSuggestions, lastCommaIndex);
+        } catch (error) {
+            console.error('Error searching packages:', error);
+            this.hideSuggestions();
+        }
+    }
+
+    showSearchLoading() {
         const suggestionsContainer = document.getElementById('packageSuggestions');
-        console.log('Container found:', !!suggestionsContainer); // Debug
         
         if (!suggestionsContainer) {
-            console.log('No suggestions container found!'); // Debug
+            return;
+        }
+        
+        suggestionsContainer.innerHTML = '<div class="search-loading">Searching packages...</div>';
+        suggestionsContainer.style.display = 'block';
+    }
+
+    showSuggestions(suggestions, lastCommaIndex) {
+        const suggestionsContainer = document.getElementById('packageSuggestions');
+        
+        if (!suggestionsContainer) {
             return;
         }
         
         if (suggestions.length === 0) {
-            console.log('No suggestions, hiding'); // Debug
             this.hideSuggestions();
             return;
         }
@@ -117,7 +135,6 @@ class RPackageAnalytics {
         ).join('');
         
         suggestionsContainer.style.display = 'block';
-        console.log('Suggestions displayed'); // Debug
     }
 
     selectSuggestion(packageName) {

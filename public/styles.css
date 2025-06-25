@@ -225,6 +225,13 @@ header p {
     border-bottom: none;
 }
 
+.search-loading {
+    padding: 10px 16px;
+    text-align: center;
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
 .period-selector {
     margin: 20px 0;
     text-align: center;
