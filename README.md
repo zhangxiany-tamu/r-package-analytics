@@ -51,6 +51,10 @@ A simple web app to analyze R package download statistics from CRAN.
    http://localhost:3000
    ```
 
+## Live Demo
+
+[View live demo](https://melodic-zoo-458222-s6.uc.r.appspot.com)
+
 ### Alternative: Download ZIP
 
 If you don't have Git installed:

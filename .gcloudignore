@@ -1,0 +1,13 @@
+# Ignore files for Google Cloud deployment
+node_modules/
+.git/
+.gitignore
+README.md
+.env
+.nyc_output
+coverage/
+.cache/
+.DS_Store
+*.log
+Dockerfile
+.dockerignore
