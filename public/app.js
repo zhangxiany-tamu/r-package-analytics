@@ -14,6 +14,7 @@ class RPackageAnalytics {
         
         // Search debounce timer
         this.searchTimeout = null;
+        this.justSelected = false; // Flag to prevent dropdown from showing after selection
         
         // Forecasting settings
         this.showPredictions = false;
@@ -73,6 +74,11 @@ class RPackageAnalytics {
     }
 
     handleInputChange(e) {
+        // Don't show suggestions if we just selected one
+        if (this.justSelected) {
+            return;
+        }
+        
         const query = e.target.value.trim();
         const lastComma = query.lastIndexOf(',');
         const currentInput = lastComma >= 0 ? query.substring(lastComma + 1).trim() : query;
@@ -159,7 +165,21 @@ class RPackageAnalytics {
         }
         
         this.hideSuggestions();
+        
+        // Clear any pending search timeout to prevent suggestions from showing
+        if (this.searchTimeout) {
+            clearTimeout(this.searchTimeout);
+            this.searchTimeout = null;
+        }
+        
+        // Use a flag to prevent immediate re-triggering of suggestions
+        this.justSelected = true;
         packageInput.focus();
+        
+        // Reset the flag after a short delay
+        setTimeout(() => {
+            this.justSelected = false;
+        }, 100);
     }
 
     switchTheme() {

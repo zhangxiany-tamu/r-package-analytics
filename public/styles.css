@@ -2,7 +2,7 @@
 :root {
     --bg-primary: #ffffff;
     --bg-secondary: #f8f9fa;
-    --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --bg-gradient: #ffffff;
     --text-primary: #333333;
     --text-secondary: #666666;
     --text-muted: #999999;
