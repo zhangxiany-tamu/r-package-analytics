@@ -78,6 +78,14 @@ header {
     padding: 20px 0;
     border-bottom: 2px solid var(--border-color);
     position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.header-content {
+    width: 100%;
+    max-width: 600px;
 }
 
 header h1 {
@@ -659,8 +667,24 @@ footer a:hover {
         padding: 15px;
     }
     
+    header {
+        padding: 15px 0;
+    }
+    
     header h1 {
         font-size: 2rem;
+        margin-bottom: 8px;
+    }
+    
+    header p {
+        font-size: 1rem;
+        margin-bottom: 15px;
+    }
+    
+    .theme-switcher {
+        position: static;
+        margin-top: 15px;
+        align-self: center;
     }
     
     .search-form {
@@ -669,5 +693,20 @@ footer a:hover {
     
     #packageInput {
         min-width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 1.8rem;
+    }
+    
+    .theme-switcher {
+        margin-top: 10px;
+    }
+    
+    .theme-btn {
+        padding: 6px 12px;
+        font-size: 0.8rem;
     }
 }
