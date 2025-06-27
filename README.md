@@ -2,6 +2,10 @@
 
 A simple web app to analyze R package download statistics from CRAN.
 
+## Live Demo
+
+[View live demo](https://melodic-zoo-458222-s6.uc.r.appspot.com)
+
 ## Features
 
 - **Complete CRAN search**: Autocomplete across all ~22,000 CRAN packages
@@ -50,10 +54,6 @@ A simple web app to analyze R package download statistics from CRAN.
    ```
    http://localhost:3000
    ```
-
-## Live Demo
-
-[View live demo](https://melodic-zoo-458222-s6.uc.r.appspot.com)
 
 ### Alternative: Download ZIP
 
