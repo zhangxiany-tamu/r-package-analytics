@@ -7,9 +7,20 @@ class RPackageAnalytics {
         this.currentPeriod = 'last-month';
         this.currentTheme = 'light';
         this.themes = ['light', 'dark'];
+        // Apple System Colors - simplified and clean
         this.colors = [
-            '#667eea', '#764ba2', '#f093fb', '#f5576c', '#4facfe', '#00f2fe',
-            '#43e97b', '#38f9d7', '#ffecd2', '#fcb69f', '#a8edea', '#fed6e3'
+            '#007AFF', // Blue
+            '#AF52DE', // Purple  
+            '#FF3B30', // Red
+            '#FF9500', // Orange
+            '#FFCC02', // Yellow
+            '#34C759', // Green
+            '#5AC8FA', // Light Blue
+            '#FF2D92', // Pink
+            '#5856D6', // Indigo
+            '#A2845E', // Brown
+            '#8E8E93', // Gray
+            '#FF6482'  // Light Pink
         ];
         
         // Search debounce timer
@@ -217,18 +228,41 @@ class RPackageAnalytics {
     getThemeTextColor() {
         switch (this.currentTheme) {
             case 'dark':
-                return '#e2e8f0';
+                return '#ffffff';
             default:
-                return '#333333';
+                return '#1d1d1f';
         }
     }
 
     getThemeGridColor() {
         switch (this.currentTheme) {
             case 'dark':
-                return '#4a5568';
+                return '#38383a';
             default:
-                return '#e0e0e0';
+                return '#d2d2d7';
+        }
+    }
+
+    getAppleColors() {
+        // Apple System Colors optimized for current theme
+        switch (this.currentTheme) {
+            case 'dark':
+                return [
+                    '#0A84FF', // Blue (dark mode)
+                    '#BF5AF2', // Purple (dark mode)
+                    '#FF453A', // Red (dark mode)
+                    '#FF9F0A', // Orange (dark mode)
+                    '#FFD60A', // Yellow (dark mode)
+                    '#32D74B', // Green (dark mode)
+                    '#64D2FF', // Light Blue (dark mode)
+                    '#FF2D92', // Pink (dark mode)
+                    '#5E5CE6', // Indigo (dark mode)
+                    '#AC8E68', // Brown (dark mode)
+                    '#8E8E93', // Gray (dark mode)
+                    '#FF6482'  // Light Pink (dark mode)
+                ];
+            default:
+                return this.colors; // Use the light mode colors defined in constructor
         }
     }
 
@@ -476,7 +510,8 @@ class RPackageAnalytics {
         const summariesHtml = downloadDataArray.map((packageData, index) => {
             const packageInfo = packageInfoArray[index];
             const stats = this.calculateIndividualPackageStats(packageData);
-            const color = this.colors[index % this.colors.length];
+            const colors = this.getAppleColors();
+            const color = colors[index % colors.length];
 
             return `
                 <div class="package-summary">
@@ -659,7 +694,8 @@ class RPackageAnalytics {
         const extendedLabels = [...processedData.labels];
         
         processedData.datasets.forEach((dataset, index) => {
-            const color = this.colors[index % this.colors.length];
+            const colors = this.getAppleColors();
+            const color = colors[index % colors.length];
             
             // Historical data
             const historicalDataset = {
@@ -824,7 +860,8 @@ class RPackageAnalytics {
         const extendedLabels = [...processedData.labels];
         
         processedData.datasets.forEach((dataset, index) => {
-            const color = this.colors[index % this.colors.length];
+            const colors = this.getAppleColors();
+            const color = colors[index % colors.length];
             const cumulativeData = this.calculateCumulativeData(dataset.data);
             
             // Historical cumulative data
@@ -995,7 +1032,8 @@ class RPackageAnalytics {
         if (!trendsLegend || !cumulativeLegend) return;
         
         let legendHtml = this.packages.map((packageName, index) => {
-            const color = this.colors[index % this.colors.length];
+            const colors = this.getAppleColors();
+            const color = colors[index % colors.length];
             
             let items = `
                 <div class="legend-item">
