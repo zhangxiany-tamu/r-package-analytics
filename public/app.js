@@ -49,9 +49,12 @@ class RPackageAnalytics {
         // Add autocomplete functionality
         packageInput.addEventListener('input', (e) => this.handleInputChange(e));
         packageInput.addEventListener('focus', (e) => this.handleInputChange(e));
-        packageInput.addEventListener('blur', () => {
-            // Delay hiding to allow clicking on suggestions
-            setTimeout(() => this.hideSuggestions(), 150);
+        packageInput.addEventListener('blur', (e) => {
+            // Don't hide if clicking on a suggestion
+            if (!e.relatedTarget || !e.relatedTarget.closest('.package-suggestions')) {
+                // Delay hiding to allow clicking on suggestions
+                this.blurTimeout = setTimeout(() => this.hideSuggestions(), 150);
+            }
         });
         
         // Period switching
@@ -90,6 +93,12 @@ class RPackageAnalytics {
             return;
         }
         
+        // Clear blur timeout if input is active
+        if (this.blurTimeout) {
+            clearTimeout(this.blurTimeout);
+            this.blurTimeout = null;
+        }
+        
         const query = e.target.value.trim();
         const lastComma = query.lastIndexOf(',');
         const currentInput = lastComma >= 0 ? query.substring(lastComma + 1).trim() : query;
@@ -100,6 +109,8 @@ class RPackageAnalytics {
         }
         
         if (currentInput.length >= 2) {
+            // Show loading immediately to prevent flicker
+            this.showSearchLoading();
             // Debounce search requests
             this.searchTimeout = setTimeout(() => {
                 this.searchPackages(currentInput, lastComma);
@@ -110,9 +121,6 @@ class RPackageAnalytics {
     }
 
     async searchPackages(query, lastCommaIndex) {
-        // Show loading indicator
-        this.showSearchLoading();
-        
         try {
             const response = await fetch(`/api/search/${encodeURIComponent(query)}?limit=8`);
             
@@ -141,8 +149,14 @@ class RPackageAnalytics {
             return;
         }
         
-        suggestionsContainer.innerHTML = '<div class="search-loading">Searching packages...</div>';
-        suggestionsContainer.style.display = 'block';
+        // Only show loading if not already visible to prevent flicker
+        if (suggestionsContainer.style.display !== 'block') {
+            suggestionsContainer.innerHTML = '<div class="search-loading">Searching packages...</div>';
+            suggestionsContainer.style.display = 'block';
+        } else {
+            // Just update content if already visible
+            suggestionsContainer.innerHTML = '<div class="search-loading">Searching packages...</div>';
+        }
     }
 
     showSuggestions(suggestions, lastCommaIndex) {
@@ -292,6 +306,12 @@ class RPackageAnalytics {
     }
 
     hideSuggestions() {
+        // Clear any pending blur timeout
+        if (this.blurTimeout) {
+            clearTimeout(this.blurTimeout);
+            this.blurTimeout = null;
+        }
+        
         const container = document.getElementById('packageSuggestions');
         if (container) {
             container.style.display = 'none';
