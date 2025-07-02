@@ -2343,27 +2343,6 @@ footer a:hover {
     font-weight: 500;
 }
 
-.category-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-2);
-}
-
-.category-tag {
-    background: linear-gradient(135deg, var(--blue) 0%, var(--purple) 100%);
-    color: white;
-    padding: var(--space-2) var(--space-3);
-    border-radius: var(--radius-full);
-    font-size: var(--font-size-sm);
-    font-weight: 500;
-    transition: all var(--transition-base);
-    cursor: pointer;
-}
-
-.category-tag:hover {
-    transform: translateY(-1px);
-    box-shadow: var(--shadow-sm);
-}
 
 .trends-results {
     display: flex;
@@ -2691,9 +2670,5 @@ footer a:hover {
     
     .stats-card {
         padding: var(--space-4);
-    }
-    
-    .category-tags {
-        justify-content: center;
     }
 }
