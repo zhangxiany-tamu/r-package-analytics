@@ -1354,12 +1354,23 @@ footer a:hover {
         align-self: center;
     }
     
-    .search-form {
+    .search-form,
+    .keyword-form,
+    .author-form {
         flex-direction: column;
         gap: var(--space-4);
     }
     
-    #packageInput {
+    .input-container,
+    .keyword-input-container,
+    .author-input-container {
+        min-width: 100% !important;
+        max-width: 100% !important;
+    }
+    
+    #packageInput,
+    #keywordInput,
+    #authorInput {
         min-width: 100%;
     }
     
@@ -2434,8 +2445,16 @@ footer a:hover {
     }
     
     .search-section,
-    .keyword-section {
+    .keyword-section,
+    .author-section {
         padding: var(--space-3);
+    }
+    
+    .input-container,
+    .keyword-input-container,
+    .author-input-container {
+        min-width: 100% !important;
+        max-width: 100% !important;
     }
     
     .keyword-options {
@@ -2443,7 +2462,8 @@ footer a:hover {
         gap: var(--space-2);
     }
     
-    #recommendBtn {
+    #recommendBtn,
+    #authorSearchBtn {
         width: 100%;
     }
 }
