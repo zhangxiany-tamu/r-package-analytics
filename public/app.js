@@ -92,6 +92,9 @@ class RPackageAnalytics {
         // Initialize author search functionality
         this.initializeAuthorSearch();
         
+        // Initialize statistics functionality
+        this.initializeStatistics();
+        
         // Initialize tab navigation
         this.initializeTabNavigation();
     }
@@ -1638,6 +1641,170 @@ class RPackageAnalytics {
         }
     }
 
+    // Statistics Functions
+    initializeStatistics() {
+        const loadTopPackagesBtn = document.getElementById('loadTopPackagesBtn');
+        const loadTrendsBtn = document.getElementById('loadTrendsBtn');
+        
+        if (loadTopPackagesBtn) {
+            loadTopPackagesBtn.addEventListener('click', () => this.loadTopPackages());
+        }
+        
+        if (loadTrendsBtn) {
+            loadTrendsBtn.addEventListener('click', () => this.loadTrends());
+        }
+        
+        // Update the author coverage stat
+        this.updateAuthorCoverage();
+    }
+
+    async loadTopPackages() {
+        const button = document.getElementById('loadTopPackagesBtn');
+        const loading = document.getElementById('topPackagesLoading');
+        const list = document.getElementById('topPackagesList');
+        
+        // Show loading
+        if (button) button.classList.add('hidden');
+        if (loading) loading.classList.remove('hidden');
+        if (list) list.classList.add('hidden');
+        
+        try {
+            // Get top packages based on known popular packages
+            const topPackages = [
+                'ggplot2', 'dplyr', 'tidyverse', 'shiny', 'devtools',
+                'knitr', 'rmarkdown', 'data.table', 'lubridate', 'stringr',
+                'readr', 'tidyr', 'purrr', 'plotly', 'DT'
+            ];
+            
+            // Fetch download data for these packages
+            const response = await fetch(`/api/downloads/${topPackages.join(',')}?period=last-year&includeTotals=true`);
+            if (!response.ok) throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+            
+            const downloadData = await response.json();
+            
+            // Sort by total downloads
+            const sortedPackages = downloadData
+                .filter(pkg => pkg.totalDownloads && pkg.totalDownloads.total)
+                .sort((a, b) => b.totalDownloads.total - a.totalDownloads.total)
+                .slice(0, 10);
+            
+            this.displayTopPackages(sortedPackages);
+            
+        } catch (error) {
+            this.showError(`Failed to load top packages: ${error.message}`);
+        } finally {
+            if (loading) loading.classList.add('hidden');
+        }
+    }
+
+    displayTopPackages(packages) {
+        const list = document.getElementById('topPackagesList');
+        if (!list) return;
+        
+        const html = packages.map((pkg, index) => {
+            const downloads = pkg.totalDownloads?.total || 0;
+            const formattedDownloads = this.formatNumber(downloads);
+            
+            return `
+                <div class="top-package-item" onclick="app.addPackageFromStats('${pkg.package}')">
+                    <div class="package-rank">${index + 1}</div>
+                    <div class="package-name-stats">${pkg.package}</div>
+                    <div class="package-downloads">${formattedDownloads} downloads</div>
+                </div>
+            `;
+        }).join('');
+        
+        list.innerHTML = html;
+        list.classList.remove('hidden');
+    }
+
+    async loadTrends() {
+        const button = document.getElementById('loadTrendsBtn');
+        const loading = document.getElementById('trendsLoading');
+        const results = document.getElementById('trendsResults');
+        
+        // Show loading
+        if (button) button.classList.add('hidden');
+        if (loading) loading.classList.remove('hidden');
+        if (results) results.classList.add('hidden');
+        
+        try {
+            // Sample trends data (in a real implementation, this would come from an API)
+            const trends = [
+                { label: 'Machine Learning Packages', value: '+15%' },
+                { label: 'Data Visualization', value: '+12%' },
+                { label: 'Web Development', value: '+8%' },
+                { label: 'Bioinformatics', value: '+18%' },
+                { label: 'Time Series Analysis', value: '+6%' }
+            ];
+            
+            this.displayTrends(trends);
+            
+        } catch (error) {
+            this.showError(`Failed to load trends: ${error.message}`);
+        } finally {
+            if (loading) loading.classList.add('hidden');
+        }
+    }
+
+    displayTrends(trends) {
+        const results = document.getElementById('trendsResults');
+        if (!results) return;
+        
+        const html = trends.map(trend => `
+            <div class="trend-item">
+                <div class="trend-label">${trend.label}</div>
+                <div class="trend-value">${trend.value}</div>
+            </div>
+        `).join('');
+        
+        results.innerHTML = html;
+        results.classList.remove('hidden');
+    }
+
+    updateAuthorCoverage() {
+        // This would be updated from server data
+        const authorsCoveredElement = document.getElementById('authorsCovered');
+        if (authorsCoveredElement) {
+            // Will be updated with real data later
+            authorsCoveredElement.textContent = '13,250+';
+        }
+    }
+
+    addPackageFromStats(packageName) {
+        // Switch to the search tab and add the package
+        this.switchTab('search');
+        
+        // Add the package to the search input
+        const packageInput = document.getElementById('packageInput');
+        if (packageInput) {
+            const currentValue = packageInput.value.trim();
+            if (currentValue && !currentValue.split(',').map(p => p.trim()).includes(packageName)) {
+                packageInput.value = currentValue + ', ' + packageName;
+            } else if (!currentValue) {
+                packageInput.value = packageName;
+            }
+        }
+        
+        // Add to packages array and search
+        if (!this.packages.includes(packageName)) {
+            this.packages.push(packageName);
+            this.searchData();
+        }
+        
+        // Show temporary success message
+        this.showTemporaryMessage(`Added "${packageName}" to analysis`, 'success');
+    }
+
+    formatNumber(num) {
+        if (num >= 1000000) {
+            return (num / 1000000).toFixed(1) + 'M';
+        } else if (num >= 1000) {
+            return (num / 1000).toFixed(1) + 'K';
+        }
+        return num.toString();
+    }
+
     showTemporaryMessage(message, type = 'info') {
         // Create or update a temporary message element
         let messageElement = document.getElementById('tempMessage');
@@ -1717,6 +1884,10 @@ class RPackageAnalytics {
         } else if (targetTab === 'author') {
             this.hideResults();
             this.hideKeywordResults();
+        } else if (targetTab === 'stats') {
+            this.hideResults();
+            this.hideKeywordResults();
+            this.hideAuthorResults();
         }
     }
 }

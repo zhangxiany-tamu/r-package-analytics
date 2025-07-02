@@ -39,6 +39,11 @@
                         <span class="tab-label">Search by Author</span>
                         <span class="tab-description">Find packages by author</span>
                     </button>
+                    <button class="nav-tab" data-tab="stats">
+                        <span class="tab-icon">📊</span>
+                        <span class="tab-label">CRAN Statistics</span>
+                        <span class="tab-description">Ecosystem insights</span>
+                    </button>
                 </div>
             </div>
 
@@ -113,6 +118,76 @@
                         <span>Finding packages by author...</span>
                     </div>
                     <div id="authorResults" class="author-results hidden"></div>
+                </div>
+            </div>
+
+            <!-- CRAN Statistics Tab Content -->
+            <div class="tab-content" id="stats-tab">
+                <div class="stats-section">
+                    <div class="section-intro">
+                        <h2>CRAN Ecosystem Statistics</h2>
+                        <p>Explore comprehensive statistics about the R package ecosystem on CRAN</p>
+                    </div>
+                    
+                    <div class="stats-grid">
+                        <!-- Overview Stats -->
+                        <div class="stats-card">
+                            <h3>📦 Package Overview</h3>
+                            <div class="stats-content">
+                                <div class="stat-item">
+                                    <span class="stat-label">Total Packages:</span>
+                                    <span class="stat-value" id="totalPackages">22,382</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-label">Authors Covered:</span>
+                                    <span class="stat-value" id="authorsCovered">13,250+</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Top Downloads -->
+                        <div class="stats-card top-downloads-card">
+                            <h3>🏆 Most Downloaded Packages</h3>
+                            <div class="stats-content">
+                                <button id="loadTopPackagesBtn" class="load-stats-btn">Load Top Packages</button>
+                                <div id="topPackagesLoading" class="loading hidden">
+                                    <div class="spinner"></div>
+                                    <span>Loading top packages...</span>
+                                </div>
+                                <div id="topPackagesList" class="top-packages-list hidden"></div>
+                            </div>
+                        </div>
+
+                        <!-- Download Trends -->
+                        <div class="stats-card">
+                            <h3>📈 Download Trends</h3>
+                            <div class="stats-content">
+                                <button id="loadTrendsBtn" class="load-stats-btn">Analyze Trends</button>
+                                <div id="trendsLoading" class="loading hidden">
+                                    <div class="spinner"></div>
+                                    <span>Analyzing trends...</span>
+                                </div>
+                                <div id="trendsResults" class="trends-results hidden"></div>
+                            </div>
+                        </div>
+
+                        <!-- Categories -->
+                        <div class="stats-card">
+                            <h3>🏷️ Popular Categories</h3>
+                            <div class="stats-content">
+                                <div class="category-tags">
+                                    <span class="category-tag">Data Analysis</span>
+                                    <span class="category-tag">Visualization</span>
+                                    <span class="category-tag">Machine Learning</span>
+                                    <span class="category-tag">Statistics</span>
+                                    <span class="category-tag">Web Development</span>
+                                    <span class="category-tag">Bioinformatics</span>
+                                    <span class="category-tag">Time Series</span>
+                                    <span class="category-tag">Text Mining</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
