@@ -85,6 +85,12 @@ class RPackageAnalytics {
         
         // Load saved theme
         this.loadTheme();
+        
+        // Initialize keyword search functionality
+        this.initializeKeywordSearch();
+        
+        // Initialize tab navigation
+        this.initializeTabNavigation();
     }
 
     handleInputChange(e) {
@@ -405,7 +411,7 @@ class RPackageAnalytics {
     }
 
     async fetchDownloadData(packages, period) {
-        const response = await fetch(`/api/downloads/${packages.join(',')}?period=${period}`);
+        const response = await fetch(`/api/downloads/${packages.join(',')}?period=${period}&includeTotals=true`);
         if (!response.ok) {
             throw new Error(`HTTP ${response.status}: ${response.statusText}`);
         }
@@ -478,18 +484,29 @@ class RPackageAnalytics {
 
     calculateCombinedStats(downloadDataArray) {
         if (!downloadDataArray || downloadDataArray.length === 0) {
-            return { total: 0, average: 0, peak: { day: 'N/A', downloads: 0 } };
+            return { 
+                total: 0, 
+                average: 0, 
+                peak: { day: 'N/A', downloads: 0 },
+                allTimeTotal: 0 
+            };
         }
 
         let totalDownloads = 0;
         let totalDays = 0;
         let allDayData = [];
+        let allTimeTotal = 0;
 
         downloadDataArray.forEach(packageData => {
             if (packageData.downloads && packageData.downloads.length > 0) {
                 const packageTotal = packageData.downloads.reduce((sum, day) => sum + day.downloads, 0);
                 totalDownloads += packageTotal;
                 totalDays += packageData.downloads.length;
+                
+                // Add all-time total if available
+                if (packageData.totalDownloads && packageData.totalDownloads.total) {
+                    allTimeTotal += packageData.totalDownloads.total;
+                }
                 
                 // Find package peak
                 const packagePeak = packageData.downloads.reduce((max, day) => 
@@ -506,12 +523,23 @@ class RPackageAnalytics {
             ? allDayData.reduce((max, day) => day.downloads > max.downloads ? day : max)
             : { day: 'N/A', downloads: 0, package: 'N/A' };
 
-        return { total: totalDownloads, average, peak };
+        return { 
+            total: totalDownloads, 
+            average, 
+            peak,
+            allTimeTotal: allTimeTotal 
+        };
     }
 
     displayStats(stats) {
         document.getElementById('totalDownloads').textContent = stats.total.toLocaleString();
         document.getElementById('avgDaily').textContent = stats.average.toLocaleString();
+        
+        // Display all-time total if available
+        const allTimeTotalElement = document.getElementById('allTimeTotal');
+        if (allTimeTotalElement) {
+            allTimeTotalElement.textContent = stats.allTimeTotal > 0 ? stats.allTimeTotal.toLocaleString() : '-';
+        }
         
         const peakText = stats.peak.package 
             ? `${stats.peak.downloads.toLocaleString()} (${stats.peak.package}, ${stats.peak.day})`
@@ -1301,6 +1329,235 @@ class RPackageAnalytics {
 
     hideError() {
         document.getElementById('error').classList.add('hidden');
+    }
+
+    // Keyword search functionality
+    initializeKeywordSearch() {
+        const keywordInput = document.getElementById('keywordInput');
+        const recommendBtn = document.getElementById('recommendBtn');
+        
+        if (keywordInput && recommendBtn) {
+            recommendBtn.addEventListener('click', () => this.searchByKeywords());
+            keywordInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    this.searchByKeywords();
+                }
+            });
+        }
+    }
+
+    async searchByKeywords() {
+        const keywordInput = document.getElementById('keywordInput');
+        const keywords = keywordInput.value.trim();
+
+        if (!keywords || keywords.length < 2) {
+            this.showError('Please enter at least 2 characters for keyword search');
+            return;
+        }
+
+        this.showKeywordLoading(true);
+        this.hideKeywordResults();
+        this.hideError();
+
+        try {
+            const response = await fetch(`/api/recommend/${encodeURIComponent(keywords)}?limit=20`);
+            
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+            }
+
+            const recommendations = await response.json();
+            this.displayKeywordResults(recommendations, keywords);
+        } catch (error) {
+            this.showError(`Keyword search failed: ${error.message}`);
+        } finally {
+            this.showKeywordLoading(false);
+        }
+    }
+
+    displayKeywordResults(recommendations, keywords) {
+        const resultsContainer = document.getElementById('recommendationResults');
+        
+        if (!recommendations || recommendations.length === 0) {
+            resultsContainer.innerHTML = `
+                <div class="recommendation-header">
+                    <span>No packages found for "${keywords}"</span>
+                    <span class="recommendation-count">0 results</span>
+                </div>
+                <div class="recommendation-list">
+                    <div style="padding: var(--space-6); text-align: center; color: var(--text-secondary);">
+                        <p>Try different keywords or check your spelling.</p>
+                        <p>Examples: "machine learning", "time series", "data visualization"</p>
+                    </div>
+                </div>
+            `;
+            resultsContainer.classList.remove('hidden');
+            return;
+        }
+
+        const resultHtml = `
+            <div class="recommendation-header">
+                <span>Recommended packages for "${keywords}"</span>
+                <span class="recommendation-count">${recommendations.length} results</span>
+            </div>
+            <div class="recommendation-list">
+                ${recommendations.map(item => this.createRecommendationItem(item)).join('')}
+            </div>
+        `;
+
+        resultsContainer.innerHTML = resultHtml;
+        resultsContainer.classList.remove('hidden');
+    }
+
+    createRecommendationItem(item) {
+        const hasPopularity = item.popularity !== undefined && item.popularity > 0;
+        const popularityText = hasPopularity ? `${item.popularity.toLocaleString()} yearly downloads` : '';
+        const matchReasonsHtml = item.matchReasons?.map(reason => 
+            `<span class="match-reason">${reason}</span>`
+        ).join('') || '';
+
+        return `
+            <div class="recommendation-item" onclick="app.addPackageFromRecommendation('${item.package}')">
+                <div class="recommendation-item-header">
+                    <div>
+                        <div class="recommendation-package-name">${item.package}</div>
+                        ${item.version ? `<div class="recommendation-package-version">v${item.version}</div>` : ''}
+                    </div>
+                    <div class="recommendation-score">
+                        <div class="recommendation-score-value">Score: ${item.score}</div>
+                        ${hasPopularity ? `<div class="recommendation-popularity">📈 ${popularityText}</div>` : ''}
+                    </div>
+                </div>
+                ${item.title ? `<div class="recommendation-title">${item.title}</div>` : ''}
+                ${matchReasonsHtml ? `
+                    <div class="recommendation-matches">
+                        ${matchReasonsHtml}
+                    </div>
+                ` : ''}
+                <button class="add-package-btn" onclick="event.stopPropagation(); app.addPackageFromRecommendation('${item.package}')">
+                    Add to Analysis
+                </button>
+            </div>
+        `;
+    }
+
+    addPackageFromRecommendation(packageName) {
+        const packageInput = document.getElementById('packageInput');
+        
+        // Check if package is already added
+        if (this.packages.includes(packageName)) {
+            this.showError(`Package "${packageName}" is already in your analysis`);
+            return;
+        }
+
+        // Add the package to the current input
+        const currentValue = packageInput.value.trim();
+        if (currentValue && !currentValue.endsWith(',')) {
+            packageInput.value = currentValue + ', ' + packageName;
+        } else {
+            packageInput.value = currentValue + packageName;
+        }
+
+        // Trigger the add packages functionality
+        this.addPackages();
+        
+        // Show success message
+        this.showTemporaryMessage(`Added "${packageName}" to analysis`, 'success');
+    }
+
+    showKeywordLoading(show) {
+        const loadingElement = document.getElementById('keywordLoadingIndicator');
+        if (loadingElement) {
+            if (show) {
+                loadingElement.classList.remove('hidden');
+            } else {
+                loadingElement.classList.add('hidden');
+            }
+        }
+    }
+
+    hideKeywordResults() {
+        const resultsContainer = document.getElementById('recommendationResults');
+        if (resultsContainer) {
+            resultsContainer.classList.add('hidden');
+        }
+    }
+
+    showTemporaryMessage(message, type = 'info') {
+        // Create or update a temporary message element
+        let messageElement = document.getElementById('tempMessage');
+        if (!messageElement) {
+            messageElement = document.createElement('div');
+            messageElement.id = 'tempMessage';
+            messageElement.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 12px 20px;
+                border-radius: 8px;
+                color: white;
+                font-weight: 500;
+                z-index: 1000;
+                opacity: 0;
+                transition: opacity 0.3s ease;
+                max-width: 300px;
+            `;
+            document.body.appendChild(messageElement);
+        }
+
+        // Set background color based on type
+        const colors = {
+            success: '#34c759',
+            error: '#ff3b30',
+            info: '#007aff'
+        };
+        
+        messageElement.style.backgroundColor = colors[type] || colors.info;
+        messageElement.textContent = message;
+        messageElement.style.opacity = '1';
+
+        // Auto-hide after 3 seconds
+        setTimeout(() => {
+            messageElement.style.opacity = '0';
+            setTimeout(() => {
+                if (messageElement.parentNode) {
+                    messageElement.parentNode.removeChild(messageElement);
+                }
+            }, 300);
+        }, 3000);
+    }
+
+    // Tab navigation functionality
+    initializeTabNavigation() {
+        const navTabs = document.querySelectorAll('.nav-tab');
+        
+        navTabs.forEach(tab => {
+            tab.addEventListener('click', (e) => {
+                const targetTab = e.currentTarget.dataset.tab;
+                this.switchTab(targetTab);
+            });
+        });
+    }
+
+    switchTab(targetTab) {
+        // Update nav tabs
+        document.querySelectorAll('.nav-tab').forEach(tab => {
+            tab.classList.remove('active');
+        });
+        document.querySelector(`[data-tab="${targetTab}"]`).classList.add('active');
+
+        // Update tab content
+        document.querySelectorAll('.tab-content').forEach(content => {
+            content.classList.remove('active');
+        });
+        document.getElementById(`${targetTab}-tab`).classList.add('active');
+
+        // Clear any existing results when switching tabs
+        if (targetTab === 'search') {
+            this.hideKeywordResults();
+        } else if (targetTab === 'discover') {
+            this.hideResults();
+        }
     }
 }
 

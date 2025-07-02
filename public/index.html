@@ -21,28 +21,72 @@
         </header>
 
         <main>
-            <div class="search-section">
-                <div class="search-form">
-                    <div class="input-container">
-                        <input type="text" id="packageInput" placeholder="Enter package name(s) - separate multiple with commas" />
-                        <div id="packageSuggestions" class="package-suggestions"></div>
-                    </div>
-                    <button id="searchBtn">Add Packages</button>
+            <!-- Navigation Tabs -->
+            <div class="main-navigation">
+                <div class="nav-tabs">
+                    <button class="nav-tab active" data-tab="search">
+                        <span class="tab-icon">🔍</span>
+                        <span class="tab-label">Search by Name</span>
+                        <span class="tab-description">Analyze specific packages</span>
+                    </button>
+                    <button class="nav-tab" data-tab="discover">
+                        <span class="tab-icon">✨</span>
+                        <span class="tab-label">Discover by Keywords</span>
+                        <span class="tab-description">Find relevant packages</span>
+                    </button>
                 </div>
-                <div class="packages-list" id="packagesList"></div>
-                <div class="period-selector" id="periodSelector" style="display: none;">
-                    <label>Time Period:</label>
-                    <div class="period-buttons">
-                        <button class="period-btn" data-period="last-day">Last Day</button>
-                        <button class="period-btn" data-period="last-week">Last Week</button>
-                        <button class="period-btn active" data-period="last-month">Last Month</button>
-                        <button class="period-btn" data-period="last-year">Last Year</button>
-                        <button class="period-btn" data-period="all-time">All Time</button>
+            </div>
+
+            <!-- Search by Name Tab Content -->
+            <div class="tab-content active" id="search-tab">
+                <div class="search-section">
+                    <div class="section-intro">
+                        <h2>Analyze Package Downloads</h2>
+                        <p>Enter specific package names to analyze their download statistics and trends</p>
+                    </div>
+                    <div class="search-form">
+                        <div class="input-container">
+                            <input type="text" id="packageInput" placeholder="Enter package name(s) - separate multiple with commas" />
+                            <div id="packageSuggestions" class="package-suggestions"></div>
+                        </div>
+                        <button id="searchBtn">Add Packages</button>
+                    </div>
+                    <div class="packages-list" id="packagesList"></div>
+                    <div class="period-selector" id="periodSelector" style="display: none;">
+                        <label>Time Period:</label>
+                        <div class="period-buttons">
+                            <button class="period-btn" data-period="last-day">Last Day</button>
+                            <button class="period-btn" data-period="last-week">Last Week</button>
+                            <button class="period-btn active" data-period="last-month">Last Month</button>
+                            <button class="period-btn" data-period="last-year">Last Year</button>
+                            <button class="period-btn" data-period="all-time">All Time</button>
+                        </div>
+                    </div>
+                    <div id="loadingIndicator" class="loading hidden">
+                        <div class="spinner"></div>
+                        <span>Fetching download data...</span>
                     </div>
                 </div>
-                <div id="loadingIndicator" class="loading hidden">
-                    <div class="spinner"></div>
-                    <span>Fetching download data...</span>
+            </div>
+
+            <!-- Discover by Keywords Tab Content -->
+            <div class="tab-content" id="discover-tab">
+                <div class="keyword-section">
+                    <div class="section-intro">
+                        <h2>Discover Packages by Keywords</h2>
+                        <p>Enter keywords like "mixed effect models", "random forest", "microbiome data analysis" to discover relevant packages</p>
+                    </div>
+                    <div class="keyword-form">
+                        <div class="keyword-input-container">
+                            <input type="text" id="keywordInput" placeholder="Enter keywords (e.g., machine learning, time series, data visualization)" />
+                        </div>
+                        <button id="recommendBtn">Find Packages</button>
+                    </div>
+                    <div id="keywordLoadingIndicator" class="loading hidden">
+                        <div class="spinner"></div>
+                        <span>Finding relevant packages...</span>
+                    </div>
+                    <div id="recommendationResults" class="recommendation-results hidden"></div>
                 </div>
             </div>
 
@@ -54,8 +98,12 @@
 
                 <div class="stats-overview">
                     <div class="stat-card">
-                        <h3>Total Downloads</h3>
+                        <h3>Period Downloads</h3>
                         <div id="totalDownloads" class="stat-value">-</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>All-Time Total</h3>
+                        <div id="allTimeTotal" class="stat-value">-</div>
                     </div>
                     <div class="stat-card">
                         <h3>Average Daily</h3>
