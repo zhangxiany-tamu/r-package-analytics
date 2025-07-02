@@ -1644,14 +1644,9 @@ class RPackageAnalytics {
     // Statistics Functions
     initializeStatistics() {
         const loadTopPackagesBtn = document.getElementById('loadTopPackagesBtn');
-        const loadTrendsBtn = document.getElementById('loadTrendsBtn');
         
         if (loadTopPackagesBtn) {
             loadTopPackagesBtn.addEventListener('click', () => this.loadTopPackages());
-        }
-        
-        if (loadTrendsBtn) {
-            loadTrendsBtn.addEventListener('click', () => this.loadTrends());
         }
         
         // Update the author coverage stat
@@ -1718,49 +1713,6 @@ class RPackageAnalytics {
         list.classList.remove('hidden');
     }
 
-    async loadTrends() {
-        const button = document.getElementById('loadTrendsBtn');
-        const loading = document.getElementById('trendsLoading');
-        const results = document.getElementById('trendsResults');
-        
-        // Show loading
-        if (button) button.classList.add('hidden');
-        if (loading) loading.classList.remove('hidden');
-        if (results) results.classList.add('hidden');
-        
-        try {
-            // Sample trends data (in a real implementation, this would come from an API)
-            const trends = [
-                { label: 'Machine Learning Packages', value: '+15%' },
-                { label: 'Data Visualization', value: '+12%' },
-                { label: 'Web Development', value: '+8%' },
-                { label: 'Bioinformatics', value: '+18%' },
-                { label: 'Time Series Analysis', value: '+6%' }
-            ];
-            
-            this.displayTrends(trends);
-            
-        } catch (error) {
-            this.showError(`Failed to load trends: ${error.message}`);
-        } finally {
-            if (loading) loading.classList.add('hidden');
-        }
-    }
-
-    displayTrends(trends) {
-        const results = document.getElementById('trendsResults');
-        if (!results) return;
-        
-        const html = trends.map(trend => `
-            <div class="trend-item">
-                <div class="trend-label">${trend.label}</div>
-                <div class="trend-value">${trend.value}</div>
-            </div>
-        `).join('');
-        
-        results.innerHTML = html;
-        results.classList.remove('hidden');
-    }
 
     updateAuthorCoverage() {
         // This would be updated from server data
@@ -1775,24 +1727,26 @@ class RPackageAnalytics {
         // Switch to the search tab and add the package
         this.switchTab('search');
         
-        // Add the package to the search input
         const packageInput = document.getElementById('packageInput');
-        if (packageInput) {
-            const currentValue = packageInput.value.trim();
-            if (currentValue && !currentValue.split(',').map(p => p.trim()).includes(packageName)) {
-                packageInput.value = currentValue + ', ' + packageName;
-            } else if (!currentValue) {
-                packageInput.value = packageName;
-            }
-        }
         
-        // Add to packages array and search
-        if (!this.packages.includes(packageName)) {
-            this.packages.push(packageName);
-            this.searchData();
+        // Check if package is already added
+        if (this.packages.includes(packageName)) {
+            this.showError(`Package "${packageName}" is already in your analysis`);
+            return;
         }
+
+        // Add the package to the current input
+        const currentValue = packageInput.value.trim();
+        if (currentValue && !currentValue.endsWith(',')) {
+            packageInput.value = currentValue + ', ' + packageName;
+        } else {
+            packageInput.value = currentValue + packageName;
+        }
+
+        // Trigger the add packages functionality
+        this.addPackages();
         
-        // Show temporary success message
+        // Show success message
         this.showTemporaryMessage(`Added "${packageName}" to analysis`, 'success');
     }
 

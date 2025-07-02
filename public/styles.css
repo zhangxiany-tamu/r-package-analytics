@@ -2344,31 +2344,6 @@ footer a:hover {
 }
 
 
-.trends-results {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-3);
-}
-
-.trend-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: var(--space-3);
-    background: var(--bg-secondary);
-    border-radius: var(--radius-md);
-    border: 1px solid var(--border-light);
-}
-
-.trend-label {
-    color: var(--text-primary);
-    font-weight: 500;
-}
-
-.trend-value {
-    color: var(--success-color);
-    font-weight: 600;
-}
 
 /* Dark theme adjustments */
 
