@@ -285,7 +285,7 @@ header {
 
 header h1 {
     color: var(--text-primary);
-    font-size: var(--font-size-4xl);
+    font-size: var(--font-size-3xl); /* Reduced from 4xl (36px) to 3xl (30px) */
     font-weight: 700;
     letter-spacing: -0.025em;
     margin-bottom: var(--space-3);
@@ -293,6 +293,7 @@ header h1 {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    white-space: nowrap; /* Prevent wrapping on desktop */
 }
 
 header p {
@@ -1341,6 +1342,7 @@ footer a:hover {
     header h1 {
         font-size: var(--font-size-3xl);
         margin-bottom: var(--space-2);
+        white-space: normal; /* Allow wrapping on tablet */
     }
     
     header p {
@@ -1444,6 +1446,7 @@ footer a:hover {
     
     header h1 {
         font-size: var(--font-size-2xl);
+        white-space: normal; /* Allow wrapping on mobile */
     }
     
     .theme-switcher {
