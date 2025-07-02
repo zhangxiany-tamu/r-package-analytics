@@ -508,20 +508,26 @@ async function searchPackagesByKeywords(keywords, limit = 20) {
     let matchReasons = [];
     let hasExactPhrase = false;
 
-    // Check for exact phrase match first
+    // Check for exact phrase match first (including description)
     if (isPhrase) {
       const packageNameLower = packageName.toLowerCase();
       const titleLower = metadata?.title?.toLowerCase() || '';
+      const descriptionLower = metadata?.description?.toLowerCase() || '';
       
-      if (packageNameLower.includes(originalInput) || titleLower.includes(originalInput)) {
+      if (packageNameLower.includes(originalInput) || titleLower.includes(originalInput) || descriptionLower.includes(originalInput)) {
         hasExactPhrase = true;
-        // Score for exact phrase matches (will be ranked by popularity later)
+        // Score for exact phrase matches with proper hierarchy:
+        // Package name > Description > Title (description ranks higher than title for exact matches)
         if (packageNameLower.includes(originalInput)) {
           score += packageNameLower.startsWith(originalInput) ? 100 : 50;
           matchReasons.push(`name: ${originalInput} (exact phrase)`);
         }
+        if (descriptionLower.includes(originalInput)) {
+          score += 40; // Higher than title (30) but lower than package name
+          matchReasons.push(`description: ${originalInput} (exact phrase)`);
+        }
         if (titleLower.includes(originalInput)) {
-          score += 30;
+          score += 30; // Lower than description for exact phrase matches
           matchReasons.push(`title: ${originalInput} (exact phrase)`);
         }
       }
@@ -603,30 +609,20 @@ async function searchPackagesByKeywords(keywords, limit = 20) {
         let enhancedScore = match.score;
         let enhancedReasons = [...match.matchReasons];
 
-        // Score based on description match (medium priority)
-        let hasExactPhraseInDesc = false;
-        if (fullMetadata.description) {
+        // Score based on description match (only for partial matches, exact phrases handled in first pass)
+        if (fullMetadata.description && !match.hasExactPhrase) {
           const description = fullMetadata.description.toLowerCase();
           
-          // Check for exact phrase match in description first
-          if (isPhrase && description.includes(originalInput)) {
-            hasExactPhraseInDesc = true;
-            enhancedScore += 20;
-            enhancedReasons.push(`description: ${originalInput} (exact phrase)`);
-          }
-          
-          // If no exact phrase match in description, check individual words
-          if (!hasExactPhraseInDesc && !match.hasExactPhrase) {
-            expandedTerms.forEach(term => {
-              if (description.includes(term)) {
-                const isOriginalTerm = searchTerms.includes(term);
-                const isExactWord = new RegExp(`\\b${term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`).test(description);
-                let baseScore = isExactWord ? 6 : 2;
-                enhancedScore += isOriginalTerm ? baseScore : Math.floor(baseScore * 0.7);
-                enhancedReasons.push(`description: ${term}${isOriginalTerm ? '' : ' (semantic)'}`);
-              }
-            });
-          }
+          // Only check individual words for partial matches since exact phrases are handled in first pass
+          expandedTerms.forEach(term => {
+            if (description.includes(term)) {
+              const isOriginalTerm = searchTerms.includes(term);
+              const isExactWord = new RegExp(`\\b${term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`).test(description);
+              let baseScore = isExactWord ? 6 : 2;
+              enhancedScore += isOriginalTerm ? baseScore : Math.floor(baseScore * 0.7);
+              enhancedReasons.push(`description: ${term}${isOriginalTerm ? '' : ' (semantic)'}`);
+            }
+          });
         }
 
         return {
@@ -636,7 +632,7 @@ async function searchPackagesByKeywords(keywords, limit = 20) {
           version: fullMetadata.version || match.version,
           score: enhancedScore,
           matchReasons: enhancedReasons,
-          hasExactPhrase: match.hasExactPhrase || hasExactPhraseInDesc
+          hasExactPhrase: match.hasExactPhrase
         };
       } catch (error) {
         // If we can't get enhanced metadata, return the original match
