@@ -34,6 +34,11 @@
                         <span class="tab-label">Discover by Keywords</span>
                         <span class="tab-description">Find relevant packages</span>
                     </button>
+                    <button class="nav-tab" data-tab="author">
+                        <span class="tab-icon">👤</span>
+                        <span class="tab-label">Search by Author</span>
+                        <span class="tab-description">Find packages by author</span>
+                    </button>
                 </div>
             </div>
 
@@ -87,6 +92,27 @@
                         <span>Finding relevant packages...</span>
                     </div>
                     <div id="recommendationResults" class="recommendation-results hidden"></div>
+                </div>
+            </div>
+
+            <!-- Search by Author Tab Content -->
+            <div class="tab-content" id="author-tab">
+                <div class="author-section">
+                    <div class="section-intro">
+                        <h2>Search Packages by Author</h2>
+                        <p>Enter author names like "Hadley Wickham" to find packages by specific researchers or developers</p>
+                    </div>
+                    <div class="author-form">
+                        <div class="author-input-container">
+                            <input type="text" id="authorInput" placeholder="Enter author name (e.g., Hadley Wickham)" />
+                        </div>
+                        <button id="authorSearchBtn">Find Packages</button>
+                    </div>
+                    <div id="authorLoadingIndicator" class="loading hidden">
+                        <div class="spinner"></div>
+                        <span>Finding packages by author...</span>
+                    </div>
+                    <div id="authorResults" class="author-results hidden"></div>
                 </div>
             </div>
 

@@ -89,6 +89,9 @@ class RPackageAnalytics {
         // Initialize keyword search functionality
         this.initializeKeywordSearch();
         
+        // Initialize author search functionality
+        this.initializeAuthorSearch();
+        
         // Initialize tab navigation
         this.initializeTabNavigation();
     }
@@ -1483,6 +1486,158 @@ class RPackageAnalytics {
         }
     }
 
+    // Author Search Functions
+    initializeAuthorSearch() {
+        const authorInput = document.getElementById('authorInput');
+        const authorSearchBtn = document.getElementById('authorSearchBtn');
+        
+        if (authorInput && authorSearchBtn) {
+            authorSearchBtn.addEventListener('click', () => this.searchByAuthor());
+            authorInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    this.searchByAuthor();
+                }
+            });
+        }
+    }
+
+    async searchByAuthor() {
+        const authorInput = document.getElementById('authorInput');
+        const authorName = authorInput.value.trim();
+
+        if (!authorName || authorName.length < 2) {
+            this.showError('Please enter at least 2 characters for author search');
+            return;
+        }
+
+        this.showAuthorLoading(true);
+        this.hideAuthorResults();
+        this.hideError();
+
+        try {
+            const response = await fetch(`/api/author/${encodeURIComponent(authorName)}?limit=20`);
+            
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+            }
+            
+            const authorResults = await response.json();
+            this.displayAuthorResults(authorResults, authorName);
+        } catch (error) {
+            this.showError(`Failed to search by author: ${error.message}`);
+        } finally {
+            this.showAuthorLoading(false);
+        }
+    }
+
+    displayAuthorResults(authorResults, authorName) {
+        const resultsContainer = document.getElementById('authorResults');
+        if (!resultsContainer) return;
+
+        if (authorResults.length === 0) {
+            resultsContainer.innerHTML = `
+                <div class="author-header">
+                    <span>No packages found for "${authorName}"</span>
+                </div>
+            `;
+            resultsContainer.classList.remove('hidden');
+            return;
+        }
+
+        const resultHtml = `
+            <div class="author-header">
+                <span>Packages by "${authorName}"</span>
+                <span class="author-count">${authorResults.length}</span>
+            </div>
+            <div class="author-list">
+                ${authorResults.map(item => this.createAuthorItem(item)).join('')}
+            </div>
+        `;
+
+        resultsContainer.innerHTML = resultHtml;
+        resultsContainer.classList.remove('hidden');
+    }
+
+    createAuthorItem(item) {
+        const matchReasonsHtml = item.matchReasons?.map(reason => 
+            `<span class="match-reason">${reason}</span>`
+        ).join('') || '';
+
+        // Truncate long author/maintainer fields for display
+        const authorField = item.author ? item.author.substring(0, 200) + (item.author.length > 200 ? '...' : '') : '';
+        const maintainerField = item.maintainer ? item.maintainer.substring(0, 100) + (item.maintainer.length > 100 ? '...' : '') : '';
+
+        return `
+            <div class="author-item" onclick="app.addPackageFromAuthor('${item.package}')">
+                <div class="author-item-header">
+                    <div>
+                        <div class="author-package-name">${item.package}</div>
+                        ${item.version ? `<div class="author-package-version">v${item.version}</div>` : ''}
+                    </div>
+                    <div class="author-score">
+                        <div class="author-score-value">Score: ${item.score}</div>
+                    </div>
+                </div>
+                
+                ${item.title ? `<div class="author-title">${item.title}</div>` : ''}
+                
+                <div class="author-meta">
+                    ${authorField ? `<div class="author-field"><strong>Authors:</strong> ${authorField}</div>` : ''}
+                    ${maintainerField ? `<div class="author-field"><strong>Maintainer:</strong> ${maintainerField}</div>` : ''}
+                </div>
+                
+                ${matchReasonsHtml ? `<div class="author-match-reasons">${matchReasonsHtml}</div>` : ''}
+                
+                <button class="add-package-btn" onclick="event.stopPropagation(); app.addPackageFromAuthor('${item.package}')">
+                    Add Package
+                </button>
+            </div>
+        `;
+    }
+
+    addPackageFromAuthor(packageName) {
+        // Switch to the search tab and add the package
+        this.switchTab('search');
+        
+        // Add the package to the search input
+        const packageInput = document.getElementById('packageInput');
+        if (packageInput) {
+            const currentValue = packageInput.value.trim();
+            if (currentValue && !currentValue.split(',').map(p => p.trim()).includes(packageName)) {
+                packageInput.value = currentValue + ', ' + packageName;
+            } else if (!currentValue) {
+                packageInput.value = packageName;
+            }
+        }
+        
+        // Add to packages array and search
+        if (!this.packages.includes(packageName)) {
+            this.packages.push(packageName);
+            this.searchData();
+        }
+        
+        // Show temporary success message
+        this.showTemporaryMessage(`Added "${packageName}" to analysis`, 'success');
+    }
+
+    showAuthorLoading(show) {
+        const loadingElement = document.getElementById('authorLoadingIndicator');
+        if (loadingElement) {
+            if (show) {
+                loadingElement.classList.remove('hidden');
+            } else {
+                loadingElement.classList.add('hidden');
+            }
+        }
+    }
+
+    hideAuthorResults() {
+        const resultsContainer = document.getElementById('authorResults');
+        if (resultsContainer) {
+            resultsContainer.classList.add('hidden');
+        }
+    }
+
     showTemporaryMessage(message, type = 'info') {
         // Create or update a temporary message element
         let messageElement = document.getElementById('tempMessage');
@@ -1555,8 +1710,13 @@ class RPackageAnalytics {
         // Clear any existing results when switching tabs
         if (targetTab === 'search') {
             this.hideKeywordResults();
+            this.hideAuthorResults();
         } else if (targetTab === 'discover') {
             this.hideResults();
+            this.hideAuthorResults();
+        } else if (targetTab === 'author') {
+            this.hideResults();
+            this.hideKeywordResults();
         }
     }
 }
