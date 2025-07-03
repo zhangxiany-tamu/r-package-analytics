@@ -448,64 +448,88 @@ async function searchPackagesByKeywords(keywords, limit = 20) {
   const allPackages = getAllCranPackages();
   const matches = [];
 
-  // First pass: quick search through cached metadata only
-  const preliminaryMatches = [];
+  // Search through packages - prioritize title matches, then get descriptions for popular packages
+  const titleMatches = [];
+  const potentialMatches = [];
   
+  // First pass: check titles only (fast)
   for (const packageName of allPackages) {
-    // Only use cached metadata in first pass for speed
     const metadata = packageMetadataCache.get(packageName);
     if (!metadata) continue;
     
+    const title = metadata?.title || metadata || '';
     let titleMatch = false;
-    let descriptionMatch = false;
     
-    const title = metadata?.title || '';
-    const description = metadata?.description || '';
-    
-    // For single word: check exact word boundary matches
+    // Check exact word boundary matches in title
     if (searchWords.length === 1) {
       const searchWord = searchWords[0];
       const wordRegex = new RegExp(`\\b${searchWord.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'i');
-      
       titleMatch = wordRegex.test(title);
-      descriptionMatch = wordRegex.test(description);
-    }
-    // For multiple words: check if all words exist (exact word boundaries)
-    else {
+    } else {
       titleMatch = searchWords.every(word => {
         const wordRegex = new RegExp(`\\b${word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'i');
         return wordRegex.test(title);
       });
-      
-      descriptionMatch = searchWords.every(word => {
-        const wordRegex = new RegExp(`\\b${word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'i');
-        return wordRegex.test(description);
-      });
     }
     
-    // Only include packages with exact word matches
-    if (titleMatch || descriptionMatch) {
-      const matchReasons = [];
-      if (titleMatch) matchReasons.push('title: exact word match');
-      if (descriptionMatch) matchReasons.push('description: exact word match');
-      
-      preliminaryMatches.push({
+    if (titleMatch) {
+      titleMatches.push({
         package: packageName,
         title: title,
-        description: description,
-        version: metadata?.version || '',
-        matchReasons: matchReasons,
-        titleMatch: titleMatch
+        matchReasons: ['title: exact word match'],
+        titleMatch: true
       });
+    } else {
+      // Add to potential matches for description search
+      potentialMatches.push(packageName);
     }
   }
 
-  // Second pass: get popularity for matched packages only
+  // Second pass: check descriptions for top potential packages (limit to avoid timeout)
+  const descriptionMatches = [];
+  const topPotential = potentialMatches.slice(0, 200); // Limit for performance
+  
+  for (const packageName of topPotential) {
+    try {
+      const fullMetadata = await getPackageMetadata(packageName);
+      const description = fullMetadata?.description || '';
+      
+      let descriptionMatch = false;
+      if (searchWords.length === 1) {
+        const searchWord = searchWords[0];
+        const wordRegex = new RegExp(`\\b${searchWord.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'i');
+        descriptionMatch = wordRegex.test(description);
+      } else {
+        descriptionMatch = searchWords.every(word => {
+          const wordRegex = new RegExp(`\\b${word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'i');
+          return wordRegex.test(description);
+        });
+      }
+      
+      if (descriptionMatch) {
+        descriptionMatches.push({
+          package: packageName,
+          title: fullMetadata?.title || '',
+          description: description,
+          matchReasons: ['description: exact word match'],
+          titleMatch: false
+        });
+      }
+    } catch (error) {
+      // Skip if can't fetch metadata
+      continue;
+    }
+  }
+
+  // Combine all matches
+  const allMatches = [...titleMatches, ...descriptionMatches];
+
+  // Third pass: get popularity for all matched packages
   const finalMatches = await Promise.all(
-    preliminaryMatches.map(async (match) => {
+    allMatches.map(async (match) => {
       const popularity = await getPackagePopularity(match.package);
       
-      // Simple scoring: downloads + small boost for title matches
+      // Simple scoring: downloads + boost for title matches
       let score = popularity || 0;
       if (match.titleMatch) score += 1000; // Small boost for title match
       
