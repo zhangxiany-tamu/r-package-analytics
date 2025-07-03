@@ -436,221 +436,90 @@ function searchPackagesByAuthor(authorName, limit = 20) {
   return matches.slice(0, limit);
 }
 
-// Enhanced search function for keyword-based recommendations with semantic matching
+// Simple and effective search function - exact word matches ranked by downloads
 async function searchPackagesByKeywords(keywords, limit = 20) {
   if (!keywords || keywords.trim().length < 2) {
     return [];
   }
 
-  // Parse input to extract both phrases and individual words
-  let originalInput = keywords.toLowerCase().trim();
+  const originalInput = keywords.toLowerCase().trim();
+  const searchWords = originalInput.split(/[\s,]+/).filter(word => word.length >= 2);
   
-  // Create semantic synonyms map for common R/statistics terms
-  const semanticSynonyms = {
-    'machine learning': ['ml', 'classification', 'prediction', 'model', 'algorithm', 'supervised', 'unsupervised'],
-    'ml': ['machine learning', 'classification', 'prediction', 'model', 'algorithm'],
-    'deep learning': ['neural', 'network', 'tensorflow', 'keras', 'torch'],
-    'neural network': ['deep learning', 'tensorflow', 'keras', 'torch', 'neural'],
-    'random forest': ['rf', 'randomforest', 'ensemble', 'tree', 'bagging'],
-    'time series': ['timeseries', 'temporal', 'forecasting', 'trend', 'seasonal', 'ts'],
-    'linear regression': ['lm', 'glm', 'modeling', 'linear model'],
-    'logistic regression': ['glm', 'binomial', 'classification'],
-    'data visualization': ['plot', 'graph', 'chart', 'ggplot', 'visual'],
-    'data manipulation': ['dplyr', 'tidyverse', 'transform', 'cleaning', 'wrangling'],
-    'statistical analysis': ['stats', 'statistical', 'hypothesis', 'test', 'analysis'],
-    'bayesian analysis': ['bayes', 'mcmc', 'posterior', 'prior', 'stan'],
-    'survival analysis': ['hazard', 'cox', 'kaplan', 'meier', 'censoring'],
-    'mixed effects': ['mixed', 'hierarchical', 'multilevel', 'lme', 'lmer'],
-    'mixed models': ['lme4', 'nlme', 'hierarchical', 'multilevel'],
-    'microbiome analysis': ['microbiota', '16s', 'metagenome', 'phyloseq', 'bacteria'],
-    'spatial analysis': ['geographic', 'gis', 'map', 'coordinate', 'sf'],
-    'network analysis': ['graph', 'igraph', 'social', 'topology', 'edge'],
-    'text mining': ['nlp', 'sentiment', 'corpus', 'tokenize', 'tm'],
-    'principal component analysis': ['pca', 'dimensionality reduction', 'prcomp'],
-    'cluster analysis': ['clustering', 'kmeans', 'hierarchical clustering'],
-    'association rules': ['market basket', 'frequent itemsets', 'apriori']
-  };
-
-  // Simplified search: prioritize exact phrases over individual words
-  let searchTerms = [];
-  let isPhrase = false;
-  
-  // Step 1: Determine if input is a phrase (multiple words)
-  const inputWords = originalInput.split(/[\s,]+/).filter(word => word.length >= 2);
-  
-  if (inputWords.length >= 2) {
-    // Multi-word input: treat as a phrase
-    isPhrase = true;
-    searchTerms.push(originalInput); // The complete phrase
-    // Also add individual words as fallback, but with lower priority
-    searchTerms.push(...inputWords);
-  } else {
-    // Single word input
-    isPhrase = false;
-    searchTerms.push(originalInput);
-  }
-  
-  // Step 2: Add known semantic synonyms (but keep it simple)
-  const expandedTerms = [...searchTerms];
-  searchTerms.forEach(term => {
-    if (semanticSynonyms[term]) {
-      expandedTerms.push(...semanticSynonyms[term]);
-    }
-  });
-
   const allPackages = getAllCranPackages();
-  const preliminaryMatches = [];
+  const matches = [];
 
-  // First pass: search with basic metadata (title only, fast)
-  allPackages.forEach(packageName => {
-    const metadata = packageMetadataCache.get(packageName);
-    let score = 0;
-    let matchReasons = [];
-    let hasExactPhrase = false;
+  // Search through all packages
+  for (const packageName of allPackages) {
+    let titleMatch = false;
+    let descriptionMatch = false;
     
-
-    // Check for exact phrase match first (including description)
-    if (isPhrase) {
-      const packageNameLower = packageName.toLowerCase();
-      // Handle newlines and extra whitespace in titles and descriptions
-      const titleLower = metadata?.title?.toLowerCase().replace(/\s+/g, ' ').trim() || '';
-      const descriptionLower = metadata?.description?.toLowerCase().replace(/\s+/g, ' ').trim() || '';
-      const searchPhrase = originalInput.toLowerCase().trim();
+    // Get package metadata - try cache first, then fetch if needed
+    let metadata = packageMetadataCache.get(packageName);
+    if (!metadata) {
+      try {
+        metadata = await getPackageMetadata(packageName);
+      } catch (error) {
+        continue; // Skip this package if we can't get metadata
+      }
+    }
+    
+    const title = metadata?.title || '';
+    const description = metadata?.description || '';
+    
+    // For single word: check exact word boundary matches
+    if (searchWords.length === 1) {
+      const searchWord = searchWords[0];
+      const wordRegex = new RegExp(`\\b${searchWord.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'i');
       
-      if (packageNameLower.includes(searchPhrase) || titleLower.includes(searchPhrase) || descriptionLower.includes(searchPhrase)) {
-        hasExactPhrase = true;
-        // Score for exact phrase matches with proper hierarchy:
-        // Package name > Description > Title (description ranks higher than title for exact matches)
-        if (packageNameLower.includes(searchPhrase)) {
-          score += packageNameLower.startsWith(searchPhrase) ? 100 : 50;
-          matchReasons.push(`name: ${originalInput} (exact phrase)`);
-        }
-        if (descriptionLower.includes(searchPhrase)) {
-          score += 45; // Higher than title but lower than package name
-          matchReasons.push(`description: ${originalInput} (exact phrase)`);
-        }
-        if (titleLower.includes(searchPhrase)) {
-          score += 35; // Lower than description for exact phrase matches
-          matchReasons.push(`title: ${originalInput} (exact phrase)`);
-        }
-      }
+      titleMatch = wordRegex.test(title);
+      descriptionMatch = wordRegex.test(description);
     }
-
-    // If no exact phrase match found, check individual words with very low weights
-    if (!hasExactPhrase) {
-      // Score based on package name match (very low scores for individual words)
-      expandedTerms.forEach(term => {
-        if (packageName.toLowerCase().includes(term)) {
-          const isOriginalTerm = searchTerms.includes(term);
-          let baseScore = packageName.toLowerCase().startsWith(term) ? 2 : 1; // Reduced from 10/5 to 2/1
-          score += isOriginalTerm ? baseScore : Math.floor(baseScore * 0.5);
-          matchReasons.push(`name: ${term}${isOriginalTerm ? '' : ' (semantic)'}`);
-        }
+    // For multiple words: check if all words exist (exact word boundaries)
+    else {
+      titleMatch = searchWords.every(word => {
+        const wordRegex = new RegExp(`\\b${word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'i');
+        return wordRegex.test(title);
       });
-
-      // Score based on title match (very low scores for individual words)
-      if (metadata && metadata.title) {
-        const title = metadata.title.toLowerCase();
-        expandedTerms.forEach(term => {
-          if (title.includes(term)) {
-            const isOriginalTerm = searchTerms.includes(term);
-            const isExactWord = new RegExp(`\\b${term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`).test(title);
-            let baseScore = isExactWord ? 2 : 1; // Reduced from 8/3 to 2/1
-            score += isOriginalTerm ? baseScore : Math.floor(baseScore * 0.5);
-            matchReasons.push(`title: ${term}${isOriginalTerm ? '' : ' (semantic)'}`);
-          }
-        });
-      }
+      
+      descriptionMatch = searchWords.every(word => {
+        const wordRegex = new RegExp(`\\b${word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'i');
+        return wordRegex.test(description);
+      });
     }
-
-    // Only include packages with matches
-    if (score > 0) {
-      preliminaryMatches.push({
+    
+    // Only include packages with exact word matches
+    if (titleMatch || descriptionMatch) {
+      // Get download popularity
+      const popularity = await getPackagePopularity(packageName);
+      
+      // Simple scoring: downloads + small boost for title matches
+      let score = popularity || 0;
+      if (titleMatch) score += 1000; // Small boost for title match
+      
+      const matchReasons = [];
+      if (titleMatch) matchReasons.push('title: exact word match');
+      if (descriptionMatch) matchReasons.push('description: exact word match');
+      
+      matches.push({
         package: packageName,
-        title: metadata?.title || '',
-        description: metadata?.description || '',
+        title: title,
+        description: description,
         version: metadata?.version || '',
         score: score,
         matchReasons: matchReasons,
-        hasExactPhrase: hasExactPhrase
+        popularity: popularity || 0,
+        popularityTier: popularity >= 100000 ? 'popular' : 
+                       popularity >= 10000 ? 'moderate' : 
+                       popularity >= 1000 ? 'small' : 'niche',
+        matchType: 'exact-word'
       });
     }
-  });
-
-  // Sort by score to get the most promising candidates
-  preliminaryMatches.sort((a, b) => b.score - a.score);
-  
-  // Second pass: enhance top matches with full descriptions (slower but more accurate)
-  let topMatches = preliminaryMatches.slice(0, Math.min(100, preliminaryMatches.length));
-  
-  // If no matches found in first pass, the search was too restrictive
-  if (preliminaryMatches.length === 0) {
-    console.log('No matches found in first pass');
   }
-  const enhancedMatches = await Promise.all(
-    topMatches.map(async (match) => {
-      try {
-        // Get full metadata including description
-        const fullMetadata = await getPackageMetadata(match.package);
-        let enhancedScore = match.score;
-        let enhancedReasons = [...match.matchReasons];
 
-        // Check for exact phrase matches in enhanced metadata (second pass)
-        if (fullMetadata.description || fullMetadata.title) {
-          const titleLower = fullMetadata.title?.toLowerCase().replace(/\s+/g, ' ').trim() || '';
-          const descriptionLower = fullMetadata.description?.toLowerCase().replace(/\s+/g, ' ').trim() || '';
-          const searchPhrase = originalInput.toLowerCase().trim();
-          
-          // Check for exact phrase matches that weren't caught in first pass
-          if (isPhrase && (titleLower.includes(searchPhrase) || descriptionLower.includes(searchPhrase))) {
-            if (descriptionLower.includes(searchPhrase)) {
-              enhancedScore += 45; // Exact phrase in description
-              enhancedReasons.push(`description: ${originalInput} (exact phrase)`);
-              match.hasExactPhrase = true;
-            }
-            if (titleLower.includes(searchPhrase)) {
-              enhancedScore += 35; // Exact phrase in title
-              enhancedReasons.push(`title: ${originalInput} (exact phrase)`);
-              match.hasExactPhrase = true;
-            }
-          }
-          // Only do individual word matching if no exact phrase found
-          else if (!match.hasExactPhrase) {
-            const description = descriptionLower;
-            
-            // Only check individual words for partial matches since exact phrases are handled above
-            expandedTerms.forEach(term => {
-              if (description.includes(term)) {
-                const isOriginalTerm = searchTerms.includes(term);
-                const isExactWord = new RegExp(`\\b${term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`).test(description);
-                let baseScore = isExactWord ? 2 : 1; // Reduced from 6/2 to 2/1 
-                enhancedScore += isOriginalTerm ? baseScore : Math.floor(baseScore * 0.5);
-                enhancedReasons.push(`description: ${term}${isOriginalTerm ? '' : ' (semantic)'}`);
-              }
-            });
-          }
-        }
-
-        return {
-          ...match,
-          title: fullMetadata.title || match.title,
-          description: fullMetadata.description || match.description,
-          version: fullMetadata.version || match.version,
-          score: enhancedScore,
-          matchReasons: enhancedReasons,
-          hasExactPhrase: match.hasExactPhrase
-        };
-      } catch (error) {
-        // If we can't get enhanced metadata, return the original match
-        return match;
-      }
-    })
-  );
-
-  // Final sort by enhanced scores
-  enhancedMatches.sort((a, b) => b.score - a.score);
+  // Sort by score (downloads + title boost)
+  matches.sort((a, b) => b.score - a.score);
   
-  return enhancedMatches.slice(0, limit);
+  return matches.slice(0, limit);
 }
 
 // API endpoint for keyword-based package recommendations
