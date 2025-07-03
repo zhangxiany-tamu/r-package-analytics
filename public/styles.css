@@ -1373,16 +1373,22 @@ footer a:hover {
     }
     
     .nav-tabs {
-        grid-template-columns: 1fr;
+        display: grid !important;
+        grid-template-columns: 1fr !important;
         gap: var(--space-3);
         max-width: 100%;
+        width: 100%;
     }
     
     .nav-tab {
         min-width: unset;
-        padding: var(--space-4);
-        aspect-ratio: unset;
-        min-height: 100px;
+        padding: var(--space-4) var(--space-3);
+        aspect-ratio: unset !important;
+        min-height: 80px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
     }
     
     .search-form,
@@ -1545,74 +1551,6 @@ footer a:hover {
     }
 }
 
-/* iPhone specific optimizations */
-@media (max-width: 414px) {
-    body {
-        overflow-x: hidden;
-        -webkit-overflow-scrolling: touch;
-    }
-    
-    .container {
-        margin: var(--space-1);
-        padding: var(--space-3);
-        min-height: 100vh;
-        overflow: visible;
-    }
-    
-    .main-navigation {
-        margin-bottom: var(--space-6);
-        overflow: visible;
-    }
-    
-    .nav-tabs {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: var(--space-3);
-        max-width: 100%;
-        width: 100%;
-        overflow: visible;
-    }
-    
-    .nav-tab {
-        padding: var(--space-4) var(--space-3);
-        min-height: 80px;
-        border-radius: var(--radius-lg);
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    }
-    
-    .tab-icon {
-        font-size: var(--font-size-lg);
-        margin-bottom: var(--space-1);
-    }
-    
-    .tab-label {
-        font-size: var(--font-size-sm);
-        font-weight: 700;
-        line-height: 1.2;
-        margin-bottom: 2px;
-        text-align: center;
-    }
-    
-    .tab-description {
-        font-size: var(--font-size-xs);
-        opacity: 0.8;
-        line-height: 1.3;
-        text-align: center;
-    }
-    
-    header h1 {
-        font-size: var(--font-size-xl);
-        line-height: 1.2;
-    }
-    
-    header p {
-        font-size: var(--font-size-sm);
-    }
-}
 
 /* Main Navigation Tabs */
 .main-navigation {
