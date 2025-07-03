@@ -1447,7 +1447,8 @@ class RPackageAnalytics {
     }
 
     addPackageFromRecommendation(packageName) {
-        const packageInput = document.getElementById('packageInput');
+        // Switch to search tab to show the analysis
+        this.switchTab('search');
         
         // Check if package is already added
         if (this.packages.includes(packageName)) {
@@ -1455,7 +1456,8 @@ class RPackageAnalytics {
             return;
         }
 
-        // Add the package to the current input
+        // Add the package to the input field
+        const packageInput = document.getElementById('packageInput');
         const currentValue = packageInput.value.trim();
         if (currentValue && !currentValue.endsWith(',')) {
             packageInput.value = currentValue + ', ' + packageName;
@@ -1463,8 +1465,11 @@ class RPackageAnalytics {
             packageInput.value = currentValue + packageName;
         }
 
-        // Trigger the add packages functionality
-        this.addPackages();
+        // Add to packages array and analyze
+        this.packages.push(packageName);
+        this.updatePackagesList();
+        this.showPeriodSelector();
+        this.analyzePackages();
         
         // Show success message
         this.showTemporaryMessage(`Added "${packageName}" to analysis`, 'success');
@@ -1612,10 +1617,12 @@ class RPackageAnalytics {
             }
         }
         
-        // Add to packages array and search
+        // Add to packages array and analyze
         if (!this.packages.includes(packageName)) {
             this.packages.push(packageName);
-            this.searchData();
+            this.updatePackagesList();
+            this.showPeriodSelector();
+            this.analyzePackages();
         }
         
         // Show temporary success message
