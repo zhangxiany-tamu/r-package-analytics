@@ -1565,39 +1565,45 @@ footer a:hover {
     }
     
     .nav-tabs {
-        gap: var(--space-2);
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: var(--space-1);
         max-width: 100%;
         width: 100%;
-        overflow: visible;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
     }
     
     .nav-tab {
-        padding: var(--space-2) var(--space-3);
-        min-height: 60px;
-        border-radius: var(--radius-lg);
-        margin-bottom: var(--space-1);
+        padding: var(--space-2);
+        min-height: 70px;
+        border-radius: var(--radius-md);
         width: 100%;
+        min-width: 70px;
         display: flex;
         flex-direction: column;
         justify-content: center;
+        align-items: center;
     }
     
     .tab-icon {
-        font-size: var(--font-size-base);
-        margin-bottom: 2px;
-    }
-    
-    .tab-label {
-        font-size: var(--font-size-xs);
-        font-weight: 700;
-        line-height: 1.1;
+        font-size: var(--font-size-sm);
         margin-bottom: 1px;
     }
     
-    .tab-description {
+    .tab-label {
         font-size: 10px;
+        font-weight: 700;
+        line-height: 1.1;
+        margin-bottom: 1px;
+        text-align: center;
+    }
+    
+    .tab-description {
+        font-size: 8px;
         opacity: 0.8;
-        line-height: 1.2;
+        line-height: 1.1;
+        text-align: center;
     }
     
     header h1 {
