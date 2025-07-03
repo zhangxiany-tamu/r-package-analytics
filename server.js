@@ -11,6 +11,7 @@ const cache = new NodeCache({ stdTTL: 3600 }); // Cache for 1 hour
 // Load local CRAN packages list
 let allCranPackages = null;
 let packageMetadataCache = new Map(); // Cache for package titles and descriptions
+let packageDescriptionCache = new Map(); // Cache for package descriptions (local file)
 let authorDataCache = new Map(); // Cache for package author information
 
 function loadLocalPackages() {
@@ -42,6 +43,39 @@ function loadLocalPackages() {
       'caret', 'randomForest', 'forecast', 'leaflet', 'sf'
     ];
     console.log(`🔄 Using fallback package list with ${allCranPackages.length} packages`);
+  }
+}
+
+function loadLocalDescriptions() {
+  try {
+    const fs = require('fs');
+    console.log('Loading local package descriptions...');
+    const descriptionsPath = path.join(__dirname, 'data', 'cran-descriptions.json');
+    
+    if (fs.existsSync(descriptionsPath)) {
+      const descriptionsData = JSON.parse(fs.readFileSync(descriptionsPath, 'utf8'));
+      
+      // Convert to Map for faster lookups
+      Object.entries(descriptionsData.packageData || {}).forEach(([packageName, data]) => {
+        packageDescriptionCache.set(packageName, {
+          title: data.title || '',
+          description: data.description || '',
+          version: data.version || '',
+          author: data.author || '',
+          maintainer: data.maintainer || '',
+          lastUpdated: data.lastUpdated
+        });
+      });
+      
+      console.log(`✅ Loaded descriptions for ${packageDescriptionCache.size} packages`);
+      console.log(`📅 Descriptions last updated: ${descriptionsData.lastUpdated}`);
+      console.log(`📊 Coverage: ${packageDescriptionCache.size}/${descriptionsData.totalPackages} packages (${Math.round(packageDescriptionCache.size/descriptionsData.totalPackages*100)}%)`);
+    } else {
+      console.warn('⚠️  No local descriptions found. Run scripts/fetch-package-descriptions.js to create them.');
+    }
+  } catch (error) {
+    console.warn('⚠️  Could not load local descriptions:', error.message);
+    console.log('💡 Tip: Run scripts/fetch-package-descriptions.js to create the descriptions cache.');
   }
 }
 
@@ -386,13 +420,29 @@ function searchPackagesByAuthor(authorName, limit = 20) {
     let score = 0;
     let matchReasons = [];
 
-    // Search in Author field - check all name variations
+    // Search in Author field - check all name variations with word boundaries
     if (authorData.author) {
       const authorText = authorData.author.toLowerCase();
       
-      // Check all search variations
+      // Check all search variations using word boundary matching
       for (const variation of searchVariations) {
-        if (authorText.includes(variation)) {
+        // Escape special regex characters 
+        const escapedVariation = variation.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        // For multi-word searches, ensure the entire phrase matches as a unit
+        const words = variation.split(/\s+/);
+        let phraseRegex;
+        
+        if (words.length === 1) {
+          // Single word: use word boundaries
+          phraseRegex = new RegExp(`\\b${escapedVariation}\\b`, 'i');
+        } else {
+          // Multiple words: create a pattern that matches the complete phrase
+          // Replace spaces with flexible whitespace and add word boundaries at start/end
+          const flexiblePattern = escapedVariation.replace(/\s+/g, '\\s+');
+          phraseRegex = new RegExp(`\\b${flexiblePattern}\\b`, 'i');
+        }
+        
+        if (phraseRegex.test(authorText)) {
           score += 15;
           matchReasons.push('author match');
           break; // Only count once even if multiple variations match
@@ -400,13 +450,29 @@ function searchPackagesByAuthor(authorName, limit = 20) {
       }
     }
 
-    // Search in Maintainer field - check all name variations  
+    // Search in Maintainer field - check all name variations with word boundaries
     if (authorData.maintainer) {
       const maintainerText = authorData.maintainer.toLowerCase();
       
-      // Check all search variations
+      // Check all search variations using word boundary matching
       for (const variation of searchVariations) {
-        if (maintainerText.includes(variation)) {
+        // Escape special regex characters 
+        const escapedVariation = variation.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        // For multi-word searches, ensure the entire phrase matches as a unit
+        const words = variation.split(/\s+/);
+        let phraseRegex;
+        
+        if (words.length === 1) {
+          // Single word: use word boundaries
+          phraseRegex = new RegExp(`\\b${escapedVariation}\\b`, 'i');
+        } else {
+          // Multiple words: create a pattern that matches the complete phrase
+          // Replace spaces with flexible whitespace and add word boundaries at start/end
+          const flexiblePattern = escapedVariation.replace(/\s+/g, '\\s+');
+          phraseRegex = new RegExp(`\\b${flexiblePattern}\\b`, 'i');
+        }
+        
+        if (phraseRegex.test(maintainerText)) {
           score += 12;
           matchReasons.push('maintainer match');
           break; // Only count once even if multiple variations match
@@ -448,85 +514,66 @@ async function searchPackagesByKeywords(keywords, limit = 20) {
   const allPackages = getAllCranPackages();
   const matches = [];
 
-  // Search through packages - prioritize title matches, then get descriptions for popular packages
-  const titleMatches = [];
-  const potentialMatches = [];
-  
-  // First pass: check titles only (fast)
+  console.log(`Searching for keywords: "${keywords}" in ${packageDescriptionCache.size} cached packages`);
+
+  // Search through all packages using local cache
   for (const packageName of allPackages) {
-    const metadata = packageMetadataCache.get(packageName);
-    if (!metadata) continue;
+    // Try to get from local description cache first
+    let localData = packageDescriptionCache.get(packageName);
     
-    const title = metadata?.title || metadata || '';
+    // Fallback to metadata cache if no local data
+    if (!localData) {
+      const metadata = packageMetadataCache.get(packageName);
+      if (!metadata) continue;
+      localData = {
+        title: metadata?.title || metadata || '',
+        description: ''
+      };
+    }
+    
+    const title = localData.title || '';
+    const description = localData.description || '';
+    
     let titleMatch = false;
+    let descriptionMatch = false;
     
     // Check exact word boundary matches in title
     if (searchWords.length === 1) {
       const searchWord = searchWords[0];
       const wordRegex = new RegExp(`\\b${searchWord.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'i');
       titleMatch = wordRegex.test(title);
+      descriptionMatch = wordRegex.test(description);
     } else {
       titleMatch = searchWords.every(word => {
         const wordRegex = new RegExp(`\\b${word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'i');
         return wordRegex.test(title);
       });
+      descriptionMatch = searchWords.every(word => {
+        const wordRegex = new RegExp(`\\b${word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'i');
+        return wordRegex.test(description);
+      });
     }
     
-    if (titleMatch) {
-      titleMatches.push({
+    if (titleMatch || descriptionMatch) {
+      let matchReasons = [];
+      if (titleMatch) matchReasons.push('title match');
+      if (descriptionMatch) matchReasons.push('description match');
+      
+      matches.push({
         package: packageName,
         title: title,
-        matchReasons: ['title: exact word match'],
-        titleMatch: true
+        description: description,
+        matchReasons: matchReasons,
+        titleMatch: titleMatch
       });
-    } else {
-      // Add to potential matches for description search
-      potentialMatches.push(packageName);
     }
   }
 
-  // Second pass: check descriptions for top potential packages (limit to avoid timeout)
-  const descriptionMatches = [];
-  const topPotential = potentialMatches.slice(0, 200); // Limit for performance
-  
-  for (const packageName of topPotential) {
-    try {
-      const fullMetadata = await getPackageMetadata(packageName);
-      const description = fullMetadata?.description || '';
-      
-      let descriptionMatch = false;
-      if (searchWords.length === 1) {
-        const searchWord = searchWords[0];
-        const wordRegex = new RegExp(`\\b${searchWord.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'i');
-        descriptionMatch = wordRegex.test(description);
-      } else {
-        descriptionMatch = searchWords.every(word => {
-          const wordRegex = new RegExp(`\\b${word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'i');
-          return wordRegex.test(description);
-        });
-      }
-      
-      if (descriptionMatch) {
-        descriptionMatches.push({
-          package: packageName,
-          title: fullMetadata?.title || '',
-          description: description,
-          matchReasons: ['description: exact word match'],
-          titleMatch: false
-        });
-      }
-    } catch (error) {
-      // Skip if can't fetch metadata
-      continue;
-    }
-  }
+  console.log(`Found ${matches.length} matches before ranking`);
 
-  // Combine all matches
-  const allMatches = [...titleMatches, ...descriptionMatches];
-
-  // Third pass: get popularity for all matched packages
+  // Get popularity for all matched packages
   const finalMatches = await Promise.all(
-    allMatches.map(async (match) => {
+    matches.map(async (match) => {
       const popularity = await getPackagePopularity(match.package);
       
       // Simple scoring: downloads + boost for title matches
@@ -548,6 +595,7 @@ async function searchPackagesByKeywords(keywords, limit = 20) {
   // Sort by score (downloads + title boost)
   finalMatches.sort((a, b) => b.score - a.score);
   
+  console.log(`Returning ${Math.min(limit, finalMatches.length)} top matches`);
   return finalMatches.slice(0, limit);
 }
 
@@ -561,89 +609,15 @@ app.get('/api/recommend/:keywords', async (req, res) => {
   }
 
   try {
-    const cacheKey = `recommend-${keywords}-${limit}`;
+    const cacheKey = `recommend-v2-${keywords}-${limit}`;
     const cachedData = cache.get(cacheKey);
     
     if (cachedData) {
       return res.json(cachedData);
     }
 
-    // Ensure package titles are loaded
-    if (packageMetadataCache.size === 0) {
-      await loadPackageTitles();
-    }
-
-    // Get keyword-based matches
-    const matches = await searchPackagesByKeywords(keywords, limit * 2); // Get more for popularity filtering
-
-    let results = matches;
-
-    // Always enhance with popularity data for better ranking
-    if (matches.length > 0) {
-      const popularityPromises = matches.slice(0, Math.min(100, matches.length)).map(async match => {
-        const popularity = await getPackagePopularity(match.package);
-        return { ...match, popularity };
-      });
-
-      const matchesWithPopularity = await Promise.all(popularityPromises);
-      
-      // Calculate popularity score based on download tiers
-      const calculatePopularityScore = (downloads) => {
-        if (!downloads || downloads === 0) return 0;
-        
-        // Logarithmic scoring to prevent extremely popular packages from dominating
-        // but still give significant weight to download counts
-        if (downloads >= 1000000) return 50;      // Very popular (1M+ downloads)
-        if (downloads >= 500000) return 40;       // Highly popular (500K+ downloads)
-        if (downloads >= 100000) return 30;       // Popular (100K+ downloads)
-        if (downloads >= 50000) return 20;        // Moderately popular (50K+ downloads)
-        if (downloads >= 10000) return 15;        // Somewhat popular (10K+ downloads)
-        if (downloads >= 5000) return 10;         // Known packages (5K+ downloads)
-        if (downloads >= 1000) return 5;          // Small packages (1K+ downloads)
-        return Math.log10(downloads + 1);         // Very small packages (logarithmic)
-      };
-      
-      // Re-sort with strict hierarchy: exact phrase matches first, then partial matches
-      matchesWithPopularity.sort((a, b) => {
-        const aHasExact = a.hasExactPhrase || false;
-        const bHasExact = b.hasExactPhrase || false;
-        
-        // If one has exact phrase match and the other doesn't, prioritize exact match
-        if (aHasExact && !bHasExact) return -1;
-        if (!aHasExact && bHasExact) return 1;
-        
-        // Both have exact phrase matches OR both have partial matches
-        const aPopularityScore = calculatePopularityScore(a.popularity || 0);
-        const bPopularityScore = calculatePopularityScore(b.popularity || 0);
-        
-        if (aHasExact && bHasExact) {
-          // Both have exact phrase matches: prioritize by popularity, then by relevance score
-          if (Math.abs(aPopularityScore - bPopularityScore) > 5) {
-            return bPopularityScore - aPopularityScore;
-          }
-          return b.score - a.score;
-        } else {
-          // Both have partial matches: use combined score (relevance + popularity)
-          const aFinalScore = a.score + aPopularityScore;
-          const bFinalScore = b.score + bPopularityScore;
-          return bFinalScore - aFinalScore;
-        }
-      });
-
-      results = matchesWithPopularity.slice(0, limit);
-      
-      // Add popularity tier information and match type to results
-      results = results.map(result => ({
-        ...result,
-        popularityTier: result.popularity >= 1000000 ? 'very-popular' :
-                       result.popularity >= 100000 ? 'popular' :
-                       result.popularity >= 10000 ? 'moderate' :
-                       result.popularity >= 1000 ? 'small' : 'niche',
-        matchType: result.hasExactPhrase ? 'exact-phrase' : 'partial-match'
-      }));
-    } else {
-      results = results.slice(0, limit);
-    }
+    // Use the updated search function directly
+    const results = await searchPackagesByKeywords(keywords, limit);
 
     cache.set(cacheKey, results, 1800); // Cache for 30 minutes
     res.json(results);
@@ -695,6 +669,9 @@ app.listen(port, () => {
   
   // Load local author data
   loadLocalAuthorData();
+  
+  // Load local package descriptions
+  loadLocalDescriptions();
   
   // Load package titles for keyword search (async, don't block startup)
   setTimeout(loadPackageTitles, 2000);
