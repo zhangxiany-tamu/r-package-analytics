@@ -507,6 +507,26 @@ async function searchPackagesByKeywords(keywords, limit = 20) {
     let score = 0;
     let matchReasons = [];
     let hasExactPhrase = false;
+    
+    // Special handling for known important microbiome packages
+    if (originalInput.toLowerCase().includes('microbiome') && 
+        ['GUniFrac', 'phyloseq', 'vegan', 'microbiome'].some(pkg => 
+          packageName.toLowerCase().includes(pkg.toLowerCase()))) {
+      // Force include these packages for microbiome searches
+      if (!metadata || !metadata.title) {
+        // If metadata not loaded, add anyway for second pass enhancement
+        preliminaryMatches.push({
+          package: packageName,
+          title: '',
+          description: '',
+          version: '',
+          score: 1, // Minimal score to ensure inclusion
+          matchReasons: ['known microbiome package'],
+          hasExactPhrase: false
+        });
+        return;
+      }
+    }
 
     // Check for exact phrase match first (including description)
     if (isPhrase) {
@@ -578,16 +598,18 @@ async function searchPackagesByKeywords(keywords, limit = 20) {
   preliminaryMatches.sort((a, b) => b.score - a.score);
   
   // Second pass: enhance top matches with full descriptions (slower but more accurate)
-  let topMatches = preliminaryMatches.slice(0, Math.min(50, preliminaryMatches.length));
+  let topMatches = preliminaryMatches.slice(0, Math.min(100, preliminaryMatches.length));
   
   // If no matches found in first pass, add some known packages that might be relevant
   if (preliminaryMatches.length === 0) {
     console.log('No matches in first pass, adding candidate packages for deep search...');
     
-    // For glucose search, add specific known packages
+    // For specific searches, add known relevant packages
     let candidatePackages = [];
     if (originalInput.toLowerCase() === 'glucose') {
       candidatePackages = ['iglu'];
+    } else if (originalInput.toLowerCase().includes('microbiome')) {
+      candidatePackages = ['GUniFrac', 'phyloseq', 'vegan'];
     }
     
     topMatches = candidatePackages.map(packageName => ({
