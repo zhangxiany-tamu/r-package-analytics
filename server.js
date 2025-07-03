@@ -553,27 +553,27 @@ async function searchPackagesByKeywords(keywords, limit = 20) {
       }
     }
 
-    // If no exact phrase match found, check individual words and semantic matches
+    // If no exact phrase match found, check individual words with very low weights
     if (!hasExactPhrase) {
-      // Score based on package name match
+      // Score based on package name match (very low scores for individual words)
       expandedTerms.forEach(term => {
         if (packageName.toLowerCase().includes(term)) {
           const isOriginalTerm = searchTerms.includes(term);
-          let baseScore = packageName.toLowerCase().startsWith(term) ? 10 : 5;
-          score += isOriginalTerm ? baseScore : Math.floor(baseScore * 0.7);
+          let baseScore = packageName.toLowerCase().startsWith(term) ? 2 : 1; // Reduced from 10/5 to 2/1
+          score += isOriginalTerm ? baseScore : Math.floor(baseScore * 0.5);
           matchReasons.push(`name: ${term}${isOriginalTerm ? '' : ' (semantic)'}`);
         }
       });
 
-      // Score based on title match
+      // Score based on title match (very low scores for individual words)
       if (metadata && metadata.title) {
         const title = metadata.title.toLowerCase();
         expandedTerms.forEach(term => {
           if (title.includes(term)) {
             const isOriginalTerm = searchTerms.includes(term);
             const isExactWord = new RegExp(`\\b${term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`).test(title);
-            let baseScore = isExactWord ? 8 : 3;
-            score += isOriginalTerm ? baseScore : Math.floor(baseScore * 0.7);
+            let baseScore = isExactWord ? 2 : 1; // Reduced from 8/3 to 2/1
+            score += isOriginalTerm ? baseScore : Math.floor(baseScore * 0.5);
             matchReasons.push(`title: ${term}${isOriginalTerm ? '' : ' (semantic)'}`);
           }
         });
@@ -640,8 +640,8 @@ async function searchPackagesByKeywords(keywords, limit = 20) {
             if (description.includes(term)) {
               const isOriginalTerm = searchTerms.includes(term);
               const isExactWord = new RegExp(`\\b${term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`).test(description);
-              let baseScore = isExactWord ? 6 : 2;
-              enhancedScore += isOriginalTerm ? baseScore : Math.floor(baseScore * 0.7);
+              let baseScore = isExactWord ? 2 : 1; // Reduced from 6/2 to 2/1 
+              enhancedScore += isOriginalTerm ? baseScore : Math.floor(baseScore * 0.5);
               enhancedReasons.push(`description: ${term}${isOriginalTerm ? '' : ' (semantic)'}`);
             }
           });
