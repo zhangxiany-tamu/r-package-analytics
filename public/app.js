@@ -1078,13 +1078,12 @@ class RPackageAnalytics {
     }
 
     createCustomLegends() {
-        if (this.packages.length <= 1) return;
-        
         const trendsLegend = document.getElementById('trendsLegend');
         const cumulativeLegend = document.getElementById('cumulativeLegend');
         
         if (!trendsLegend || !cumulativeLegend) return;
         
+        // Always update legends to reflect current packages, including when packages are removed
         let legendHtml = this.packages.map((packageName, index) => {
             const colors = this.getAppleColors();
             const color = colors[index % colors.length];

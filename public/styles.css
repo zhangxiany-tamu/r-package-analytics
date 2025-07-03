@@ -432,18 +432,19 @@ header p {
 
 .search-form {
     display: flex;
-    gap: 15px;
-    justify-content: center;
-    align-items: flex-start;
-    flex-wrap: wrap;
-    position: relative; /* Ensure proper stacking context */
+    flex-direction: column;
+    gap: var(--space-4);
+    align-items: center;
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto;
     z-index: 100000; /* High z-index for the form container */
 }
 
 .input-container {
     position: relative;
-    flex: 1;
-    min-width: 450px;
+    width: 100%;
+    max-width: 700px;
     z-index: 999999; /* High z-index for the container */
 }
 
@@ -622,11 +623,10 @@ header p {
 }
 
 #packageInput {
-    flex: 1;
-    min-width: 250px;
+    width: 100%;
     padding: var(--space-4) var(--space-5);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-lg);
+    border: 2px solid var(--border-light);
+    border-radius: var(--radius-xl);
     font-size: var(--font-size-base);
     background: var(--bg-primary);
     color: var(--text-primary);
@@ -636,6 +636,8 @@ header p {
     font-weight: 400;
     -webkit-appearance: none;
     appearance: none;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 }
 
 #packageInput:focus {
@@ -665,16 +667,17 @@ header p {
 }
 
 #searchBtn {
-    padding: var(--space-4) var(--space-6);
-    background: var(--accent-color);
+    background: linear-gradient(135deg, var(--accent-color) 0%, var(--purple) 100%);
     color: white;
     border: none;
-    border-radius: var(--radius-lg);
+    padding: var(--space-4) var(--space-6);
+    border-radius: var(--radius-xl);
     font-size: var(--font-size-base);
     font-weight: 600;
     cursor: pointer;
     transition: all var(--transition-base);
-    box-shadow: var(--shadow-sm);
+    box-shadow: var(--shadow-md);
+    white-space: nowrap;
     position: relative;
     overflow: hidden;
     -webkit-appearance: none;
@@ -682,9 +685,8 @@ header p {
 }
 
 #searchBtn:hover {
-    transform: translateY(-1px);
-    box-shadow: var(--shadow-md);
-    background: color-mix(in srgb, var(--accent-color) 85%, black);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
 }
 
 #searchBtn:active {
@@ -1327,6 +1329,20 @@ footer a:hover {
     text-decoration: underline;
 }
 
+@media (max-width: 1024px) {
+    .nav-tabs {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--space-3);
+        max-width: 700px;
+    }
+    
+    .nav-tab {
+        aspect-ratio: 1.1;
+        min-height: 130px;
+        padding: var(--space-5) var(--space-4);
+    }
+}
+
 @media (max-width: 768px) {
     .container {
         margin: var(--space-4);
@@ -1354,6 +1370,19 @@ footer a:hover {
         position: static;
         margin-top: var(--space-4);
         align-self: center;
+    }
+    
+    .nav-tabs {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--space-3);
+        max-width: 600px;
+    }
+    
+    .nav-tab {
+        min-width: unset;
+        padding: var(--space-4) var(--space-5);
+        aspect-ratio: 1.1;
+        min-height: 120px;
     }
     
     .search-form,
@@ -1458,6 +1487,29 @@ footer a:hover {
         font-size: var(--font-size-xs);
     }
     
+    .nav-tabs {
+        grid-template-columns: 1fr;
+        gap: var(--space-3);
+        max-width: 300px;
+    }
+    
+    .nav-tab {
+        aspect-ratio: unset;
+        padding: var(--space-4);
+    }
+    
+    .tab-icon {
+        font-size: var(--font-size-xl);
+    }
+    
+    .tab-label {
+        font-size: var(--font-size-base);
+    }
+    
+    .tab-description {
+        font-size: var(--font-size-xs);
+    }
+    
     .stat-card {
         padding: var(--space-4);
     }
@@ -1497,17 +1549,18 @@ footer a:hover {
 }
 
 .nav-tabs {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
     gap: var(--space-4);
-    justify-content: center;
-    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .nav-tab {
     background: var(--bg-glass);
     border: 2px solid var(--border-light);
     border-radius: var(--radius-xl);
-    padding: var(--space-5) var(--space-6);
+    padding: var(--space-5) var(--space-4);
     cursor: pointer;
     transition: all var(--transition-base);
     backdrop-filter: blur(10px);
@@ -1519,8 +1572,9 @@ footer a:hover {
     flex-direction: column;
     align-items: center;
     gap: var(--space-2);
-    min-width: 200px;
     text-align: center;
+    aspect-ratio: 1;
+    min-height: 140px;
 }
 
 .nav-tab::before {
