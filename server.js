@@ -448,20 +448,16 @@ async function searchPackagesByKeywords(keywords, limit = 20) {
   const allPackages = getAllCranPackages();
   const matches = [];
 
-  // Search through all packages
+  // First pass: quick search through cached metadata only
+  const preliminaryMatches = [];
+  
   for (const packageName of allPackages) {
+    // Only use cached metadata in first pass for speed
+    const metadata = packageMetadataCache.get(packageName);
+    if (!metadata) continue;
+    
     let titleMatch = false;
     let descriptionMatch = false;
-    
-    // Get package metadata - try cache first, then fetch if needed
-    let metadata = packageMetadataCache.get(packageName);
-    if (!metadata) {
-      try {
-        metadata = await getPackageMetadata(packageName);
-      } catch (error) {
-        continue; // Skip this package if we can't get metadata
-      }
-    }
     
     const title = metadata?.title || '';
     const description = metadata?.description || '';
@@ -489,37 +485,46 @@ async function searchPackagesByKeywords(keywords, limit = 20) {
     
     // Only include packages with exact word matches
     if (titleMatch || descriptionMatch) {
-      // Get download popularity
-      const popularity = await getPackagePopularity(packageName);
-      
-      // Simple scoring: downloads + small boost for title matches
-      let score = popularity || 0;
-      if (titleMatch) score += 1000; // Small boost for title match
-      
       const matchReasons = [];
       if (titleMatch) matchReasons.push('title: exact word match');
       if (descriptionMatch) matchReasons.push('description: exact word match');
       
-      matches.push({
+      preliminaryMatches.push({
         package: packageName,
         title: title,
         description: description,
         version: metadata?.version || '',
-        score: score,
         matchReasons: matchReasons,
+        titleMatch: titleMatch
+      });
+    }
+  }
+
+  // Second pass: get popularity for matched packages only
+  const finalMatches = await Promise.all(
+    preliminaryMatches.map(async (match) => {
+      const popularity = await getPackagePopularity(match.package);
+      
+      // Simple scoring: downloads + small boost for title matches
+      let score = popularity || 0;
+      if (match.titleMatch) score += 1000; // Small boost for title match
+      
+      return {
+        ...match,
+        score: score,
         popularity: popularity || 0,
         popularityTier: popularity >= 100000 ? 'popular' : 
                        popularity >= 10000 ? 'moderate' : 
                        popularity >= 1000 ? 'small' : 'niche',
         matchType: 'exact-word'
-      });
-    }
-  }
+      };
+    })
+  );
 
   // Sort by score (downloads + title boost)
-  matches.sort((a, b) => b.score - a.score);
+  finalMatches.sort((a, b) => b.score - a.score);
   
-  return matches.slice(0, limit);
+  return finalMatches.slice(0, limit);
 }
 
 // API endpoint for keyword-based package recommendations
