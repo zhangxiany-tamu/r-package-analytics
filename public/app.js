@@ -1723,10 +1723,18 @@ class RPackageAnalytics {
             const authorList = document.getElementById('authorList');
             const showMoreContainer = resultsContainer.querySelector('.show-more-container');
             
-            if (authorList && showMoreContainer) {
+            if (authorList) {
                 const newItems = authorResults.map(item => this.createAuthorItem(item)).join('');
-                // Insert new items before the show-more button
-                showMoreContainer.insertAdjacentHTML('beforebegin', newItems);
+                // Find the show-more-container within the authorList
+                const showMoreInList = authorList.querySelector('.show-more-container');
+                
+                if (showMoreInList) {
+                    // Insert new items before the show-more-container within the list
+                    showMoreInList.insertAdjacentHTML('beforebegin', newItems);
+                } else {
+                    // Fallback: append to the end of the author list
+                    authorList.insertAdjacentHTML('beforeend', newItems);
+                }
             }
             
             if (showMoreContainer) {
@@ -1763,24 +1771,24 @@ class RPackageAnalytics {
             `<span class="match-reason">${reason}</span>`
         ).join('') || '';
 
-        // Truncate long author/maintainer fields for display
-        const authorField = item.author ? item.author.substring(0, 200) + (item.author.length > 200 ? '...' : '') : '';
-        const maintainerField = item.maintainer ? item.maintainer.substring(0, 100) + (item.maintainer.length > 100 ? '...' : '') : '';
+        // Truncate long author/maintainer fields for display and escape HTML
+        const authorField = item.author ? this.escapeHtml(item.author.substring(0, 200) + (item.author.length > 200 ? '...' : '')) : '';
+        const maintainerField = item.maintainer ? this.escapeHtml(item.maintainer.substring(0, 100) + (item.maintainer.length > 100 ? '...' : '')) : '';
 
         return `
-            <div class="author-item" onclick="app.addPackageFromAuthor('${item.package}')">
+            <div class="author-item" onclick="app.addPackageFromAuthor('${this.escapeHtml(item.package)}')">
                 <div class="author-item-header">
                     <div>
-                        <div class="author-package-name">${item.package}</div>
-                        ${item.version ? `<div class="author-package-version">v${item.version}</div>` : ''}
+                        <div class="author-package-name">${this.escapeHtml(item.package)}</div>
+                        ${item.version ? `<div class="author-package-version">v${this.escapeHtml(item.version)}</div>` : ''}
                     </div>
                     <div class="author-score">
+                        <div class="author-score-value">Score: ${item.score}</div>
                         ${hasPopularity ? `<div class="author-popularity">📈 ${popularityText}</div>` : ''}
-                        <div class="author-score-value">Match Score: ${item.score}</div>
                     </div>
                 </div>
                 
-                ${item.title ? `<div class="author-title">${item.title}</div>` : ''}
+                ${item.title ? `<div class="author-title">${this.escapeHtml(item.title)}</div>` : ''}
                 
                 <div class="author-meta">
                     ${authorField ? `<div class="author-field"><strong>Authors:</strong> ${authorField}</div>` : ''}
@@ -1789,7 +1797,7 @@ class RPackageAnalytics {
                 
                 ${matchReasonsHtml ? `<div class="author-match-reasons">${matchReasonsHtml}</div>` : ''}
                 
-                <button class="add-package-btn" onclick="event.stopPropagation(); app.addPackageFromAuthor('${item.package}')">
+                <button class="add-package-btn" onclick="event.stopPropagation(); app.addPackageFromAuthor('${this.escapeHtml(item.package)}')">
                     Add Package
                 </button>
             </div>
@@ -2143,6 +2151,16 @@ class RPackageAnalytics {
                 window.location.href = 'bioconductor.html';
             });
         }
+    }
+
+    escapeHtml(unsafe) {
+        if (!unsafe) return '';
+        return unsafe
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
     }
 }
 

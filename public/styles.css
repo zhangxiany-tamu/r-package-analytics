@@ -2037,6 +2037,8 @@ footer a:hover {
     cursor: pointer;
     transition: all var(--transition-base);
     margin-top: var(--space-3);
+    width: fit-content;
+    align-self: flex-start;
 }
 
 .add-package-btn:hover {
@@ -2179,6 +2181,8 @@ footer a:hover {
 }
 
 .author-item {
+    display: flex;
+    flex-direction: column;
     padding: var(--space-4) var(--space-5);
     border-bottom: 1px solid var(--border-light);
     transition: all var(--transition-base);
@@ -2194,6 +2198,7 @@ footer a:hover {
 .author-item:hover {
     background: var(--bg-hover);
     transform: translateX(4px);
+    box-shadow: inset 4px 0 0 var(--accent-color);
 }
 
 .author-item-header {
@@ -3113,6 +3118,14 @@ footer a:hover {
     padding: var(--space-4);
     margin-top: var(--space-4);
     border-top: 1px solid var(--border-color);
+}
+
+/* When show-more-container is inside author-list, adjust styling */
+.author-list .show-more-container {
+    border-top: none;
+    padding: var(--space-3) var(--space-4);
+    margin-top: 0;
+    background: var(--bg-secondary);
 }
 
 .show-more-btn {
