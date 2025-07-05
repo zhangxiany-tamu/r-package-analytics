@@ -531,10 +531,10 @@ async function getPackagePopularity(packageName) {
   }
 }
 
-// Enhanced search function for author-based recommendations using local cache
-function searchPackagesByAuthor(authorName, limit = 20) {
+// Enhanced search function for author-based recommendations using local cache with download ranking
+async function searchPackagesByAuthor(authorName, limit = 20, offset = 0) {
   if (!authorName || authorName.trim().length < 2) {
-    return [];
+    return { results: [], totalResults: 0, hasMore: false, offset: 0, limit: limit };
   }
 
   const searchTerm = authorName.toLowerCase().trim();
@@ -640,11 +640,71 @@ function searchPackagesByAuthor(authorName, limit = 20) {
     }
   }
 
-  // Sort by score and return top matches
-  matches.sort((a, b) => b.score - a.score);
+  console.log(`Found ${matches.length} matches before ranking for "${authorName}"`);
+
+  // Get actual yearly downloads for all matched packages
+  const finalMatches = await Promise.all(matches.map(async (match) => {
+    let popularity = 0;
+    const cacheKey = `popularity-${match.package}`;
+    const cachedScore = cache.get(cacheKey);
+    
+    if (cachedScore !== undefined) {
+      popularity = cachedScore;
+    } else {
+      try {
+        // Get actual yearly downloads from API
+        popularity = await getPackagePopularity(match.package);
+        if (popularity > 0) {
+          cache.set(cacheKey, popularity, 7200); // Cache for 2 hours
+        }
+      } catch (error) {
+        // Fall back to known popular packages if API fails
+        const popularPackages = {
+          'ts': 500000, 'forecast': 400000, 'zoo': 350000, 'xts': 300000,
+          'lubridate': 250000, 'dplyr': 800000, 'ggplot2': 900000,
+          'tidyverse': 700000, 'data.table': 600000, 'plyr': 200000,
+          'reshape2': 150000, 'stringr': 180000, 'readr': 160000,
+          'magrittr': 300000, 'plotly': 180000, 'shiny': 500000,
+          'knitr': 400000, 'rmarkdown': 350000, 'devtools': 300000
+        };
+        
+        popularity = popularPackages[match.package] || 0;
+      }
+    }
+    
+    return {
+      ...match,
+      popularity: popularity,
+      yearlyDownloads: popularity,
+      popularityTier: popularity >= 100000 ? 'popular' : 
+                     popularity >= 10000 ? 'moderate' : 
+                     popularity >= 1000 ? 'small' : 'niche'
+    };
+  }));
+
+  // Sort by yearly downloads (descending), then by package name for consistency
+  finalMatches.sort((a, b) => {
+    // Primary sort: by yearly downloads (descending)
+    if (b.popularity !== a.popularity) {
+      return b.popularity - a.popularity;
+    }
+    // Secondary sort: by package name (ascending) for consistency
+    return a.package.localeCompare(b.package);
+  });
   
-  console.log(`Found ${matches.length} matches for "${authorName}"`);
-  return matches.slice(0, limit);
+  const totalResults = finalMatches.length;
+  const paginatedResults = finalMatches.slice(offset, offset + limit);
+  const hasMore = offset + limit < totalResults;
+  
+  console.log(`Returning ${paginatedResults.length} matches (${offset + 1}-${offset + paginatedResults.length} of ${totalResults}) for "${authorName}"`);
+  
+  return {
+    results: paginatedResults,
+    totalResults: totalResults,
+    hasMore: hasMore,
+    offset: offset,
+    limit: limit
+  };
 }
 
 // Simple and effective search function - exact word matches ranked by downloads
@@ -829,24 +889,25 @@ app.get('/api/recommend/:keywords', async (req, res) => {
 app.get('/api/author/:authorName', async (req, res) => {
   const authorName = req.params.authorName;
   const limit = parseInt(req.query.limit) || 20;
+  const offset = parseInt(req.query.offset) || 0;
   
   if (!authorName || authorName.trim().length < 2) {
-    return res.json([]);
+    return res.json({ results: [], totalResults: 0, hasMore: false });
   }
 
   try {
-    const cacheKey = `author-${authorName}-${limit}`;
+    const cacheKey = `author-v2-${authorName}-${limit}-${offset}`;
     const cachedData = cache.get(cacheKey);
     
     if (cachedData) {
       return res.json(cachedData);
     }
 
-    // Search packages by author (now synchronous with local cache)
-    const matches = searchPackagesByAuthor(authorName, limit);
+    // Search packages by author (now async with download ranking)
+    const searchData = await searchPackagesByAuthor(authorName, limit, offset);
     
-    cache.set(cacheKey, matches, 1800); // Cache for 30 minutes
-    res.json(matches);
+    cache.set(cacheKey, searchData, 1800); // Cache for 30 minutes
+    res.json(searchData);
   } catch (error) {
     console.error('Author search error:', error.message);
     res.status(500).json({ 

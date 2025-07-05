@@ -1617,7 +1617,7 @@ class RPackageAnalytics {
         }
     }
 
-    async searchByAuthor() {
+    async searchByAuthor(offset = 0) {
         const authorInput = document.getElementById('authorInput');
         const authorName = authorInput.value.trim();
 
@@ -1626,55 +1626,139 @@ class RPackageAnalytics {
             return;
         }
 
-        this.showAuthorLoading(true);
-        this.hideAuthorResults();
-        this.hideError();
+        const isNewSearch = offset === 0;
+        
+        if (isNewSearch) {
+            this.currentAuthorSearch = null;
+            this.showAuthorLoading(true);
+            this.hideAuthorResults();
+            this.hideError();
+        }
 
         try {
-            const response = await fetch(`/api/author/${encodeURIComponent(authorName)}?limit=20`);
+            const response = await fetch(`/api/author/${encodeURIComponent(authorName)}?limit=20&offset=${offset}`);
             
             if (!response.ok) {
                 throw new Error(`HTTP ${response.status}: ${response.statusText}`);
             }
             
-            const authorResults = await response.json();
-            this.displayAuthorResults(authorResults, authorName);
+            const authorData = await response.json();
+            
+            // Store current search data for pagination
+            if (isNewSearch) {
+                this.currentAuthorSearch = {
+                    authorName: authorName,
+                    totalResults: authorData.totalResults,
+                    hasMore: authorData.hasMore,
+                    offset: authorData.offset + authorData.results.length
+                };
+            } else {
+                this.currentAuthorSearch.hasMore = authorData.hasMore;
+                this.currentAuthorSearch.offset = authorData.offset + authorData.results.length;
+            }
+            
+            this.displayAuthorResults(authorData, authorName, isNewSearch);
         } catch (error) {
             this.showError(`Failed to search by author: ${error.message}`);
         } finally {
-            this.showAuthorLoading(false);
+            if (isNewSearch) {
+                this.showAuthorLoading(false);
+            }
         }
     }
 
-    displayAuthorResults(authorResults, authorName) {
+    displayAuthorResults(authorData, authorName, isNewSearch = true) {
         const resultsContainer = document.getElementById('authorResults');
         if (!resultsContainer) return;
 
-        if (authorResults.length === 0) {
-            resultsContainer.innerHTML = `
-                <div class="author-header">
-                    <span>No packages found for "${authorName}"</span>
-                </div>
-            `;
-            resultsContainer.classList.remove('hidden');
+        // Handle both old format (array) and new format (object) for backward compatibility
+        const authorResults = Array.isArray(authorData) ? authorData : authorData.results || [];
+        const totalResults = authorData.totalResults || authorResults.length;
+        const hasMore = authorData.hasMore || false;
+
+        if (!authorResults || authorResults.length === 0) {
+            if (isNewSearch) {
+                resultsContainer.innerHTML = `
+                    <div class="author-header">
+                        <span>No packages found for "${authorName}"</span>
+                        <span class="author-count">0 results</span>
+                    </div>
+                    <div class="author-list">
+                        <div style="padding: var(--space-6); text-align: center; color: var(--text-secondary);">
+                            <p>Try a different author name or check your spelling.</p>
+                            <p>Examples: "Hadley Wickham", "Yihui Xie", "Winston Chang"</p>
+                        </div>
+                    </div>
+                `;
+                resultsContainer.classList.remove('hidden');
+            }
             return;
         }
 
-        const resultHtml = `
-            <div class="author-header">
-                <span>Packages by "${authorName}"</span>
-                <span class="author-count">${authorResults.length}</span>
-            </div>
-            <div class="author-list">
-                ${authorResults.map(item => this.createAuthorItem(item)).join('')}
-            </div>
-        `;
+        if (isNewSearch) {
+            // New search - replace content
+            const resultHtml = `
+                <div class="author-header">
+                    <span>Packages by "${authorName}"</span>
+                    <span class="author-count">${totalResults} results</span>
+                </div>
+                <div class="author-list" id="authorList">
+                    ${authorResults.map(item => this.createAuthorItem(item)).join('')}
+                    ${hasMore ? `
+                        <div class="show-more-container">
+                            <button class="show-more-btn" onclick="event.stopPropagation(); app.loadMoreAuthorResults()">
+                                <span class="show-more-text">Show More Results (${totalResults - authorResults.length} remaining)</span>
+                                <span class="show-more-spinner hidden">
+                                    <div class="spinner-small"></div>
+                                    Loading...
+                                </span>
+                            </button>
+                        </div>
+                    ` : ''}
+                </div>
+            `;
+            resultsContainer.innerHTML = resultHtml;
+        } else {
+            // Load more - append content  
+            const authorList = document.getElementById('authorList');
+            const showMoreContainer = resultsContainer.querySelector('.show-more-container');
+            
+            if (authorList && showMoreContainer) {
+                const newItems = authorResults.map(item => this.createAuthorItem(item)).join('');
+                // Insert new items before the show-more button
+                showMoreContainer.insertAdjacentHTML('beforebegin', newItems);
+            }
+            
+            if (showMoreContainer) {
+                if (hasMore) {
+                    // Calculate remaining count for current state
+                    const currentDisplayed = authorList.querySelectorAll('.author-item').length;
+                    const remaining = totalResults - currentDisplayed;
+                    
+                    // Reset the show more button with updated count
+                    const showMoreBtn = showMoreContainer.querySelector('.show-more-btn');
+                    const showMoreText = showMoreContainer.querySelector('.show-more-text');
+                    const showMoreSpinner = showMoreContainer.querySelector('.show-more-spinner');
+                    
+                    if (showMoreText) {
+                        showMoreText.textContent = `Show More Results (${remaining} remaining)`;
+                        showMoreText.classList.remove('hidden');
+                    }
+                    if (showMoreSpinner) showMoreSpinner.classList.add('hidden');
+                    if (showMoreBtn) showMoreBtn.disabled = false;
+                } else {
+                    // Remove show more button when no more results
+                    showMoreContainer.remove();
+                }
+            }
+        }
 
-        resultsContainer.innerHTML = resultHtml;
         resultsContainer.classList.remove('hidden');
     }
 
     createAuthorItem(item) {
+        const hasPopularity = item.popularity !== undefined && item.popularity > 0;
+        const popularityText = hasPopularity ? `${item.popularity.toLocaleString()} yearly downloads` : '';
         const matchReasonsHtml = item.matchReasons?.map(reason => 
             `<span class="match-reason">${reason}</span>`
         ).join('') || '';
@@ -1691,7 +1775,8 @@ class RPackageAnalytics {
                         ${item.version ? `<div class="author-package-version">v${item.version}</div>` : ''}
                     </div>
                     <div class="author-score">
-                        <div class="author-score-value">Score: ${item.score}</div>
+                        ${hasPopularity ? `<div class="author-popularity">📈 ${popularityText}</div>` : ''}
+                        <div class="author-score-value">Match Score: ${item.score}</div>
                     </div>
                 </div>
                 
@@ -1736,6 +1821,21 @@ class RPackageAnalytics {
         
         // Show temporary success message
         this.showTemporaryMessage(`Added "${packageName}" to analysis`, 'success');
+    }
+
+    loadMoreAuthorResults() {
+        if (this.currentAuthorSearch && this.currentAuthorSearch.hasMore) {
+            // Show loading state on button
+            const showMoreBtn = document.querySelector('.show-more-btn');
+            const showMoreText = document.querySelector('.show-more-text');
+            const showMoreSpinner = document.querySelector('.show-more-spinner');
+            
+            if (showMoreBtn) showMoreBtn.disabled = true;
+            if (showMoreText) showMoreText.classList.add('hidden');
+            if (showMoreSpinner) showMoreSpinner.classList.remove('hidden');
+            
+            this.searchByAuthor(this.currentAuthorSearch.offset);
+        }
     }
 
     showAuthorLoading(show) {

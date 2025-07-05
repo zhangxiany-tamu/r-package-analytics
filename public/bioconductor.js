@@ -446,7 +446,8 @@ class BioconductorAnalytics {
                         <span class="package-type-badge ${item.packageType}">${item.packageType}</span>
                     </div>
                     <div class="author-score">
-                        <div class="author-score-value">Score: ${item.score}</div>
+                        <div class="author-score-value">Score: ${item.relevanceScore || 0}</div>
+                        ${item.totalDownloads > 0 ? `<div class="author-popularity">${item.totalDownloads.toLocaleString()} downloads</div>` : ''}
                     </div>
                 </div>
                 
