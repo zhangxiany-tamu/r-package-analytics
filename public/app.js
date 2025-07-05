@@ -32,6 +32,7 @@ class RPackageAnalytics {
         this.forecastPeriods = 30; // Number of future periods to predict
         
         this.initializeEventListeners();
+        this.initializeNavigation();
     }
 
     initializeEventListeners() {
@@ -361,8 +362,8 @@ class RPackageAnalytics {
         packageInput.value = '';
         this.hideSuggestions();
         
-        this.updatePackagesList();
-        this.showPeriodSelector();
+        // Don't update the package list display until validation passes
+        // this.updatePackagesList(); // Moved to after successful validation
         this.analyzePackages();
     }
 
@@ -408,9 +409,30 @@ class RPackageAnalytics {
                 Promise.all(this.packages.map(pkg => this.fetchPackageInfo(pkg)))
             ]);
 
+            // Check if we got valid data
+            const hasValidData = downloadDataArray && downloadDataArray.length > 0 && 
+                downloadDataArray.some(pkg => pkg.downloads && pkg.downloads.length > 0);
+            
+            if (!hasValidData) {
+                this.hidePeriodSelector();
+                // Store package names for error message before clearing
+                const invalidPackages = [...this.packages];
+                // Remove invalid packages from the list
+                this.packages = [];
+                this.updatePackagesList();
+                this.showError(`No valid data found for package(s): ${invalidPackages.join(', ')}. Please check the package name(s).`);
+                return;
+            }
+
+            this.showPeriodSelector();
+            this.updatePackagesList(); // Update display only after successful validation
             this.displayResults(downloadDataArray, packageInfoArray, this.currentPeriod);
         } catch (error) {
-            this.showError(`Failed to fetch data: ${error.message}`);
+            this.hidePeriodSelector();
+            // Clear invalid packages on error (like 404 package not found)
+            this.packages = [];
+            this.updatePackagesList();
+            this.showError(error.message);
         } finally {
             this.showLoading(false);
         }
@@ -419,6 +441,15 @@ class RPackageAnalytics {
     async fetchDownloadData(packages, period) {
         const response = await fetch(`/api/downloads/${packages.join(',')}?period=${period}&includeTotals=true`);
         if (!response.ok) {
+            if (response.status === 404) {
+                // Handle package not found error
+                try {
+                    const errorData = await response.json();
+                    throw new Error(errorData.message || 'Package(s) not found');
+                } catch (parseError) {
+                    throw new Error('Package(s) not found on CRAN');
+                }
+            }
             throw new Error(`HTTP ${response.status}: ${response.statusText}`);
         }
         return await response.json();
@@ -1351,7 +1382,7 @@ class RPackageAnalytics {
         }
     }
 
-    async searchByKeywords() {
+    async searchByKeywords(offset = 0) {
         const keywordInput = document.getElementById('keywordInput');
         const keywords = keywordInput.value.trim();
 
@@ -1360,58 +1391,116 @@ class RPackageAnalytics {
             return;
         }
 
-        this.showKeywordLoading(true);
-        this.hideKeywordResults();
+        // Store current search state
+        if (offset === 0) {
+            this.currentKeywordSearch = { keywords, offset: 0 };
+            this.showKeywordLoading(true);
+            this.hideKeywordResults();
+        } else {
+            this.showKeywordLoadingMore(true);
+        }
         this.hideError();
 
         try {
-            const response = await fetch(`/api/recommend/${encodeURIComponent(keywords)}?limit=20`);
+            const response = await fetch(`/api/recommend/${encodeURIComponent(keywords)}?limit=20&offset=${offset}`);
             
             if (!response.ok) {
                 throw new Error(`HTTP ${response.status}: ${response.statusText}`);
             }
 
-            const recommendations = await response.json();
-            this.displayKeywordResults(recommendations, keywords);
+            const searchData = await response.json();
+            this.displayKeywordResults(searchData, keywords, offset === 0);
         } catch (error) {
             this.showError(`Keyword search failed: ${error.message}`);
         } finally {
-            this.showKeywordLoading(false);
+            if (offset === 0) {
+                this.showKeywordLoading(false);
+            } else {
+                this.showKeywordLoadingMore(false);
+            }
         }
     }
 
-    displayKeywordResults(recommendations, keywords) {
+    displayKeywordResults(searchData, keywords, isNewSearch = true) {
         const resultsContainer = document.getElementById('recommendationResults');
         
+        // Handle both old format (array) and new format (object) for backward compatibility
+        const recommendations = Array.isArray(searchData) ? searchData : searchData.results || [];
+        const totalResults = searchData.totalResults || recommendations.length;
+        const hasMore = searchData.hasMore || false;
+        
         if (!recommendations || recommendations.length === 0) {
-            resultsContainer.innerHTML = `
-                <div class="recommendation-header">
-                    <span>No packages found for "${keywords}"</span>
-                    <span class="recommendation-count">0 results</span>
-                </div>
-                <div class="recommendation-list">
-                    <div style="padding: var(--space-6); text-align: center; color: var(--text-secondary);">
-                        <p>Try different keywords or check your spelling.</p>
-                        <p>Examples: "machine learning", "time series", "data visualization"</p>
+            if (isNewSearch) {
+                resultsContainer.innerHTML = `
+                    <div class="recommendation-header">
+                        <span>No packages found for "${keywords}"</span>
+                        <span class="recommendation-count">0 results</span>
                     </div>
-                </div>
-            `;
-            resultsContainer.classList.remove('hidden');
+                    <div class="recommendation-list">
+                        <div style="padding: var(--space-6); text-align: center; color: var(--text-secondary);">
+                            <p>Try different keywords or check your spelling.</p>
+                            <p>Examples: "machine learning", "time series", "data visualization"</p>
+                        </div>
+                    </div>
+                `;
+                resultsContainer.classList.remove('hidden');
+            }
             return;
         }
 
-        const resultHtml = `
-            <div class="recommendation-header">
-                <span>Recommended packages for "${keywords}"</span>
-                <span class="recommendation-count">${recommendations.length} results</span>
-            </div>
-            <div class="recommendation-list">
-                ${recommendations.map(item => this.createRecommendationItem(item)).join('')}
-            </div>
-        `;
-
-        resultsContainer.innerHTML = resultHtml;
-        resultsContainer.classList.remove('hidden');
+        if (isNewSearch) {
+            // New search - replace content
+            const resultHtml = `
+                <div class="recommendation-header">
+                    <span>Recommended packages for "${keywords}"</span>
+                    <span class="recommendation-count">${totalResults} results</span>
+                </div>
+                <div class="recommendation-list" id="recommendationList">
+                    ${recommendations.map(item => this.createRecommendationItem(item)).join('')}
+                </div>
+                ${hasMore ? `
+                    <div class="show-more-container">
+                        <button class="show-more-btn" onclick="app.loadMoreKeywordResults()">
+                            Show More Results (${totalResults - recommendations.length} remaining)
+                        </button>
+                        <div class="show-more-loading hidden">
+                            <div class="spinner-small"></div>
+                            <span>Loading more...</span>
+                        </div>
+                    </div>
+                ` : ''}
+            `;
+            resultsContainer.innerHTML = resultHtml;
+            resultsContainer.classList.remove('hidden');
+            
+            // Update search state
+            this.currentKeywordSearch = { 
+                keywords, 
+                offset: recommendations.length,
+                totalResults,
+                hasMore 
+            };
+        } else {
+            // Load more - append content
+            const listContainer = document.getElementById('recommendationList');
+            const showMoreContainer = resultsContainer.querySelector('.show-more-container');
+            
+            // Append new results
+            const newItemsHtml = recommendations.map(item => this.createRecommendationItem(item)).join('');
+            listContainer.insertAdjacentHTML('beforeend', newItemsHtml);
+            
+            // Update show more button or remove if no more results
+            this.currentKeywordSearch.offset += recommendations.length;
+            this.currentKeywordSearch.hasMore = hasMore;
+            
+            if (hasMore) {
+                const button = showMoreContainer.querySelector('.show-more-btn');
+                const remaining = totalResults - this.currentKeywordSearch.offset;
+                button.textContent = `Show More Results (${remaining} remaining)`;
+            } else {
+                showMoreContainer.remove();
+            }
+        }
     }
 
     createRecommendationItem(item) {
@@ -1475,6 +1564,12 @@ class RPackageAnalytics {
         this.showTemporaryMessage(`Added "${packageName}" to analysis`, 'success');
     }
 
+    loadMoreKeywordResults() {
+        if (this.currentKeywordSearch && this.currentKeywordSearch.hasMore) {
+            this.searchByKeywords(this.currentKeywordSearch.offset);
+        }
+    }
+
     showKeywordLoading(show) {
         const loadingElement = document.getElementById('keywordLoadingIndicator');
         if (loadingElement) {
@@ -1482,6 +1577,20 @@ class RPackageAnalytics {
                 loadingElement.classList.remove('hidden');
             } else {
                 loadingElement.classList.add('hidden');
+            }
+        }
+    }
+
+    showKeywordLoadingMore(show) {
+        const loadingElement = document.querySelector('.show-more-loading');
+        const button = document.querySelector('.show-more-btn');
+        if (loadingElement && button) {
+            if (show) {
+                loadingElement.classList.remove('hidden');
+                button.classList.add('hidden');
+            } else {
+                loadingElement.classList.add('hidden');
+                button.classList.remove('hidden');
             }
         }
     }
@@ -1650,9 +1759,14 @@ class RPackageAnalytics {
     // Statistics Functions
     initializeStatistics() {
         const loadTopPackagesBtn = document.getElementById('loadTopPackagesBtn');
+        const loadTrendingPackagesBtn = document.getElementById('loadTrendingPackagesBtn');
         
         if (loadTopPackagesBtn) {
             loadTopPackagesBtn.addEventListener('click', () => this.loadTopPackages());
+        }
+        
+        if (loadTrendingPackagesBtn) {
+            loadTrendingPackagesBtn.addEventListener('click', () => this.loadTrendingPackages());
         }
         
         // Update the author coverage stat
@@ -1674,7 +1788,10 @@ class RPackageAnalytics {
             const topPackages = [
                 'ggplot2', 'dplyr', 'tidyverse', 'shiny', 'devtools',
                 'knitr', 'rmarkdown', 'data.table', 'lubridate', 'stringr',
-                'readr', 'tidyr', 'purrr', 'plotly', 'DT'
+                'readr', 'tidyr', 'purrr', 'plotly', 'DT', 'magrittr',
+                'httr', 'jsonlite', 'xml2', 'rvest', 'forecast', 'xts',
+                'zoo', 'caret', 'randomForest', 'leaflet', 'flexdashboard',
+                'reticulate', 'targets', 'testthat', 'usethis'
             ];
             
             // Fetch download data for these packages
@@ -1687,7 +1804,7 @@ class RPackageAnalytics {
             const sortedPackages = downloadData
                 .filter(pkg => pkg.totalDownloads && pkg.totalDownloads.total)
                 .sort((a, b) => b.totalDownloads.total - a.totalDownloads.total)
-                .slice(0, 10);
+                .slice(0, 20);
             
             this.displayTopPackages(sortedPackages);
             
@@ -1719,6 +1836,73 @@ class RPackageAnalytics {
         list.classList.remove('hidden');
     }
 
+    async loadTrendingPackages() {
+        const button = document.getElementById('loadTrendingPackagesBtn');
+        const loading = document.getElementById('trendingPackagesLoading');
+        const list = document.getElementById('trendingPackagesList');
+        
+        // Show loading
+        if (button) button.classList.add('hidden');
+        if (loading) loading.classList.remove('hidden');
+        if (list) list.classList.add('hidden');
+        
+        try {
+            const response = await fetch('/api/trending-packages?limit=10');
+            if (!response.ok) throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+            
+            const trendingData = await response.json();
+            
+            // Hide loading
+            if (loading) loading.classList.add('hidden');
+            
+            if (!trendingData || trendingData.length === 0) {
+                list.innerHTML = '<p class="no-data">No trending packages found at the moment.</p>';
+                list.classList.remove('hidden');
+                return;
+            }
+            
+            // Generate HTML for trending packages
+            const html = trendingData.map((pkg, index) => {
+                const formattedRecentDownloads = this.formatNumber(pkg.recentDownloads);
+                const formattedGrowthAmount = this.formatNumber(pkg.growthAmount);
+                const growthSign = pkg.growthRate > 0 ? '+' : '';
+                
+                return `
+                    <div class="trending-package-item" onclick="app.addPackageFromStats('${pkg.package}')">
+                        <div class="trending-package-info">
+                            <div class="trending-package-name">${pkg.package}</div>
+                            <div class="trending-package-stats">
+                                <span class="trending-growth">${growthSign}${pkg.growthRate}% growth</span>
+                                <span class="trending-downloads">${formattedRecentDownloads} recent downloads</span>
+                            </div>
+                            <div class="trending-period">${pkg.period}</div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            
+            list.innerHTML = html;
+            list.classList.remove('hidden');
+            
+        } catch (error) {
+            console.error('Error loading trending packages:', error);
+            
+            // Hide loading
+            if (loading) loading.classList.add('hidden');
+            if (button) button.classList.remove('hidden');
+            
+            // Show error
+            if (list) {
+                list.innerHTML = `
+                    <div class="error-message">
+                        <p>Failed to load trending packages. Please try again later.</p>
+                        <p class="error-details">${error.message}</p>
+                    </div>
+                `;
+                list.classList.remove('hidden');
+            }
+        }
+    }
 
     updateAuthorCoverage() {
         // This would be updated from server data
@@ -1848,6 +2032,16 @@ class RPackageAnalytics {
             this.hideResults();
             this.hideKeywordResults();
             this.hideAuthorResults();
+        }
+    }
+
+    initializeNavigation() {
+        // Initialize Bioconductor button
+        const bioconductorBtn = document.getElementById('bioconductorBtn');
+        if (bioconductorBtn) {
+            bioconductorBtn.addEventListener('click', () => {
+                window.location.href = 'bioconductor.html';
+            });
         }
     }
 }

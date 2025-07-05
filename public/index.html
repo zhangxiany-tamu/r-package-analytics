@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>R Package Download Analytics</title>
+    <title>CRAN Package Analytics</title>
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/date-fns@2.29.3/index.min.js"></script>
@@ -12,10 +12,14 @@
     <div class="container">
         <header>
             <div class="header-content">
-                <h1>R Package Download Analytics</h1>
+                <h1>📦 CRAN Package Analytics</h1>
                 <p>Analyze download statistics for R packages from CRAN</p>
             </div>
-            <div class="theme-switcher">
+            <div class="header-actions">
+                <button id="bioconductorBtn" class="bioconductor-btn" title="Explore Bioconductor Packages">
+                    <span class="btn-icon">🧬</span>
+                    <span class="btn-label">Bioconductor</span>
+                </button>
                 <button id="themeToggle" class="theme-btn" title="Switch Theme">Theme</button>
             </div>
         </header>
@@ -84,11 +88,11 @@
                 <div class="keyword-section">
                     <div class="section-intro">
                         <h2>Discover Packages by Keywords</h2>
-                        <p>Enter keywords like "mixed effect models", "random forest", "microbiome data analysis" to discover relevant packages</p>
+                        <p>Enter keywords like "mixed effects", "random forest", "microbiome" to discover relevant packages</p>
                     </div>
                     <div class="keyword-form">
                         <div class="keyword-input-container">
-                            <input type="text" id="keywordInput" placeholder="Enter keywords (e.g., machine learning, time series, data visualization)" />
+                            <input type="text" id="keywordInput" placeholder="Enter keywords (e.g., mixed effects, random forest, microbiome)" />
                         </div>
                         <button id="recommendBtn">Find Packages</button>
                     </div>
@@ -155,6 +159,20 @@
                                     <span>Loading top packages...</span>
                                 </div>
                                 <div id="topPackagesList" class="top-packages-list hidden"></div>
+                            </div>
+                        </div>
+
+                        <!-- Trending Packages -->
+                        <div class="stats-card trending-packages-card">
+                            <h3>📈 Trending Packages</h3>
+                            <div class="stats-content">
+                                <p class="trending-description">Packages with highest growth in recent months</p>
+                                <button id="loadTrendingPackagesBtn" class="load-stats-btn">Load Trending Packages</button>
+                                <div id="trendingPackagesLoading" class="loading hidden">
+                                    <div class="spinner"></div>
+                                    <span>Finding trending packages...</span>
+                                </div>
+                                <div id="trendingPackagesList" class="trending-packages-list hidden"></div>
                             </div>
                         </div>
 

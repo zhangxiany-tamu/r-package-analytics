@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bioconductor Package Analytics</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/date-fns@2.29.3/index.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <h1>🧬 Bioconductor Package Analytics</h1>
+                <p>Explore bioinformatics and computational biology packages from Bioconductor</p>
+            </div>
+            <div class="header-actions">
+                <button id="cranBtn" class="cran-btn" title="Back to CRAN Analytics">
+                    <span class="btn-icon">📦</span>
+                    <span class="btn-label">CRAN</span>
+                </button>
+                <button id="themeToggle" class="theme-btn" title="Switch Theme">Theme</button>
+            </div>
+        </header>
+
+        <main>
+            <!-- Navigation Tabs -->
+            <div class="main-navigation">
+                <div class="nav-tabs">
+                    <button class="nav-tab active" data-tab="bioc-search">
+                        <span class="tab-icon">🔍</span>
+                        <span class="tab-label">Search by Name</span>
+                        <span class="tab-description">Analyze specific packages</span>
+                    </button>
+                    <button class="nav-tab" data-tab="bioc-discover">
+                        <span class="tab-icon">✨</span>
+                        <span class="tab-label">Discover by Keywords</span>
+                        <span class="tab-description">Find relevant packages</span>
+                    </button>
+                    <button class="nav-tab" data-tab="bioc-categories">
+                        <span class="tab-icon">📂</span>
+                        <span class="tab-label">Browse by Category</span>
+                        <span class="tab-description">Software, Annotation, Experiment</span>
+                    </button>
+                    <button class="nav-tab" data-tab="bioc-research">
+                        <span class="tab-icon">🔬</span>
+                        <span class="tab-label">Research Areas</span>
+                        <span class="tab-description">By biological domain</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Search Packages Tab Content -->
+            <div class="tab-content active" id="bioc-search-tab">
+                <div class="search-section">
+                    <div class="section-intro">
+                        <h2>Analyze Package Downloads</h2>
+                        <p>Enter specific package names to analyze their download statistics and trends</p>
+                    </div>
+                    <div class="search-form">
+                        <div class="input-container">
+                            <input type="text" id="biocPackageInput" placeholder="Enter package name(s) - separate multiple with commas" />
+                            <div id="biocPackageSuggestions" class="package-suggestions"></div>
+                        </div>
+                        <button id="biocSearchBtn">Add Packages</button>
+                    </div>
+                    <div class="packages-list" id="biocPackagesList"></div>
+                    <div class="period-selector" id="biocPeriodSelector" style="display: none;">
+                        <label>Time Period:</label>
+                        <div class="period-buttons">
+                            <button class="period-btn" data-period="current-year">Current Year</button>
+                            <button class="period-btn active" data-period="last-year">Last Year</button>
+                            <button class="period-btn" data-period="all-time">All Time</button>
+                        </div>
+                    </div>
+                    <div id="biocLoadingIndicator" class="loading hidden">
+                        <div class="spinner"></div>
+                        <span>Fetching download data...</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Discover by Keywords Tab Content -->
+            <div class="tab-content" id="bioc-discover-tab">
+                <div class="keyword-section">
+                    <div class="section-intro">
+                        <h2>Discover Packages by Keywords</h2>
+                        <p>Enter keywords like "differential", "annotation", "proteomics", "RNA-seq" to discover relevant Bioconductor packages</p>
+                    </div>
+                    <div class="keyword-form">
+                        <div class="keyword-input-container">
+                            <input type="text" id="biocKeywordInput" placeholder="Enter keywords (e.g., differential, proteomics, microbiome)" />
+                        </div>
+                        <button id="biocRecommendBtn">Find Packages</button>
+                    </div>
+                    <div id="biocKeywordLoadingIndicator" class="loading hidden">
+                        <div class="spinner"></div>
+                        <span>Finding relevant packages...</span>
+                    </div>
+                    <div id="biocRecommendationResults" class="recommendation-results hidden"></div>
+                </div>
+            </div>
+
+            <!-- Browse by Category Tab Content -->
+            <div class="tab-content" id="bioc-categories-tab">
+                <div class="keyword-section">
+                    <div class="section-intro">
+                        <h2>Browse by Package Type</h2>
+                        <p>Explore packages organized by Bioconductor's main categories</p>
+                    </div>
+                    <div class="bioc-categories-grid">
+                        <div class="bioc-category-card" data-category="software">
+                            <div class="category-icon">📦</div>
+                            <h3>Software Packages</h3>
+                            <p>Analysis tools, methods, and algorithms for bioinformatics research</p>
+                            <div class="category-stats">
+                                <span class="stat-label">Top 75 packages:</span>
+                                <span class="stat-value">limma, DESeq2, edgeR, GenomicRanges</span>
+                            </div>
+                            <button class="category-btn" data-category="software">Browse Top 75 Software</button>
+                        </div>
+                        <div class="bioc-category-card" data-category="annotation">
+                            <div class="category-icon">📋</div>
+                            <h3>Annotation Packages</h3>
+                            <p>Organism databases, genome annotations, and platform-specific data</p>
+                            <div class="category-stats">
+                                <span class="stat-label">Top 30 packages:</span>
+                                <span class="stat-value">org.Hs.eg.db, GO.db, TxDb.Hsapiens</span>
+                            </div>
+                            <button class="category-btn" data-category="annotation">Browse Top 30 Annotations</button>
+                        </div>
+                        <div class="bioc-category-card" data-category="experiment">
+                            <div class="category-icon">🧪</div>
+                            <h3>Experiment Packages</h3>
+                            <p>Example datasets, case studies, and reproducible research data</p>
+                            <div class="category-stats">
+                                <span class="stat-label">Top 15 packages:</span>
+                                <span class="stat-value">airway, pasilla, celldex</span>
+                            </div>
+                            <button class="category-btn" data-category="experiment">Browse Top 15 Experiments</button>
+                        </div>
+                        <div class="bioc-category-card" data-category="workflow">
+                            <div class="category-icon">🔄</div>
+                            <h3>Workflow Packages</h3>
+                            <p>Complete analysis pipelines and step-by-step tutorials</p>
+                            <div class="category-stats">
+                                <span class="stat-label">All 32 packages:</span>
+                                <span class="stat-value">rnaseqGene, simpleSingleCell</span>
+                            </div>
+                            <button class="category-btn" data-category="workflow">Browse All Workflows</button>
+                        </div>
+                    </div>
+                    <div id="categoryResults" class="recommendation-results hidden"></div>
+                </div>
+            </div>
+
+            <!-- Research Areas Tab Content -->
+            <div class="tab-content" id="bioc-research-tab">
+                <div class="author-section">
+                    <div class="section-intro">
+                        <h2>Browse by Research Area</h2>
+                        <p>Find packages organized by biological and computational domains</p>
+                    </div>
+                    <div class="research-areas-grid">
+                        <div class="research-area-card" data-area="genomics">
+                            <div class="area-icon">🧬</div>
+                            <h3>Genomics</h3>
+                            <p>DNA sequence analysis, variant calling, genome assembly</p>
+                            <div class="area-keywords">
+                                <span class="keyword">GenomicRanges</span>
+                                <span class="keyword">VariantAnnotation</span>
+                                <span class="keyword">BSgenome</span>
+                            </div>
+                        </div>
+                        <div class="research-area-card" data-area="rnaseq">
+                            <div class="area-icon">🧪</div>
+                            <h3>RNA-seq Analysis</h3>
+                            <p>Gene expression, differential analysis, transcriptomics</p>
+                            <div class="area-keywords">
+                                <span class="keyword">DESeq2</span>
+                                <span class="keyword">edgeR</span>
+                                <span class="keyword">limma</span>
+                            </div>
+                        </div>
+                        <div class="research-area-card" data-area="singlecell">
+                            <div class="area-icon">🔬</div>
+                            <h3>Single Cell</h3>
+                            <p>Single-cell RNA-seq, trajectory analysis, clustering</p>
+                            <div class="area-keywords">
+                                <span class="keyword">Seurat</span>
+                                <span class="keyword">monocle3</span>
+                                <span class="keyword">SingleCellExperiment</span>
+                            </div>
+                        </div>
+                        <div class="research-area-card" data-area="epigenomics">
+                            <div class="area-icon">🎨</div>
+                            <h3>Epigenomics</h3>
+                            <p>DNA methylation, ChIP-seq, chromatin accessibility</p>
+                            <div class="area-keywords">
+                                <span class="keyword">minfi</span>
+                                <span class="keyword">ChIPseeker</span>
+                                <span class="keyword">DiffBind</span>
+                            </div>
+                        </div>
+                        <div class="research-area-card" data-area="proteomics">
+                            <div class="area-icon">🧬</div>
+                            <h3>Proteomics</h3>
+                            <p>Protein analysis, mass spectrometry, peptide identification</p>
+                            <div class="area-keywords">
+                                <span class="keyword">MSnbase</span>
+                                <span class="keyword">mzR</span>
+                                <span class="keyword">MSstats</span>
+                            </div>
+                        </div>
+                        <div class="research-area-card" data-area="cancer">
+                            <div class="area-icon">🩺</div>
+                            <h3>Cancer Research</h3>
+                            <p>Oncology, tumor analysis, TCGA data, biomarkers</p>
+                            <div class="area-keywords">
+                                <span class="keyword">TCGAbiolinks</span>
+                                <span class="keyword">maftools</span>
+                                <span class="keyword">ComplexHeatmap</span>
+                            </div>
+                        </div>
+                        <div class="research-area-card" data-area="immunology">
+                            <div class="area-icon">🛡️</div>
+                            <h3>Immunology</h3>
+                            <p>Immune profiling, T/B cell analysis, vaccination</p>
+                            <div class="area-keywords">
+                                <span class="keyword">immunedeconv</span>
+                                <span class="keyword">GSVA</span>
+                                <span class="keyword">HLAtyping</span>
+                            </div>
+                        </div>
+                        <div class="research-area-card" data-area="microarray">
+                            <div class="area-icon">📊</div>
+                            <h3>Microarray</h3>
+                            <p>Array-based gene expression, probe analysis, normalization</p>
+                            <div class="area-keywords">
+                                <span class="keyword">affy</span>
+                                <span class="keyword">oligo</span>
+                                <span class="keyword">gcrma</span>
+                            </div>
+                        </div>
+                        <div class="research-area-card" data-area="metabolomics">
+                            <div class="area-icon">⚗️</div>
+                            <h3>Metabolomics</h3>
+                            <p>Metabolite profiling, chemical analysis, pathway mapping</p>
+                            <div class="area-keywords">
+                                <span class="keyword">xcms</span>
+                                <span class="keyword">CAMERA</span>
+                                <span class="keyword">MetaboAnalystR</span>
+                            </div>
+                        </div>
+                        <div class="research-area-card" data-area="cytometry">
+                            <div class="area-icon">🎯</div>
+                            <h3>Flow Cytometry</h3>
+                            <p>Cell population analysis, immunophenotyping, FACS data</p>
+                            <div class="area-keywords">
+                                <span class="keyword">flowCore</span>
+                                <span class="keyword">flowStats</span>
+                                <span class="keyword">flowWorkspace</span>
+                            </div>
+                        </div>
+                        <div class="research-area-card" data-area="annotation">
+                            <div class="area-icon">📖</div>
+                            <h3>Annotation</h3>
+                            <p>Gene ontology, pathway analysis, enrichment</p>
+                            <div class="area-keywords">
+                                <span class="keyword">clusterProfiler</span>
+                                <span class="keyword">ReactomePA</span>
+                                <span class="keyword">org.Hs.eg.db</span>
+                            </div>
+                        </div>
+                        <div class="research-area-card" data-area="visualization">
+                            <div class="area-icon">📈</div>
+                            <h3>Visualization</h3>
+                            <p>Data plotting, heatmaps, interactive graphics</p>
+                            <div class="area-keywords">
+                                <span class="keyword">ggplot2</span>
+                                <span class="keyword">plotly</span>
+                                <span class="keyword">ComplexHeatmap</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="researchResults" class="author-results hidden"></div>
+                </div>
+            </div>
+
+
+            <!-- Results Section (shared across tabs) -->
+            <div id="biocResults" class="results hidden">
+                <div class="package-info">
+                    <h2 id="biocPackageTitle"></h2>
+                    <div id="biocPackageDetails"></div>
+                </div>
+
+                <div class="stats-overview">
+                    <div class="stat-card">
+                        <h3>Period Downloads</h3>
+                        <div id="biocTotalDownloads" class="stat-value">-</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>All-Time Total</h3>
+                        <div id="biocAllTimeTotal" class="stat-value">-</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Average Monthly</h3>
+                        <div id="biocAvgMonthly" class="stat-value">-</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Distinct IPs</h3>
+                        <div id="biocDistinctIPs" class="stat-value">-</div>
+                    </div>
+                </div>
+
+                <div id="biocPackageSummaries" class="package-summaries"></div>
+
+                <div id="biocChartSection" class="chart-section hidden">
+                    <div class="chart-container">
+                        <div class="chart-header">
+                            <h3>Download Trends</h3>
+                            <button class="download-btn" onclick="biocApp.downloadChart('trends')" title="Download Chart">Download</button>
+                        </div>
+                        <div id="biocTrendsLegend" class="custom-legend"></div>
+                        <canvas id="biocDownloadsChart"></canvas>
+                    </div>
+                    <div class="chart-container" id="biocCumulativeChartContainer">
+                        <div class="chart-header">
+                            <h3>Cumulative Downloads</h3>
+                            <button class="download-btn" onclick="biocApp.downloadChart('cumulative')" title="Download Chart">Download</button>
+                        </div>
+                        <div id="biocCumulativeLegend" class="custom-legend"></div>
+                        <canvas id="biocCumulativeChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div id="biocError" class="error hidden">
+                <p id="biocErrorMessage"></p>
+            </div>
+        </main>
+
+        <footer>
+            <p>Data provided by <a href="https://bioconductor.org/packages/stats/" target="_blank">Bioconductor statistics</a></p>
+        </footer>
+    </div>
+
+    <script src="bioconductor.js"></script>
+</body>
+</html>
