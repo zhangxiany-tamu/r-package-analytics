@@ -2029,7 +2029,7 @@ class RPackageAnalytics {
         if (list) list.classList.add('hidden');
         
         try {
-            const response = await fetch('/api/trending-packages?limit=10');
+            const response = await fetch('/api/trending-packages?limit=20');
             if (!response.ok) throw new Error(`HTTP ${response.status}: ${response.statusText}`);
             
             const trendingData = await response.json();
@@ -2138,7 +2138,7 @@ class RPackageAnalytics {
         if (packages.length === 0) {
             list.innerHTML = `
                 <div class="empty-state">
-                    <p>No new packages found in the last week.</p>
+                    <p>No recent package updates found in the last week.</p>
                 </div>
             `;
             return;
