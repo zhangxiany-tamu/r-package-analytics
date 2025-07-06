@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRAN Package Analytics</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/date-fns@2.29.3/index.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <h1>📦 CRAN Package Analytics</h1>
+                <p>Analyze download statistics for R packages from CRAN</p>
+            </div>
+            <div class="header-actions">
+                <button id="bioconductorBtn" class="bioconductor-btn" title="Explore Bioconductor Packages">
+                    <span class="btn-icon">🧬</span>
+                    <span class="btn-label">Bioconductor</span>
+                </button>
+                <button id="themeToggle" class="theme-btn" title="Switch Theme">Theme</button>
+            </div>
+        </header>
+
+        <main>
+            <!-- Navigation Tabs -->
+            <div class="main-navigation">
+                <div class="nav-tabs">
+                    <button class="nav-tab active" data-tab="search">
+                        <span class="tab-icon">🔍</span>
+                        <span class="tab-label">Search by Name</span>
+                        <span class="tab-description">Analyze specific packages</span>
+                    </button>
+                    <button class="nav-tab" data-tab="discover">
+                        <span class="tab-icon">✨</span>
+                        <span class="tab-label">Discover by Keywords</span>
+                        <span class="tab-description">Find relevant packages</span>
+                    </button>
+                    <button class="nav-tab" data-tab="author">
+                        <span class="tab-icon">👤</span>
+                        <span class="tab-label">Search by Author</span>
+                        <span class="tab-description">Find packages by author</span>
+                    </button>
+                    <button class="nav-tab" data-tab="stats">
+                        <span class="tab-icon">📊</span>
+                        <span class="tab-label">CRAN Statistics</span>
+                        <span class="tab-description">Ecosystem insights</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Search by Name Tab Content -->
+            <div class="tab-content active" id="search-tab">
+                <div class="search-section">
+                    <div class="section-intro">
+                        <h2>Analyze Package Downloads</h2>
+                        <p>Enter specific package names to analyze their download statistics and trends</p>
+                    </div>
+                    <div class="search-form">
+                        <div class="input-container">
+                            <input type="text" id="packageInput" placeholder="Enter package name(s) - separate multiple with commas" />
+                            <div id="packageSuggestions" class="package-suggestions"></div>
+                        </div>
+                        <button id="searchBtn">Add Packages</button>
+                    </div>
+                    <div class="packages-list" id="packagesList"></div>
+                    <div class="period-selector" id="periodSelector" style="display: none;">
+                        <label>Time Period:</label>
+                        <div class="period-buttons">
+                            <button class="period-btn" data-period="last-day">Last Day</button>
+                            <button class="period-btn" data-period="last-week">Last Week</button>
+                            <button class="period-btn active" data-period="last-month">Last Month</button>
+                            <button class="period-btn" data-period="last-year">Last Year</button>
+                            <button class="period-btn" data-period="all-time">All Time</button>
+                        </div>
+                    </div>
+                    <div id="loadingIndicator" class="loading hidden">
+                        <div class="spinner"></div>
+                        <span>Fetching download data...</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Discover by Keywords Tab Content -->
+            <div class="tab-content" id="discover-tab">
+                <div class="keyword-section">
+                    <div class="section-intro">
+                        <h2>Discover Packages by Keywords</h2>
+                        <p>Enter keywords like "mixed effects", "random forest", "microbiome" to discover relevant packages</p>
+                    </div>
+                    <div class="keyword-form">
+                        <div class="keyword-input-container">
+                            <input type="text" id="keywordInput" placeholder="Enter keywords (e.g., mixed effects, random forest, microbiome)" />
+                        </div>
+                        <button id="recommendBtn">Find Packages</button>
+                    </div>
+                    <div id="keywordLoadingIndicator" class="loading hidden">
+                        <div class="spinner"></div>
+                        <span>Finding relevant packages...</span>
+                    </div>
+                    <div id="recommendationResults" class="recommendation-results hidden"></div>
+                </div>
+            </div>
+
+            <!-- Search by Author Tab Content -->
+            <div class="tab-content" id="author-tab">
+                <div class="author-section">
+                    <div class="section-intro">
+                        <h2>Search Packages by Author</h2>
+                        <p>Enter author names like "Hadley Wickham" to find packages by specific researchers or developers</p>
+                    </div>
+                    <div class="author-form">
+                        <div class="author-input-container">
+                            <input type="text" id="authorInput" placeholder="Enter author name (e.g., Hadley Wickham)" />
+                        </div>
+                        <button id="authorSearchBtn">Find Packages</button>
+                    </div>
+                    <div id="authorLoadingIndicator" class="loading hidden">
+                        <div class="spinner"></div>
+                        <span>Finding packages by author...</span>
+                    </div>
+                    <div id="authorResults" class="author-results hidden"></div>
+                </div>
+            </div>
+
+            <!-- CRAN Statistics Tab Content -->
+            <div class="tab-content" id="stats-tab">
+                <div class="stats-section">
+                    <div class="section-intro">
+                        <h2>CRAN Ecosystem Statistics</h2>
+                        <p>Explore comprehensive statistics about the R package ecosystem on CRAN</p>
+                    </div>
+                    
+                    <div class="stats-grid">
+                        <!-- Overview Stats -->
+                        <div class="stats-card">
+                            <h3>📦 Package Overview</h3>
+                            <div class="stats-content">
+                                <div class="stat-item">
+                                    <span class="stat-label">Total Packages:</span>
+                                    <span class="stat-value" id="totalPackages">22,382</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-label">Authors Covered:</span>
+                                    <span class="stat-value" id="authorsCovered">13,250+</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Top Downloads -->
+                        <div class="stats-card top-downloads-card">
+                            <h3>🏆 Most Downloaded Packages (Last Year)</h3>
+                            <div class="stats-content">
+                                <button id="loadTopPackagesBtn" class="load-stats-btn">Load Top Packages</button>
+                                <div id="topPackagesLoading" class="loading hidden">
+                                    <div class="spinner"></div>
+                                    <span>Loading top packages...</span>
+                                </div>
+                                <div id="topPackagesList" class="top-packages-list hidden"></div>
+                            </div>
+                        </div>
+
+                        <!-- Trending Packages -->
+                        <div class="stats-card trending-packages-card">
+                            <h3>📈 Trending Packages</h3>
+                            <div class="stats-content">
+                                <p class="trending-description">Packages with highest growth in recent months</p>
+                                <button id="loadTrendingPackagesBtn" class="load-stats-btn">Load Trending Packages</button>
+                                <div id="trendingPackagesLoading" class="loading hidden">
+                                    <div class="spinner"></div>
+                                    <span>Finding trending packages...</span>
+                                </div>
+                                <div id="trendingPackagesList" class="trending-packages-list hidden"></div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div id="results" class="results hidden">
+                <div class="package-info">
+                    <h2 id="packageTitle"></h2>
+                    <div id="packageDetails"></div>
+                </div>
+
+                <div class="stats-overview">
+                    <div class="stat-card">
+                        <h3>Period Downloads</h3>
+                        <div id="totalDownloads" class="stat-value">-</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>All-Time Total</h3>
+                        <div id="allTimeTotal" class="stat-value">-</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Average Daily</h3>
+                        <div id="avgDaily" class="stat-value">-</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Peak Day</h3>
+                        <div id="peakDay" class="stat-value">-</div>
+                    </div>
+                    <div class="stat-card" id="rankingCard" style="display: none;">
+                        <h3>Popularity</h3>
+                        <div id="packageRanking" class="stat-value">-</div>
+                    </div>
+                </div>
+
+                <div id="packageSummaries" class="package-summaries"></div>
+
+                <div id="chartSection" class="chart-section">
+                    <div class="chart-controls">
+                        <label class="prediction-toggle">
+                            <input type="checkbox" id="predictionToggle">
+                            <span>Show Predictions</span>
+                        </label>
+                    </div>
+                    <div class="chart-container">
+                        <div class="chart-header">
+                            <h3>Download Trends</h3>
+                            <button class="download-btn" onclick="app.downloadChart('trends')" title="Download Chart">Download</button>
+                        </div>
+                        <div id="trendsLegend" class="custom-legend"></div>
+                        <canvas id="downloadsChart"></canvas>
+                    </div>
+                    <div class="chart-container" id="cumulativeChartContainer">
+                        <div class="chart-header">
+                            <h3>Cumulative Downloads</h3>
+                            <button class="download-btn" onclick="app.downloadChart('cumulative')" title="Download Chart">Download</button>
+                        </div>
+                        <div id="cumulativeLegend" class="custom-legend"></div>
+                        <canvas id="cumulativeChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div id="error" class="error hidden">
+                <p id="errorMessage"></p>
+            </div>
+        </main>
+
+        <footer>
+            <p>Data provided by <a href="https://cranlogs.r-pkg.org/" target="_blank">CRAN logs</a></p>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
