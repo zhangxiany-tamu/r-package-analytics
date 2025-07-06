@@ -1,6 +1,6 @@
 # R Package Analytics
 
-A web app to analyze R package download statistics from CRAN.
+A web app to analyze R package download statistics from CRAN and Bioconductor.
 
 ## Live Demo
 
@@ -8,7 +8,7 @@ A web app to analyze R package download statistics from CRAN.
 
 ## Features
 
-- Search across all CRAN packages
+- Search across all CRAN and Bioconductor packages
 - View download trends and charts
 - Compare multiple packages
 - Different time periods (day, week, month, year, all-time)
@@ -26,4 +26,4 @@ A web app to analyze R package download statistics from CRAN.
 
 ## Usage
 
-Search for R packages and view their download statistics over different time periods.
+Search for R packages from CRAN and Bioconductor and view their download statistics over different time periods.
