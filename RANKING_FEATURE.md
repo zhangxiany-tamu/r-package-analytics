@@ -4,7 +4,7 @@ This document describes the package popularity percentile functionality added to
 
 ## Overview
 
-The popularity feature provides precise percentiles showing where a package ranks among all CRAN packages based on download statistics. A higher percentile means more popular (e.g., 99% = top 1% most popular).
+The popularity feature provides precise percentiles showing where a package ranks among all CRAN packages based on total download counts. Rankings are determined by the cumulative download statistics from datasciencemeta.com, which tracks all-time download totals. A higher percentile means more popular (e.g., 99% = top 1% most popular).
 
 ## API Endpoints
 
@@ -91,9 +91,10 @@ GET /api/ranking/ggplot2,dplyr?period=last-year
 ### Primary Method: datasciencemeta.com
 1. **Scrapes exact rankings** from https://www.datasciencemeta.com/rpackages  
 2. **Updated daily** with comprehensive CRAN package rankings
-3. **Covers 22,000+ packages** with precise rank positions
-4. **Combines with our download stats** for the selected time period
-5. **Cached for 12 hours** to minimize scraping load
+3. **Covers 22,000+ packages** with precise rank positions based on total download counts
+4. **Rankings reflect all-time popularity** determined by cumulative download statistics
+5. **Combines with our download stats** for the selected time period
+6. **Cached for 12 hours** to minimize scraping load
 
 ### Download Statistics: CRAN Logs API  
 - **All download numbers** come from our own CRAN logs API calls

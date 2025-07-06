@@ -133,49 +133,107 @@
                         <p>Explore comprehensive statistics about the R package ecosystem on CRAN</p>
                     </div>
                     
-                    <div class="stats-grid">
-                        <!-- Overview Stats -->
-                        <div class="stats-card">
-                            <h3>📦 Package Overview</h3>
-                            <div class="stats-content">
-                                <div class="stat-item">
-                                    <span class="stat-label">Total Packages:</span>
-                                    <span class="stat-value" id="totalPackages">22,382</span>
+                    <!-- Statistics Sub-Navigation -->
+                    <div class="stats-navigation">
+                        <div class="stats-nav-tabs">
+                            <button class="stats-nav-tab active" data-stats-tab="overview">
+                                <span class="stats-tab-icon">📊</span>
+                                <span class="stats-tab-label">Overview</span>
+                            </button>
+                            <button class="stats-nav-tab" data-stats-tab="top-packages">
+                                <span class="stats-tab-icon">🏆</span>
+                                <span class="stats-tab-label">Most Downloaded</span>
+                            </button>
+                            <button class="stats-nav-tab" data-stats-tab="trending">
+                                <span class="stats-tab-icon">📈</span>
+                                <span class="stats-tab-label">Trending</span>
+                            </button>
+                            <button class="stats-nav-tab" data-stats-tab="new-packages">
+                                <span class="stats-tab-icon">🆕</span>
+                                <span class="stats-tab-label">Recently Published</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Statistics Content Sections -->
+                    <div class="stats-content-wrapper">
+                        <!-- Overview Section -->
+                        <div class="stats-content-section active" id="overview-section">
+                            <div class="overview-cards">
+                                <div class="overview-card">
+                                    <div class="overview-icon">📦</div>
+                                    <div class="overview-info">
+                                        <h3>Total Packages</h3>
+                                        <div class="overview-value" id="totalPackages">22,382</div>
+                                        <p class="overview-description">Available on CRAN</p>
+                                    </div>
                                 </div>
-                                <div class="stat-item">
-                                    <span class="stat-label">Authors Covered:</span>
-                                    <span class="stat-value" id="authorsCovered">13,250+</span>
+                                <div class="overview-card">
+                                    <div class="overview-icon">👥</div>
+                                    <div class="overview-info">
+                                        <h3>Authors Covered</h3>
+                                        <div class="overview-value" id="authorsCovered">13,250+</div>
+                                        <p class="overview-description">Package contributors</p>
+                                    </div>
+                                </div>
+                                <div class="overview-card">
+                                    <div class="overview-icon">🧬</div>
+                                    <div class="overview-info">
+                                        <h3>Bioconductor</h3>
+                                        <div class="overview-value">3,731</div>
+                                        <p class="overview-description">Bioinformatics packages</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Top Downloads -->
-                        <div class="stats-card top-downloads-card">
-                            <h3>🏆 Most Downloaded Packages (Last Year)</h3>
-                            <div class="stats-content">
+                        <!-- Top Packages Section -->
+                        <div class="stats-content-section" id="top-packages-section">
+                            <div class="section-header">
+                                <h3>🏆 Most Downloaded Packages (Last Year)</h3>
+                                <p>The most popular R packages based on download statistics</p>
+                            </div>
+                            <div class="section-actions">
                                 <button id="loadTopPackagesBtn" class="load-stats-btn">Load Top Packages</button>
-                                <div id="topPackagesLoading" class="loading hidden">
-                                    <div class="spinner"></div>
-                                    <span>Loading top packages...</span>
-                                </div>
-                                <div id="topPackagesList" class="top-packages-list hidden"></div>
                             </div>
+                            <div id="topPackagesLoading" class="loading hidden">
+                                <div class="spinner"></div>
+                                <span>Loading top packages...</span>
+                            </div>
+                            <div id="topPackagesList" class="stats-results-list hidden"></div>
                         </div>
 
-                        <!-- Trending Packages -->
-                        <div class="stats-card trending-packages-card">
-                            <h3>📈 Trending Packages</h3>
-                            <div class="stats-content">
-                                <p class="trending-description">Packages with highest growth in recent months</p>
+                        <!-- Trending Packages Section -->
+                        <div class="stats-content-section" id="trending-section">
+                            <div class="section-header">
+                                <h3>📈 Trending Packages</h3>
+                                <p>Packages with highest growth in recent months</p>
+                            </div>
+                            <div class="section-actions">
                                 <button id="loadTrendingPackagesBtn" class="load-stats-btn">Load Trending Packages</button>
-                                <div id="trendingPackagesLoading" class="loading hidden">
-                                    <div class="spinner"></div>
-                                    <span>Finding trending packages...</span>
-                                </div>
-                                <div id="trendingPackagesList" class="trending-packages-list hidden"></div>
                             </div>
+                            <div id="trendingPackagesLoading" class="loading hidden">
+                                <div class="spinner"></div>
+                                <span>Finding trending packages...</span>
+                            </div>
+                            <div id="trendingPackagesList" class="stats-results-list hidden"></div>
                         </div>
 
+                        <!-- New Packages Section -->
+                        <div class="stats-content-section" id="new-packages-section">
+                            <div class="section-header">
+                                <h3>🆕 Recently Published Packages</h3>
+                                <p>Packages published on CRAN in the last week</p>
+                            </div>
+                            <div class="section-actions">
+                                <button id="loadNewPackagesBtn" class="load-stats-btn">Load Recent Packages</button>
+                            </div>
+                            <div id="newPackagesLoading" class="loading hidden">
+                                <div class="spinner"></div>
+                                <span>Loading recent packages...</span>
+                            </div>
+                            <div id="newPackagesList" class="stats-results-list hidden"></div>
+                        </div>
                     </div>
                 </div>
             </div>

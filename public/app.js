@@ -1900,8 +1900,12 @@ class RPackageAnalytics {
 
     // Statistics Functions
     initializeStatistics() {
+        // Initialize sub-tab navigation
+        this.initializeStatsNavigation();
+        
         const loadTopPackagesBtn = document.getElementById('loadTopPackagesBtn');
         const loadTrendingPackagesBtn = document.getElementById('loadTrendingPackagesBtn');
+        const loadNewPackagesBtn = document.getElementById('loadNewPackagesBtn');
         
         if (loadTopPackagesBtn) {
             loadTopPackagesBtn.addEventListener('click', () => this.loadTopPackages());
@@ -1911,8 +1915,37 @@ class RPackageAnalytics {
             loadTrendingPackagesBtn.addEventListener('click', () => this.loadTrendingPackages());
         }
         
+        if (loadNewPackagesBtn) {
+            loadNewPackagesBtn.addEventListener('click', () => this.loadNewPackages());
+        }
+        
         // Update the author coverage stat
         this.updateAuthorCoverage();
+    }
+
+    initializeStatsNavigation() {
+        const statsNavTabs = document.querySelectorAll('.stats-nav-tab');
+        
+        statsNavTabs.forEach(tab => {
+            tab.addEventListener('click', (e) => {
+                const targetTab = e.currentTarget.dataset.statsTab;
+                this.switchStatsTab(targetTab);
+            });
+        });
+    }
+
+    switchStatsTab(targetTab) {
+        // Update active tab
+        document.querySelectorAll('.stats-nav-tab').forEach(tab => {
+            tab.classList.remove('active');
+        });
+        document.querySelector(`[data-stats-tab="${targetTab}"]`).classList.add('active');
+        
+        // Update active content section
+        document.querySelectorAll('.stats-content-section').forEach(section => {
+            section.classList.remove('active');
+        });
+        document.getElementById(`${targetTab}-section`).classList.add('active');
     }
 
     async loadTopPackages() {
@@ -1966,10 +1999,17 @@ class RPackageAnalytics {
             const formattedDownloads = this.formatNumber(downloads);
             
             return `
-                <div class="top-package-item" onclick="app.addPackageFromStats('${pkg.package}')">
-                    <div class="package-rank">${index + 1}</div>
-                    <div class="package-name-stats">${pkg.package}</div>
-                    <div class="package-downloads">${formattedDownloads} downloads</div>
+                <div class="stats-result-item" onclick="app.addPackageFromStats('${pkg.package}')">
+                    <div class="result-item-main">
+                        <div class="result-item-header">
+                            <span class="result-package-name">#${index + 1} ${pkg.package}</span>
+                            <span class="result-item-meta">${formattedDownloads} downloads</span>
+                        </div>
+                        <div class="result-package-description">Most downloaded R package in the last year</div>
+                    </div>
+                    <div class="result-item-action">
+                        <span class="result-add-icon">+</span>
+                    </div>
                 </div>
             `;
         }).join('');
@@ -2010,14 +2050,16 @@ class RPackageAnalytics {
                 const growthSign = pkg.growthRate > 0 ? '+' : '';
                 
                 return `
-                    <div class="trending-package-item" onclick="app.addPackageFromStats('${pkg.package}')">
-                        <div class="trending-package-info">
-                            <div class="trending-package-name">${pkg.package}</div>
-                            <div class="trending-package-stats">
-                                <span class="trending-growth">${growthSign}${pkg.growthRate}% growth</span>
-                                <span class="trending-downloads">${formattedRecentDownloads} recent downloads</span>
+                    <div class="stats-result-item" onclick="app.addPackageFromStats('${pkg.package}')">
+                        <div class="result-item-main">
+                            <div class="result-item-header">
+                                <span class="result-package-name">${pkg.package}</span>
+                                <span class="result-item-meta">${growthSign}${pkg.growthRate}% growth</span>
                             </div>
-                            <div class="trending-period">${pkg.period}</div>
+                            <div class="result-package-description">${formattedRecentDownloads} recent downloads • ${pkg.period}</div>
+                        </div>
+                        <div class="result-item-action">
+                            <span class="result-add-icon">+</span>
                         </div>
                     </div>
                 `;
@@ -2044,6 +2086,85 @@ class RPackageAnalytics {
                 list.classList.remove('hidden');
             }
         }
+    }
+
+    async loadNewPackages() {
+        const button = document.getElementById('loadNewPackagesBtn');
+        const loading = document.getElementById('newPackagesLoading');
+        const list = document.getElementById('newPackagesList');
+        
+        // Show loading
+        if (button) button.classList.add('hidden');
+        if (loading) loading.classList.remove('hidden');
+        if (list) list.classList.add('hidden');
+        
+        try {
+            // Request packages from last week (7 days) with higher limit for scrollable list
+            const response = await fetch('/api/new-packages?limit=50&days=7');
+            if (!response.ok) throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+            
+            const newPackages = await response.json();
+            
+            // Display the new packages
+            this.displayNewPackages(newPackages);
+            
+            // Hide loading, show results
+            if (loading) loading.classList.add('hidden');
+            if (list) list.classList.remove('hidden');
+            
+        } catch (error) {
+            console.error('Error loading new packages:', error);
+            
+            // Hide loading
+            if (loading) loading.classList.add('hidden');
+            
+            // Show error
+            if (list) {
+                list.innerHTML = `
+                    <div class="error-message">
+                        <p>Failed to load new packages. Please try again later.</p>
+                        <p class="error-details">${error.message}</p>
+                    </div>
+                `;
+                list.classList.remove('hidden');
+            }
+        }
+    }
+
+    displayNewPackages(packages) {
+        const list = document.getElementById('newPackagesList');
+        if (!list) return;
+        
+        if (packages.length === 0) {
+            list.innerHTML = `
+                <div class="empty-state">
+                    <p>No new packages found in the last week.</p>
+                </div>
+            `;
+            return;
+        }
+        
+        const html = packages.map((pkg, index) => {
+            const publishedDate = new Date(pkg.published).toLocaleDateString();
+            const daysAgo = Math.floor((Date.now() - new Date(pkg.published).getTime()) / (1000 * 60 * 60 * 24));
+            
+            return `
+                <div class="stats-result-item" onclick="app.addPackageFromStats('${pkg.package}')">
+                    <div class="result-item-main">
+                        <div class="result-item-header">
+                            <span class="result-package-name">${pkg.package}</span>
+                            <span class="result-item-meta">${publishedDate} (${daysAgo} days ago)</span>
+                        </div>
+                        <div class="result-package-description">${pkg.title || pkg.description || 'No description available'}</div>
+                    </div>
+                    <div class="result-item-action">
+                        <span class="result-add-icon">+</span>
+                    </div>
+                </div>
+            `;
+        }).join('');
+        
+        list.innerHTML = html;
     }
 
     updateAuthorCoverage() {
