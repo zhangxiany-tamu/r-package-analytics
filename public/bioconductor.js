@@ -157,7 +157,11 @@ class BioconductorAnalytics {
             this.hideKeywordResults();
             this.hideElement('categoryResults');
             this.hideElement('researchResults');
-            // Don't hide main analysis results when switching to search tab
+            // Show main results if we have packages analyzed
+            if (this.packages.length > 0 && this.currentData) {
+                this.showElement('biocResults');
+                this.showElement('biocChartSection');
+            }
         } else if (tabName === 'bioc-discover') {
             this.hideResults(); // Hide main results when going to discover tab
             this.hideElement('categoryResults');

@@ -98,6 +98,9 @@ class RPackageAnalytics {
         
         // Initialize tab navigation
         this.initializeTabNavigation();
+        
+        // Initialize category browsing functionality
+        this.initializeCategoryBrowsing();
     }
 
     handleInputChange(e) {
@@ -2203,6 +2206,173 @@ class RPackageAnalytics {
         this.showTemporaryMessage(`Added "${packageName}" to analysis`, 'success');
     }
 
+    addPackageFromEssential(packageName) {
+        // Switch to the search tab and add the package
+        this.switchTab('search');
+        
+        const packageInput = document.getElementById('packageInput');
+        
+        // Check if package is already added
+        if (this.packages.includes(packageName)) {
+            this.showError(`Package "${packageName}" is already in your analysis`);
+            return;
+        }
+
+        // Add the package to the current input
+        const currentValue = packageInput.value.trim();
+        if (currentValue && !currentValue.endsWith(',')) {
+            packageInput.value = currentValue + ', ' + packageName;
+        } else {
+            packageInput.value = currentValue + packageName;
+        }
+
+        // Trigger the add packages functionality
+        this.addPackages();
+        
+        // Show success message
+        this.showTemporaryMessage(`Added "${packageName}" to analysis`, 'success');
+    }
+
+    initializeCategoryBrowsing() {
+        // Category buttons
+        const categoryButtons = document.querySelectorAll('.category-btn');
+        categoryButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                const category = e.target.dataset.category;
+                this.browseCategory(category);
+            });
+        });
+    }
+
+    browseCategory(category) {
+        // Define packages for each category
+        const categoryPackages = {
+            'data-loading': [
+                { name: 'DBI', description: 'Standard for communication between R and relational databases' },
+                { name: 'odbc', description: 'Use any ODBC driver to connect R to databases' },
+                { name: 'RMySQL', description: 'Database interface and MySQL driver for R' },
+                { name: 'haven', description: 'Read and write data from SAS, SPSS, and Stata' },
+                { name: 'foreign', description: 'Read data from SAS, SPSS, Stata, and other formats' },
+                { name: 'readxl', description: 'Read Excel files (.xls and .xlsx)' },
+                { name: 'readr', description: 'Read rectangular text data' },
+                { name: 'jsonlite', description: 'JSON parser and generator' },
+                { name: 'XML', description: 'Parse XML and HTML documents' },
+                { name: 'httr', description: 'Tools for working with HTTP requests' }
+            ],
+            'data-manipulation': [
+                { name: 'tidyverse', description: 'Collection of packages for data science with shared design philosophy' },
+                { name: 'dplyr', description: 'Functions for subsetting, summarizing, and joining data' },
+                { name: 'tidyr', description: 'Tools for changing data layout with gather and spread functions' },
+                { name: 'stringr', description: 'Tools for regular expressions and character strings' },
+                { name: 'lubridate', description: 'Tools that make working with dates and times easier' },
+                { name: 'data.table', description: 'Alternative way to organize data sets for high-performance operations' },
+                { name: 'purrr', description: 'Functional programming tools' },
+                { name: 'forcats', description: 'Tools for working with categorical variables' },
+                { name: 'magrittr', description: 'Pipe operator for R' },
+                { name: 'janitor', description: 'Simple tools for cleaning data' }
+            ],
+            'data-visualization': [
+                { name: 'ggplot2', description: 'Package for creating graphics using grammar of graphics' },
+                { name: 'plotly', description: 'Create interactive web-based visualizations' },
+                { name: 'ggmap', description: 'Download maps from Google Maps and use as ggplot backgrounds' },
+                { name: 'leaflet', description: 'Interactive maps using the Leaflet JavaScript library' },
+                { name: 'DT', description: 'Interactive data tables for R' },
+                { name: 'rgl', description: 'Interactive 3D visualizations' },
+                { name: 'lattice', description: 'Trellis graphics for R' },
+                { name: 'ggthemes', description: 'Extra themes and scales for ggplot2' },
+                { name: 'RColorBrewer', description: 'Color palettes for maps and charts' },
+                { name: 'viridis', description: 'Colorblind-friendly color palettes' }
+            ],
+            'statistical-modeling': [
+                { name: 'tidymodels', description: 'Collection of packages for modeling and machine learning' },
+                { name: 'caret', description: 'Tools for training regression and classification models' },
+                { name: 'randomForest', description: 'Random forest methods from machine learning' },
+                { name: 'lme4', description: 'Linear and nonlinear mixed effects models' },
+                { name: 'glmnet', description: 'Lasso and elastic-net regression methods with cross validation' },
+                { name: 'survival', description: 'Tools for survival analysis' },
+                { name: 'nnet', description: 'Neural networks and multinomial log-linear models' },
+                { name: 'e1071', description: 'Support vector machines and other machine learning methods' },
+                { name: 'cluster', description: 'Cluster analysis methods' },
+                { name: 'MASS', description: 'Modern applied statistics' }
+            ],
+            'reporting-apps': [
+                { name: 'shiny', description: 'Create interactive web applications with R' },
+                { name: 'rmarkdown', description: 'Dynamic documents combining R code with narrative text' },
+                { name: 'knitr', description: 'Dynamic report generation with R' },
+                { name: 'xtable', description: 'Export tables to LaTeX or HTML for documents' },
+                { name: 'flexdashboard', description: 'Interactive dashboards for R' },
+                { name: 'bookdown', description: 'Create books and long-form documents' },
+                { name: 'blogdown', description: 'Create websites with R Markdown' },
+                { name: 'pkgdown', description: 'Generate static documentation websites for R packages' },
+                { name: 'DT', description: 'Interactive data tables for R' },
+                { name: 'crosstalk', description: 'Inter-widget interactivity for HTML widgets' }
+            ],
+            'performance-development': [
+                { name: 'Rcpp', description: 'R and C++ integration for high performance' },
+                { name: 'parallel', description: 'Support for parallel computation in R' },
+                { name: 'devtools', description: 'Tools for turning code into R packages' },
+                { name: 'testthat', description: 'Tools for writing unit tests for your code projects' },
+                { name: 'roxygen2', description: 'Document R packages with inline code comments' },
+                { name: 'profvis', description: 'Interactive visualizations for profiling R code' },
+                { name: 'microbenchmark', description: 'Accurate timing functions for R' },
+                { name: 'pryr', description: 'Tools for computing on the R language' },
+                { name: 'usethis', description: 'Automate package and project setup' },
+                { name: 'pkgload', description: 'Simulate package installation and loading' }
+            ]
+        };
+
+        const packages = categoryPackages[category] || [];
+        this.displayCategoryResults(category, packages);
+    }
+
+    displayCategoryResults(category, packages) {
+        const resultsContainer = document.getElementById('categoryResults');
+        if (!resultsContainer) return;
+
+        if (packages.length === 0) {
+            resultsContainer.innerHTML = `
+                <div class="no-results">
+                    <p>No packages found for category "${category}"</p>
+                </div>
+            `;
+            resultsContainer.classList.remove('hidden');
+            return;
+        }
+
+        // Create category title mapping
+        const categoryTitles = {
+            'data-loading': 'Data Loading Packages',
+            'data-manipulation': 'Data Manipulation Packages',
+            'data-visualization': 'Data Visualization Packages',
+            'statistical-modeling': 'Statistical Modeling Packages',
+            'reporting-apps': 'Reporting & Apps Packages',
+            'performance-development': 'Performance & Development Packages'
+        };
+
+        const categoryTitle = categoryTitles[category] || category;
+
+        resultsContainer.innerHTML = `
+            <div class="category-results-header">
+                <h3>${categoryTitle}</h3>
+                <p>Click on any package to add it to your analysis</p>
+            </div>
+            <div class="category-results-grid">
+                ${packages.map(pkg => `
+                    <div class="category-package-item">
+                        <div class="package-name">${pkg.name}</div>
+                        <div class="package-description">${pkg.description}</div>
+                        <button class="add-package-btn" onclick="app.addPackageFromEssential('${pkg.name}')">Add to Analysis</button>
+                    </div>
+                `).join('')}
+            </div>
+        `;
+
+        resultsContainer.classList.remove('hidden');
+        
+        // Scroll to results
+        resultsContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
     formatNumber(num) {
         if (num >= 1000000) {
             return (num / 1000000).toFixed(1) + 'M';
@@ -2285,12 +2455,20 @@ class RPackageAnalytics {
         if (targetTab === 'search') {
             this.hideKeywordResults();
             this.hideAuthorResults();
+            // Show main results if we have packages analyzed
+            if (this.packages.length > 0 && this.currentData) {
+                this.showResults();
+            }
         } else if (targetTab === 'discover') {
             this.hideResults();
             this.hideAuthorResults();
         } else if (targetTab === 'author') {
             this.hideResults();
             this.hideKeywordResults();
+        } else if (targetTab === 'essential') {
+            this.hideResults();
+            this.hideKeywordResults();
+            this.hideAuthorResults();
         } else if (targetTab === 'stats') {
             this.hideResults();
             this.hideKeywordResults();

@@ -12,12 +12,11 @@
     <div class="container">
         <header>
             <div class="header-content">
-                <h1>🧬 Bioconductor Package Analytics</h1>
+                <h1>Bioconductor Package Analytics</h1>
                 <p>Explore bioinformatics and computational biology packages from Bioconductor</p>
             </div>
             <div class="header-actions">
                 <button id="cranBtn" class="cran-btn" title="Back to CRAN Analytics">
-                    <span class="btn-icon">📦</span>
                     <span class="btn-label">CRAN</span>
                 </button>
                 <button id="themeToggle" class="theme-btn" title="Switch Theme">Theme</button>
@@ -29,22 +28,22 @@
             <div class="main-navigation">
                 <div class="nav-tabs">
                     <button class="nav-tab active" data-tab="bioc-search">
-                        <span class="tab-icon">🔍</span>
+                        <span class="tab-icon"></span>
                         <span class="tab-label">Search by Name</span>
                         <span class="tab-description">Analyze specific packages</span>
                     </button>
                     <button class="nav-tab" data-tab="bioc-discover">
-                        <span class="tab-icon">✨</span>
+                        <span class="tab-icon"></span>
                         <span class="tab-label">Discover by Keywords</span>
                         <span class="tab-description">Find relevant packages</span>
                     </button>
                     <button class="nav-tab" data-tab="bioc-categories">
-                        <span class="tab-icon">📂</span>
+                        <span class="tab-icon"></span>
                         <span class="tab-label">Browse by Category</span>
                         <span class="tab-description">Software, Annotation, Experiment</span>
                     </button>
                     <button class="nav-tab" data-tab="bioc-research">
-                        <span class="tab-icon">🔬</span>
+                        <span class="tab-icon"></span>
                         <span class="tab-label">Research Areas</span>
                         <span class="tab-description">By biological domain</span>
                     </button>
@@ -111,44 +110,44 @@
                     </div>
                     <div class="bioc-categories-grid">
                         <div class="bioc-category-card" data-category="software">
-                            <div class="category-icon">📦</div>
+                            <div class="category-icon"></div>
                             <h3>Software Packages</h3>
                             <p>Analysis tools, methods, and algorithms for bioinformatics research</p>
                             <div class="category-stats">
-                                <span class="stat-label">Top 75 packages:</span>
+                                <span class="stat-label">75 highest-ranked packages:</span>
                                 <span class="stat-value">limma, DESeq2, edgeR, GenomicRanges</span>
                             </div>
-                            <button class="category-btn" data-category="software">Browse Top 75 Software</button>
+                            <button class="category-btn" data-category="software">Browse 75 Software Packages</button>
                         </div>
                         <div class="bioc-category-card" data-category="annotation">
-                            <div class="category-icon">📋</div>
+                            <div class="category-icon"></div>
                             <h3>Annotation Packages</h3>
                             <p>Organism databases, genome annotations, and platform-specific data</p>
                             <div class="category-stats">
-                                <span class="stat-label">Top 30 packages:</span>
+                                <span class="stat-label">30 highest-ranked packages:</span>
                                 <span class="stat-value">org.Hs.eg.db, GO.db, TxDb.Hsapiens</span>
                             </div>
-                            <button class="category-btn" data-category="annotation">Browse Top 30 Annotations</button>
+                            <button class="category-btn" data-category="annotation">Browse 30 Annotation Packages</button>
                         </div>
                         <div class="bioc-category-card" data-category="experiment">
-                            <div class="category-icon">🧪</div>
+                            <div class="category-icon"></div>
                             <h3>Experiment Packages</h3>
                             <p>Example datasets, case studies, and reproducible research data</p>
                             <div class="category-stats">
-                                <span class="stat-label">Top 15 packages:</span>
+                                <span class="stat-label">15 highest-ranked packages:</span>
                                 <span class="stat-value">airway, pasilla, celldex</span>
                             </div>
-                            <button class="category-btn" data-category="experiment">Browse Top 15 Experiments</button>
+                            <button class="category-btn" data-category="experiment">Browse 15 Experiment Packages</button>
                         </div>
                         <div class="bioc-category-card" data-category="workflow">
-                            <div class="category-icon">🔄</div>
+                            <div class="category-icon"></div>
                             <h3>Workflow Packages</h3>
-                            <p>Complete analysis pipelines and step-by-step tutorials</p>
+                            <p>Analysis pipelines and step-by-step tutorials</p>
                             <div class="category-stats">
-                                <span class="stat-label">All 32 packages:</span>
+                                <span class="stat-label">32 workflow packages:</span>
                                 <span class="stat-value">rnaseqGene, simpleSingleCell</span>
                             </div>
-                            <button class="category-btn" data-category="workflow">Browse All Workflows</button>
+                            <button class="category-btn" data-category="workflow">Browse Workflow Packages</button>
                         </div>
                     </div>
                     <div id="categoryResults" class="recommendation-results hidden"></div>
@@ -164,7 +163,7 @@
                     </div>
                     <div class="research-areas-grid">
                         <div class="research-area-card" data-area="genomics">
-                            <div class="area-icon">🧬</div>
+                            <div class="area-icon"></div>
                             <h3>Genomics</h3>
                             <p>DNA sequence analysis, variant calling, genome assembly</p>
                             <div class="area-keywords">
@@ -174,7 +173,7 @@
                             </div>
                         </div>
                         <div class="research-area-card" data-area="rnaseq">
-                            <div class="area-icon">🧪</div>
+                            <div class="area-icon"></div>
                             <h3>RNA-seq Analysis</h3>
                             <p>Gene expression, differential analysis, transcriptomics</p>
                             <div class="area-keywords">
@@ -184,7 +183,7 @@
                             </div>
                         </div>
                         <div class="research-area-card" data-area="singlecell">
-                            <div class="area-icon">🔬</div>
+                            <div class="area-icon"></div>
                             <h3>Single Cell</h3>
                             <p>Single-cell RNA-seq, trajectory analysis, clustering</p>
                             <div class="area-keywords">
@@ -194,7 +193,7 @@
                             </div>
                         </div>
                         <div class="research-area-card" data-area="epigenomics">
-                            <div class="area-icon">🎨</div>
+                            <div class="area-icon"></div>
                             <h3>Epigenomics</h3>
                             <p>DNA methylation, ChIP-seq, chromatin accessibility</p>
                             <div class="area-keywords">
@@ -204,7 +203,7 @@
                             </div>
                         </div>
                         <div class="research-area-card" data-area="proteomics">
-                            <div class="area-icon">🧬</div>
+                            <div class="area-icon"></div>
                             <h3>Proteomics</h3>
                             <p>Protein analysis, mass spectrometry, peptide identification</p>
                             <div class="area-keywords">
@@ -214,7 +213,7 @@
                             </div>
                         </div>
                         <div class="research-area-card" data-area="cancer">
-                            <div class="area-icon">🩺</div>
+                            <div class="area-icon"></div>
                             <h3>Cancer Research</h3>
                             <p>Oncology, tumor analysis, TCGA data, biomarkers</p>
                             <div class="area-keywords">
@@ -224,7 +223,7 @@
                             </div>
                         </div>
                         <div class="research-area-card" data-area="immunology">
-                            <div class="area-icon">🛡️</div>
+                            <div class="area-icon"></div>
                             <h3>Immunology</h3>
                             <p>Immune profiling, T/B cell analysis, vaccination</p>
                             <div class="area-keywords">
@@ -234,7 +233,7 @@
                             </div>
                         </div>
                         <div class="research-area-card" data-area="microarray">
-                            <div class="area-icon">📊</div>
+                            <div class="area-icon"></div>
                             <h3>Microarray</h3>
                             <p>Array-based gene expression, probe analysis, normalization</p>
                             <div class="area-keywords">
@@ -244,7 +243,7 @@
                             </div>
                         </div>
                         <div class="research-area-card" data-area="metabolomics">
-                            <div class="area-icon">⚗️</div>
+                            <div class="area-icon"></div>
                             <h3>Metabolomics</h3>
                             <p>Metabolite profiling, chemical analysis, pathway mapping</p>
                             <div class="area-keywords">
@@ -254,7 +253,7 @@
                             </div>
                         </div>
                         <div class="research-area-card" data-area="cytometry">
-                            <div class="area-icon">🎯</div>
+                            <div class="area-icon"></div>
                             <h3>Flow Cytometry</h3>
                             <p>Cell population analysis, immunophenotyping, FACS data</p>
                             <div class="area-keywords">
@@ -264,7 +263,7 @@
                             </div>
                         </div>
                         <div class="research-area-card" data-area="annotation">
-                            <div class="area-icon">📖</div>
+                            <div class="area-icon"></div>
                             <h3>Annotation</h3>
                             <p>Gene ontology, pathway analysis, enrichment</p>
                             <div class="area-keywords">
@@ -274,7 +273,7 @@
                             </div>
                         </div>
                         <div class="research-area-card" data-area="visualization">
-                            <div class="area-icon">📈</div>
+                            <div class="area-icon"></div>
                             <h3>Visualization</h3>
                             <p>Data plotting, heatmaps, interactive graphics</p>
                             <div class="area-keywords">
