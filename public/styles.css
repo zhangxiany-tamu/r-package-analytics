@@ -1397,6 +1397,10 @@ header p {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: var(--space-4);
+    align-items: stretch;
+    overflow: hidden;
+    border-radius: var(--radius-xl);
+    background: var(--bg-primary);
 }
 
 .essential-package-item {
@@ -1406,6 +1410,10 @@ header p {
     padding: var(--space-4);
     transition: all var(--transition-fast);
     position: relative;
+    height: 100%;
+    min-height: 180px;
+    overflow: visible;
+    box-sizing: border-box;
 }
 
 .essential-package-item:hover {
@@ -1479,6 +1487,10 @@ header p {
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: var(--space-4);
     margin-top: var(--space-4);
+    align-items: stretch;
+    overflow: hidden;
+    border-radius: var(--radius-xl);
+    background: var(--bg-primary);
 }
 
 .category-package-item {
@@ -1488,6 +1500,10 @@ header p {
     padding: var(--space-4);
     transition: all var(--transition-fast);
     position: relative;
+    height: 100%;
+    min-height: 180px;
+    overflow: visible;
+    box-sizing: border-box;
 }
 
 .category-package-item:hover {

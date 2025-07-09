@@ -2234,7 +2234,7 @@ class RPackageAnalytics {
     }
 
     initializeCategoryBrowsing() {
-        // Category buttons
+        // Category buttons (card-based)
         const categoryButtons = document.querySelectorAll('.category-btn');
         categoryButtons.forEach(button => {
             button.addEventListener('click', (e) => {
@@ -2331,46 +2331,56 @@ class RPackageAnalytics {
 
         if (packages.length === 0) {
             resultsContainer.innerHTML = `
-                <div class="no-results">
-                    <p>No packages found for category "${category}"</p>
+                <div class="recommendation-header">
+                    <span>No packages found for category "${category}"</span>
                 </div>
             `;
-            resultsContainer.classList.remove('hidden');
-            return;
+        } else {
+            // Create category title mapping
+            const categoryTitles = {
+                'data-loading': 'Data Loading Packages',
+                'data-manipulation': 'Data Manipulation Packages',
+                'data-visualization': 'Data Visualization Packages',
+                'statistical-modeling': 'Statistical Modeling Packages',
+                'reporting-apps': 'Reporting & Apps Packages',
+                'performance-development': 'Performance & Development Packages'
+            };
+
+            const categoryTitle = categoryTitles[category] || category;
+
+            resultsContainer.innerHTML = `
+                <div class="recommendation-header">
+                    <span>${categoryTitle}</span>
+                    <span class="recommendation-count">${packages.length}</span>
+                </div>
+                <div class="recommendation-list">
+                    ${packages.map(pkg => this.createCategoryResultItem(pkg)).join('')}
+                </div>
+            `;
         }
-
-        // Create category title mapping
-        const categoryTitles = {
-            'data-loading': 'Data Loading Packages',
-            'data-manipulation': 'Data Manipulation Packages',
-            'data-visualization': 'Data Visualization Packages',
-            'statistical-modeling': 'Statistical Modeling Packages',
-            'reporting-apps': 'Reporting & Apps Packages',
-            'performance-development': 'Performance & Development Packages'
-        };
-
-        const categoryTitle = categoryTitles[category] || category;
-
-        resultsContainer.innerHTML = `
-            <div class="category-results-header">
-                <h3>${categoryTitle}</h3>
-                <p>Click on any package to add it to your analysis</p>
-            </div>
-            <div class="category-results-grid">
-                ${packages.map(pkg => `
-                    <div class="category-package-item">
-                        <div class="package-name">${pkg.name}</div>
-                        <div class="package-description">${pkg.description}</div>
-                        <button class="add-package-btn" onclick="app.addPackageFromEssential('${pkg.name}')">Add to Analysis</button>
-                    </div>
-                `).join('')}
-            </div>
-        `;
 
         resultsContainer.classList.remove('hidden');
         
         // Scroll to results
         resultsContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    createCategoryResultItem(item) {
+        return `
+            <div class="recommendation-item" onclick="app.addPackageFromEssential('${item.name}')">
+                <div class="recommendation-item-header">
+                    <div>
+                        <div class="recommendation-package-name">${item.name}</div>
+                    </div>
+                </div>
+                
+                <div class="recommendation-title">${item.description}</div>
+                
+                <button class="add-package-btn" onclick="event.stopPropagation(); app.addPackageFromEssential('${item.name}')">
+                    Add to Analysis
+                </button>
+            </div>
+        `;
     }
 
     formatNumber(num) {
