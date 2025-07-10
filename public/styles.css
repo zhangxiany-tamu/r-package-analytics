@@ -3441,40 +3441,42 @@ footer a:hover {
 /* Landscape orientation for mobile phones */
 @media (max-width: 768px) and (orientation: landscape) {
     .main-navigation {
-        margin-bottom: var(--space-4);
+        margin-bottom: var(--space-3);
     }
     
     .nav-tabs {
         display: flex;
         flex-direction: row;
-        flex-wrap: wrap;
+        flex-wrap: nowrap;
         justify-content: center;
-        gap: var(--space-2);
-        padding: 0 var(--space-3);
+        gap: var(--space-1);
+        padding: 0 var(--space-2);
+        overflow-x: auto;
     }
     
     .nav-tab {
         flex: 1;
         min-width: 0;
-        max-width: calc(50% - var(--space-1));
-        min-height: 100px;
+        max-width: calc(25% - var(--space-1));
+        min-height: 80px;
         height: auto;
-        padding: var(--space-2) var(--space-3);
+        padding: var(--space-1) var(--space-2);
     }
     
     .tab-icon {
-        font-size: var(--font-size-lg);
+        font-size: var(--font-size-base);
     }
     
     .tab-label {
-        font-size: var(--font-size-sm);
+        font-size: var(--font-size-xs);
         font-weight: 600;
+        line-height: 1.1;
     }
     
     .tab-description {
-        font-size: var(--font-size-xs);
-        line-height: 1.2;
-        margin-top: var(--space-1);
+        font-size: 9px;
+        line-height: 1.1;
+        margin-top: 2px;
         text-align: center;
     }
     
@@ -3495,23 +3497,29 @@ footer a:hover {
 /* Small phone landscape */
 @media (max-width: 480px) and (orientation: landscape) {
     .nav-tabs {
-        gap: var(--space-1);
-        padding: 0 var(--space-2);
+        gap: 4px;
+        padding: 0 var(--space-1);
     }
     
     .nav-tab {
-        max-width: calc(50% - var(--space-1));
-        min-height: 90px;
-        padding: var(--space-1) var(--space-2);
+        max-width: calc(25% - 3px);
+        min-height: 70px;
+        padding: 6px 4px;
+    }
+    
+    .tab-icon {
+        font-size: var(--font-size-sm);
     }
     
     .tab-label {
-        font-size: var(--font-size-xs);
+        font-size: 10px;
+        line-height: 1.0;
     }
     
     .tab-description {
-        font-size: 10px;
-        line-height: 1.1;
+        font-size: 8px;
+        line-height: 1.0;
+        margin-top: 1px;
     }
     
     #recommendBtn,
