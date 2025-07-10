@@ -3436,6 +3436,83 @@ footer a:hover {
         flex-direction: column;
         gap: var(--space-2);
     }
+}
+
+/* Landscape orientation for mobile phones */
+@media (max-width: 768px) and (orientation: landscape) {
+    .main-navigation {
+        margin-bottom: var(--space-4);
+    }
+    
+    .nav-tabs {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: var(--space-2);
+        padding: 0 var(--space-3);
+    }
+    
+    .nav-tab {
+        flex: 1;
+        min-width: 0;
+        max-width: calc(50% - var(--space-1));
+        min-height: 100px;
+        height: auto;
+        padding: var(--space-2) var(--space-3);
+    }
+    
+    .tab-icon {
+        font-size: var(--font-size-lg);
+    }
+    
+    .tab-label {
+        font-size: var(--font-size-sm);
+        font-weight: 600;
+    }
+    
+    .tab-description {
+        font-size: var(--font-size-xs);
+        line-height: 1.2;
+        margin-top: var(--space-1);
+        text-align: center;
+    }
+    
+    .section-intro {
+        padding: var(--space-2) var(--space-3);
+        margin-bottom: var(--space-3);
+    }
+    
+    .section-intro h2 {
+        font-size: var(--font-size-lg);
+    }
+    
+    .section-intro p {
+        font-size: var(--font-size-sm);
+    }
+}
+
+/* Small phone landscape */
+@media (max-width: 480px) and (orientation: landscape) {
+    .nav-tabs {
+        gap: var(--space-1);
+        padding: 0 var(--space-2);
+    }
+    
+    .nav-tab {
+        max-width: calc(50% - var(--space-1));
+        min-height: 90px;
+        padding: var(--space-1) var(--space-2);
+    }
+    
+    .tab-label {
+        font-size: var(--font-size-xs);
+    }
+    
+    .tab-description {
+        font-size: 10px;
+        line-height: 1.1;
+    }
     
     #recommendBtn,
     #authorSearchBtn {
