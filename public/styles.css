@@ -3262,23 +3262,22 @@ footer a:hover {
     color: rgba(255, 255, 255, 0.9) !important;
 }
 
-/* Mobile responsiveness for navigation and keyword section */
+/* Mobile responsiveness - dynamic approach */
 @media (max-width: 768px) {
     .main-navigation {
         margin-bottom: var(--space-6);
     }
     
     .nav-tabs {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
         gap: var(--space-3);
         padding: 0 var(--space-4);
+        max-width: 100%;
     }
     
     .nav-tab {
         width: 100%;
-        max-width: 350px;
         min-height: 120px;
         height: auto;
         padding: var(--space-4) var(--space-5);
@@ -3349,46 +3348,37 @@ footer a:hover {
     }
 }
 
-/* iPad and tablet styles */
-@media (min-width: 481px) and (max-width: 1024px) {
+/* Responsive breakpoints based on available space */
+@media (max-width: 768px) and (min-width: 520px) {
     .nav-tabs {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: var(--space-4);
-        padding: 0 var(--space-6);
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--space-3);
     }
     
     .nav-tab {
-        width: 100%;
-        max-width: 500px;
-        min-height: 140px;
-        height: auto;
-        padding: var(--space-5) var(--space-6);
+        min-height: 110px;
+        padding: var(--space-3) var(--space-4);
     }
     
     .tab-label {
-        font-size: var(--font-size-lg);
+        font-size: var(--font-size-sm);
+        font-weight: 600;
     }
     
     .tab-description {
-        font-size: var(--font-size-sm);
+        font-size: var(--font-size-xs);
     }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 519px) {
     .nav-tabs {
-        flex-direction: column;
-        align-items: center;
+        grid-template-columns: 1fr;
         gap: var(--space-3);
         padding: 0 var(--space-3);
     }
     
     .nav-tab {
-        width: 100%;
-        max-width: 320px;
-        min-height: 110px;
-        height: auto;
+        min-height: 100px;
         padding: var(--space-3) var(--space-4);
     }
     
@@ -3398,16 +3388,11 @@ footer a:hover {
     
     .tab-label {
         font-size: var(--font-size-sm);
-        line-height: 1.2;
-        margin-bottom: var(--space-1);
         font-weight: 600;
     }
     
     .tab-description {
-        font-size: 10px;
-        line-height: 1.2;
-        margin-top: 2px;
-        text-align: center;
+        font-size: var(--font-size-xs);
     }
     
     .section-intro h2 {
@@ -3438,95 +3423,60 @@ footer a:hover {
     }
 }
 
-/* Landscape orientation for mobile phones */
-@media (max-width: 768px) and (orientation: landscape) {
-    .main-navigation {
-        margin-bottom: var(--space-3);
-    }
-    
+/* Modern responsive navigation using CSS Grid with intelligent adaptation */
+@media (max-width: 768px) {
     .nav-tabs {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: nowrap;
-        justify-content: center;
-        gap: var(--space-1);
-        padding: 0 var(--space-2);
-        overflow-x: auto;
-    }
-    
-    .nav-tab {
-        flex: 1;
-        min-width: 0;
-        max-width: calc(25% - var(--space-1));
-        min-height: 80px;
-        height: auto;
-        padding: var(--space-1) var(--space-2);
-    }
-    
-    .tab-icon {
-        font-size: var(--font-size-base);
-    }
-    
-    .tab-label {
-        font-size: var(--font-size-xs);
-        font-weight: 600;
-        line-height: 1.1;
-    }
-    
-    .tab-description {
-        font-size: 9px;
-        line-height: 1.1;
-        margin-top: 2px;
-        text-align: center;
-    }
-    
-    .section-intro {
-        padding: var(--space-2) var(--space-3);
-        margin-bottom: var(--space-3);
-    }
-    
-    .section-intro h2 {
-        font-size: var(--font-size-lg);
-    }
-    
-    .section-intro p {
-        font-size: var(--font-size-sm);
-    }
-}
-
-/* Small phone landscape */
-@media (max-width: 480px) and (orientation: landscape) {
-    .nav-tabs {
-        gap: 4px;
-        padding: 0 var(--space-1);
-    }
-    
-    .nav-tab {
-        max-width: calc(25% - 3px);
-        min-height: 70px;
-        padding: 6px 4px;
-    }
-    
-    .tab-icon {
-        font-size: var(--font-size-sm);
-    }
-    
-    .tab-label {
-        font-size: 10px;
-        line-height: 1.0;
-    }
-    
-    .tab-description {
-        font-size: 8px;
-        line-height: 1.0;
-        margin-top: 1px;
-    }
-    
-    #recommendBtn,
-    #authorSearchBtn {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr));
+        gap: clamp(0.5rem, 2vw, 1rem);
+        padding: 0 clamp(0.75rem, 3vw, 1.5rem);
         width: 100%;
     }
     
+    .nav-tab {
+        min-height: clamp(90px, 12vh, 120px);
+        padding: clamp(0.5rem, 2vw, 1rem) clamp(0.75rem, 3vw, 1.25rem);
+    }
+    
+    .tab-label {
+        font-size: clamp(0.8rem, 2.5vw, 1rem);
+        font-weight: 600;
+    }
+    
+    .tab-description {
+        font-size: clamp(0.7rem, 2vw, 0.875rem);
+        line-height: 1.3;
+    }
+    
+    .tab-icon {
+        font-size: clamp(1rem, 3vw, 1.25rem);
+    }
+}
+
+/* For very wide landscape phones or small tablets */
+@media (max-width: 768px) and (min-aspect-ratio: 3/2) {
+    .nav-tabs {
+        grid-template-columns: repeat(2, 1fr);
+        gap: clamp(0.5rem, 1.5vw, 0.75rem);
+    }
+    
+    .nav-tab {
+        min-height: clamp(80px, 10vh, 100px);
+        padding: clamp(0.5rem, 1.5vw, 0.75rem);
+    }
+}
+
+/* For very small screens */
+@media (max-width: 400px) {
+    .nav-tabs {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+        padding: 0 1rem;
+    }
+}
+
+/* Additional mobile adjustments */
+@media (max-width: 768px) {
     .stats-grid {
         grid-template-columns: 1fr;
         gap: var(--space-4);
