@@ -1874,6 +1874,7 @@ footer a:hover {
     min-height: 160px;
     height: auto;
     flex-shrink: 0;
+    color: var(--text-primary);
 }
 
 .nav-tab::before {
@@ -3281,6 +3282,7 @@ footer a:hover {
         min-height: 120px;
         height: auto;
         padding: var(--space-4) var(--space-5);
+        color: var(--text-primary);
     }
     
     .tab-icon {
@@ -3358,6 +3360,7 @@ footer a:hover {
     .nav-tab {
         min-height: 110px;
         padding: var(--space-3) var(--space-4);
+        color: var(--text-primary);
     }
     
     .tab-label {
@@ -3436,6 +3439,7 @@ footer a:hover {
     .nav-tab {
         min-height: clamp(90px, 12vh, 120px);
         padding: clamp(0.5rem, 2vw, 1rem) clamp(0.75rem, 3vw, 1.25rem);
+        color: var(--text-primary);
     }
     
     .tab-label {
