@@ -3361,12 +3361,12 @@ footer a:hover {
     }
     
     .tab-label {
-        font-size: var(--font-size-sm);
+        font-size: var(--font-size-lg);
         font-weight: 600;
     }
     
     .tab-description {
-        font-size: var(--font-size-xs);
+        font-size: var(--font-size-sm);
     }
 }
 
@@ -3439,12 +3439,12 @@ footer a:hover {
     }
     
     .tab-label {
-        font-size: clamp(0.8rem, 2.5vw, 1rem);
+        font-size: var(--font-size-lg);
         font-weight: 600;
     }
     
     .tab-description {
-        font-size: clamp(0.7rem, 2vw, 0.875rem);
+        font-size: var(--font-size-sm);
         line-height: 1.3;
     }
     
