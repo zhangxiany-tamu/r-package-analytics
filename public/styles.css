@@ -1798,11 +1798,11 @@ footer a:hover {
     }
     
     .tab-label {
-        font-size: var(--font-size-base);
+        font-size: var(--font-size-lg);
     }
     
     .tab-description {
-        font-size: var(--font-size-xs);
+        font-size: var(--font-size-sm);
     }
     
     .stat-card {
