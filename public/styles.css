@@ -445,7 +445,7 @@ header p {
 
 [data-theme="dark"] #packageSuggestions,
 [data-theme="dark"] .package-suggestions {
-    background: #000000 !important;
+    background: var(--bg-primary) !important;
     border: 1px solid rgba(255, 255, 255, 0.3) !important;
     box-shadow: 
         0 8px 32px rgba(0, 0, 0, 0.8),
@@ -456,8 +456,8 @@ header p {
 
 [data-theme="dark"] #packageSuggestions .suggestion-item,
 [data-theme="dark"] .package-suggestions .suggestion-item {
-    color: #ffffff !important;
-    background: #000000 !important;
+    color: var(--text-primary) !important;
+    background: var(--bg-primary) !important;
     border-bottom: 1px solid rgba(255, 255, 255, 0.2) !important;
     font-weight: 500 !important;
     text-shadow: none !important;
@@ -466,8 +466,8 @@ header p {
 
 [data-theme="dark"] #packageSuggestions .suggestion-item:hover,
 [data-theme="dark"] .package-suggestions .suggestion-item:hover {
-    background: #1a1a1a !important;
-    color: #ffffff !important;
+    background: var(--bg-hover) !important;
+    color: var(--text-primary) !important;
     border-bottom: 1px solid rgba(255, 255, 255, 0.3) !important;
 }
 
@@ -479,8 +479,8 @@ header p {
 /* Force override any inherited styles with maximum specificity */
 [data-theme="dark"] div#packageSuggestions div.suggestion-item,
 [data-theme="dark"] div.package-suggestions div.suggestion-item {
-    color: #ffffff !important;
-    background: #000000 !important;
+    color: var(--text-primary) !important;
+    background: var(--bg-primary) !important;
     font-family: inherit !important;
     font-size: inherit !important;
     line-height: inherit !important;
@@ -492,7 +492,7 @@ header p {
 [data-theme="dark"] .package-suggestions div,
 [data-theme="dark"] .package-suggestions span,
 [data-theme="dark"] .package-suggestions * {
-    color: #ffffff !important;
+    color: var(--text-primary) !important;
     background: inherit !important;
 }
 
@@ -708,7 +708,7 @@ header p {
 }
 
 [data-theme="dark"] .loading {
-    background: #000000 !important;
+    background: var(--bg-primary) !important;
     border: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 
         0 4px 16px rgba(0, 0, 0, 0.3),
@@ -850,7 +850,7 @@ header p {
 }
 
 [data-theme="dark"] .package-info {
-    background: #000000 !important;
+    background: var(--bg-primary) !important;
     border: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 
         0 8px 32px rgba(0, 0, 0, 0.4),
@@ -1146,22 +1146,22 @@ header p {
 
 /* Ensure chart containers are black in dark mode */
 [data-theme="dark"] .chart-container {
-    background: #000000 !important;
+    background: var(--bg-primary) !important;
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 [data-theme="dark"] .custom-legend {
-    background: #000000 !important;
+    background: var(--bg-primary) !important;
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 [data-theme="dark"] .legend-item {
-    background: #000000 !important;
+    background: var(--bg-primary) !important;
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 [data-theme="dark"] .chart-controls {
-    background: #000000 !important;
+    background: var(--bg-primary) !important;
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -1437,12 +1437,12 @@ header p {
 
 /* Dark theme adjustments for category results */
 [data-theme="dark"] .category-results-header {
-    background: #000000 !important;
+    background: var(--bg-primary) !important;
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 [data-theme="dark"] .category-package-item {
-    background: #000000 !important;
+    background: var(--bg-primary) !important;
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -2892,12 +2892,12 @@ footer a:hover {
 /* Tab Content Dark Mode */
 [data-theme="dark"] .tab-content {
     background: transparent !important;
-    color: #ffffff !important;
+    color: var(--text-primary) !important;
 }
 
 [data-theme="dark"] .tab-content.active {
     background: transparent !important;
-    color: #ffffff !important;
+    color: var(--text-primary) !important;
 }
 
 /* Section Intro Dark Mode */
@@ -2906,7 +2906,7 @@ footer a:hover {
 }
 
 [data-theme="dark"] .section-intro h2 {
-    color: #ffffff !important;
+    color: var(--text-primary) !important;
 }
 
 [data-theme="dark"] .section-intro p {
@@ -2950,9 +2950,9 @@ footer a:hover {
 
 [data-theme="dark"] #keywordInput,
 [data-theme="dark"] #biocKeywordInput {
-    background: #000000 !important;
+    background: var(--bg-primary) !important;
     border: 2px solid rgba(255, 255, 255, 0.1) !important;
-    color: #ffffff !important;
+    color: var(--text-primary) !important;
     /* Ensure dark mode styling for keyword input */
 }
 
@@ -2963,8 +2963,8 @@ footer a:hover {
 
 [data-theme="dark"] #keywordInput:focus,
 [data-theme="dark"] #biocKeywordInput:focus {
-    background: #000000 !important;
-    color: #ffffff !important;
+    background: var(--bg-primary) !important;
+    color: var(--text-primary) !important;
     border-color: #007AFF !important;
     box-shadow: 
         0 0 0 4px rgba(0, 122, 255, 0.2),
@@ -2977,9 +2977,9 @@ footer a:hover {
 }
 
 [data-theme="dark"] #authorInput {
-    background: #000000 !important;
+    background: var(--bg-primary) !important;
     border: 2px solid rgba(255, 255, 255, 0.1) !important;
-    color: #ffffff !important;
+    color: var(--text-primary) !important;
 }
 
 [data-theme="dark"] #authorInput::placeholder {
@@ -2987,8 +2987,8 @@ footer a:hover {
 }
 
 [data-theme="dark"] #authorInput:focus {
-    background: #000000 !important;
-    color: #ffffff !important;
+    background: var(--bg-primary) !important;
+    color: var(--text-primary) !important;
     border-color: #007AFF !important;
     box-shadow: 
         0 0 0 4px rgba(0, 122, 255, 0.2),
@@ -2996,12 +2996,12 @@ footer a:hover {
 }
 
 [data-theme="dark"] .author-list {
-    background: #000000 !important;
+    background: var(--bg-primary) !important;
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 [data-theme="dark"] .author-item {
-    background: #000000 !important;
+    background: var(--bg-primary) !important;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
 }
 
@@ -3010,12 +3010,12 @@ footer a:hover {
 }
 
 [data-theme="dark"] .recommendation-list {
-    background: #000000 !important;
+    background: var(--bg-primary) !important;
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 [data-theme="dark"] .recommendation-item {
-    background: #000000 !important;
+    background: var(--bg-primary) !important;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
