@@ -1848,6 +1848,7 @@ footer a:hover {
     text-align: center;
     margin-bottom: var(--space-6);
     padding: var(--space-4);
+    background: transparent;
 }
 
 .section-icon {
