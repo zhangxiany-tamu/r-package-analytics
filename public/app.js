@@ -1906,22 +1906,6 @@ class RPackageAnalytics {
         // Initialize sub-tab navigation
         this.initializeStatsNavigation();
         
-        const loadTopPackagesBtn = document.getElementById('loadTopPackagesBtn');
-        const loadTrendingPackagesBtn = document.getElementById('loadTrendingPackagesBtn');
-        const loadNewPackagesBtn = document.getElementById('loadNewPackagesBtn');
-        
-        if (loadTopPackagesBtn) {
-            loadTopPackagesBtn.addEventListener('click', () => this.loadTopPackages());
-        }
-        
-        if (loadTrendingPackagesBtn) {
-            loadTrendingPackagesBtn.addEventListener('click', () => this.loadTrendingPackages());
-        }
-        
-        if (loadNewPackagesBtn) {
-            loadNewPackagesBtn.addEventListener('click', () => this.loadNewPackages());
-        }
-        
         // Update the author coverage stat
         this.updateAuthorCoverage();
     }
@@ -1949,15 +1933,38 @@ class RPackageAnalytics {
             section.classList.remove('active');
         });
         document.getElementById(`${targetTab}-section`).classList.add('active');
+        
+        // Auto-load content based on the selected tab
+        switch(targetTab) {
+            case 'top-packages':
+                // Check if content hasn't been loaded yet
+                const topPackagesList = document.getElementById('topPackagesList');
+                if (topPackagesList && topPackagesList.children.length === 0) {
+                    this.loadTopPackages();
+                }
+                break;
+            case 'trending':
+                // Check if content hasn't been loaded yet
+                const trendingPackagesList = document.getElementById('trendingPackagesList');
+                if (trendingPackagesList && trendingPackagesList.children.length === 0) {
+                    this.loadTrendingPackages();
+                }
+                break;
+            case 'new-packages':
+                // Check if content hasn't been loaded yet
+                const newPackagesList = document.getElementById('newPackagesList');
+                if (newPackagesList && newPackagesList.children.length === 0) {
+                    this.loadNewPackages();
+                }
+                break;
+        }
     }
 
     async loadTopPackages() {
-        const button = document.getElementById('loadTopPackagesBtn');
         const loading = document.getElementById('topPackagesLoading');
         const list = document.getElementById('topPackagesList');
         
         // Show loading
-        if (button) button.classList.add('hidden');
         if (loading) loading.classList.remove('hidden');
         if (list) list.classList.add('hidden');
         
@@ -2022,12 +2029,10 @@ class RPackageAnalytics {
     }
 
     async loadTrendingPackages() {
-        const button = document.getElementById('loadTrendingPackagesBtn');
         const loading = document.getElementById('trendingPackagesLoading');
         const list = document.getElementById('trendingPackagesList');
         
         // Show loading
-        if (button) button.classList.add('hidden');
         if (loading) loading.classList.remove('hidden');
         if (list) list.classList.add('hidden');
         
@@ -2092,12 +2097,10 @@ class RPackageAnalytics {
     }
 
     async loadNewPackages() {
-        const button = document.getElementById('loadNewPackagesBtn');
         const loading = document.getElementById('newPackagesLoading');
         const list = document.getElementById('newPackagesList');
         
         // Show loading
-        if (button) button.classList.add('hidden');
         if (loading) loading.classList.remove('hidden');
         if (list) list.classList.add('hidden');
         
