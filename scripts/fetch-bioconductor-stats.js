@@ -13,6 +13,12 @@ class BioconductorStatsProcessor {
     async fetchStatsData() {
         console.log('Fetching Bioconductor package statistics...');
         
+        // Ensure output directory exists
+        if (!fs.existsSync(this.outputDir)) {
+            fs.mkdirSync(this.outputDir, { recursive: true });
+            console.log(`Created directory: ${this.outputDir}`);
+        }
+        
         return new Promise((resolve, reject) => {
             const file = fs.createWriteStream(this.rawDataFile);
             
