@@ -40,6 +40,16 @@ gcloud projects add-iam-policy-binding melodic-zoo-458222-s6 \
     --member="serviceAccount:bioc-updater@melodic-zoo-458222-s6.iam.gserviceaccount.com" \
     --role="roles/cloudbuild.builds.editor"
 
+gcloud projects add-iam-policy-binding melodic-zoo-458222-s6 \
+    --member="serviceAccount:bioc-updater@melodic-zoo-458222-s6.iam.gserviceaccount.com" \
+    --role="roles/iam.serviceAccountTokenCreator"
+
+# Allow the service account to act as the App Engine default service account
+gcloud iam service-accounts add-iam-policy-binding melodic-zoo-458222-s6@appspot.gserviceaccount.com \
+    --member="serviceAccount:bioc-updater@melodic-zoo-458222-s6.iam.gserviceaccount.com" \
+    --role="roles/iam.serviceAccountUser" \
+    --project=melodic-zoo-458222-s6
+
 # Create and download the service account key
 gcloud iam service-accounts keys create key.json \
     --iam-account=bioc-updater@melodic-zoo-458222-s6.iam.gserviceaccount.com
