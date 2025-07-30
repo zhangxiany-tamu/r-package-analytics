@@ -39,6 +39,25 @@ jobs:
     - name: Update Bioconductor download data
       run: node scripts/fetch-bioconductor-stats.js
       
+    - name: Verify all data files exist before deployment
+      run: |
+        echo "🔍 Checking for required data files..."
+        for file in "data/cran-packages.json" "data/cran-descriptions.json" "data/cran-authors.json" "data/bioconductor-packages.json" "data/bioconductor-package-index.json" "data/bioconductor-stats.json" "data/bioconductor-index.json"; do
+          if [ -f "$file" ]; then
+            echo "✅ Found: $file"
+          else
+            echo "❌ Missing: $file - downloading from repository..."
+            curl -s "https://raw.githubusercontent.com/zhangxiany-tamu/r-package-analytics/main/$file" -o "$file"
+            if [ -f "$file" ] && [ -s "$file" ]; then
+              echo "✅ Downloaded: $file"
+            else
+              echo "❌ Failed to download: $file"
+              exit 1
+            fi
+          fi
+        done
+        echo "✅ All data files verified"
+      
     - name: Commit updated data files
       run: |
         git config --local user.email "action@github.com"
