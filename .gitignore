@@ -116,5 +116,5 @@ npm-debug.log
 # Mac OS
 .DS_Store
 
-# Local data files
-data/
+# Local data files are now committed for the automation system
+# data/ - removed to allow automated data updates
