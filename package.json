@@ -8,6 +8,8 @@
     "dev": "nodemon server.js",
     "update-packages": "node scripts/update-packages.js",
     "update-bioconductor": "node scripts/update-bioconductor-packages.js",
+    "update-bioc-stats": "node scripts/fetch-bioconductor-stats.js",
+    "test-automation": "node scripts/test-automation.js",
     "build": "echo 'No build step required'",
     "deploy": "gcloud app deploy",
     "deploy:version": "gcloud app deploy --version",
