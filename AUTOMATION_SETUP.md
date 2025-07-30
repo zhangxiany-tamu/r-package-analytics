@@ -34,7 +34,7 @@ gcloud projects add-iam-policy-binding melodic-zoo-458222-s6 \
 
 gcloud projects add-iam-policy-binding melodic-zoo-458222-s6 \
     --member="serviceAccount:bioc-updater@melodic-zoo-458222-s6.iam.gserviceaccount.com" \
-    --role="roles/storage.admin"
+    --role="roles/storage.objectAdmin"
 
 gcloud projects add-iam-policy-binding melodic-zoo-458222-s6 \
     --member="serviceAccount:bioc-updater@melodic-zoo-458222-s6.iam.gserviceaccount.com" \
