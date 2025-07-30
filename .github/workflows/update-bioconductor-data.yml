@@ -6,6 +6,9 @@ on:
     - cron: '0 2 2 * *'
   workflow_dispatch: # Allow manual triggering
 
+permissions:
+  contents: write
+
 jobs:
   update-data:
     runs-on: ubuntu-latest
@@ -48,10 +51,7 @@ jobs:
         Co-Authored-By: GitHub Actions <noreply@github.com>"
         
     - name: Push changes
-      uses: ad-m/github-push-action@master
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        branch: main
+      run: git push origin main
         
     - name: Deploy to Google App Engine
       run: gcloud app deploy --quiet --project=melodic-zoo-458222-s6
