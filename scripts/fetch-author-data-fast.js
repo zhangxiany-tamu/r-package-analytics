@@ -134,12 +134,12 @@ async function main() {
         if (fs.existsSync(authorDataPath)) {
             const existing = JSON.parse(fs.readFileSync(authorDataPath, 'utf8'));
             existingData = existing.authorData || {};
-            startIndex = Object.keys(existingData).length;
-            console.log(`📂 Found existing data for ${startIndex} packages, resuming...`);
+            console.log(`📂 Found existing data for ${Object.keys(existingData).length} packages`);
         }
-        
-        const remainingPackages = packages.slice(startIndex);
-        console.log(`🔄 Processing ${remainingPackages.length} remaining packages...`);
+
+        // Filter out packages that already have data
+        const remainingPackages = packages.filter(pkg => !existingData[pkg]);
+        console.log(`🔄 Processing ${remainingPackages.length} packages without author data...`);
         
         // Prepare batches
         const allBatches = [];

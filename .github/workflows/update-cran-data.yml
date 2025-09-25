@@ -1,0 +1,87 @@
+name: Update CRAN Package Data
+
+on:
+  schedule:
+    # Run every Sunday at 03:00 UTC (weekly updates)
+    - cron: '0 3 * * 0'
+  workflow_dispatch: # Allow manual triggering
+
+permissions:
+  contents: write
+
+jobs:
+  update-cran-data:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Update CRAN package list
+      run: |
+        echo "📦 Updating CRAN package list..."
+        npm run update-packages
+        echo "✅ CRAN package list updated"
+
+        echo "👥 Updating CRAN author data..."
+        node scripts/fetch-author-data-fast.js
+        echo "✅ CRAN author data updated"
+
+    - name: Check for changes
+      id: check_changes
+      run: |
+        if git diff --quiet data/cran-packages.json data/cran-authors.json; then
+          echo "No changes detected in CRAN data"
+          echo "has_changes=false" >> $GITHUB_OUTPUT
+        else
+          echo "Changes detected in CRAN data"
+          echo "has_changes=true" >> $GITHUB_OUTPUT
+          # Show package count changes
+          OLD_COUNT=$(git show HEAD:data/cran-packages.json | grep -o '"[^"]*"' | wc -l)
+          NEW_COUNT=$(grep -o '"[^"]*"' data/cran-packages.json | wc -l)
+          echo "📊 Package count: $OLD_COUNT → $NEW_COUNT"
+        fi
+
+    - name: Commit updated data files
+      if: steps.check_changes.outputs.has_changes == 'true'
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add data/cran-packages.json data/cran-authors.json
+
+        # Get package count for commit message
+        PACKAGE_COUNT=$(grep -o '"[^"]*"' data/cran-packages.json | wc -l)
+
+        git commit -m "Update CRAN package and author data - $PACKAGE_COUNT packages
+
+        🤖 Weekly automated update
+
+        Co-Authored-By: GitHub Actions <noreply@github.com>"
+
+    - name: Push changes
+      if: steps.check_changes.outputs.has_changes == 'true'
+      run: git push origin main
+
+    - name: Summary
+      run: |
+        echo "## 📦 CRAN Package Update Summary" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        if [ "${{ steps.check_changes.outputs.has_changes }}" == "true" ]; then
+          echo "✅ **CRAN package list updated successfully**" >> $GITHUB_STEP_SUMMARY
+          PACKAGE_COUNT=$(grep -o '"[^"]*"' data/cran-packages.json | wc -l)
+          echo "- Total packages: **$PACKAGE_COUNT**" >> $GITHUB_STEP_SUMMARY
+        else
+          echo "ℹ️ No changes detected - package list is up to date" >> $GITHUB_STEP_SUMMARY
+        fi
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "📅 Last updated: $(date)" >> $GITHUB_STEP_SUMMARY
+        echo "🌐 Live app: [https://melodic-zoo-458222-s6.uc.r.appspot.com](https://melodic-zoo-458222-s6.uc.r.appspot.com)" >> $GITHUB_STEP_SUMMARY
