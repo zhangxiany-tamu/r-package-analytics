@@ -1,6 +1,6 @@
 {
-  "lastUpdated": "2025-11-30T03:54:06.158Z",
-  "totalPackages": 23024,
+  "lastUpdated": "2025-12-01T04:43:23.908Z",
+  "totalPackages": 23025,
   "packages": [
     "AATtools",
     "ABACUS",
@@ -9222,6 +9222,7 @@
     "convey",
     "convoSPAT",
     "cookiecutter",
+    "cookiemonster",
     "cookies",
     "cooltools",
     "coop",
@@ -12439,7 +12440,6 @@
     "gkgraphR",
     "gkmSVM",
     "gkwdist",
-    "gkwreg",
     "glam",
     "glamlasso",
     "glarma",
@@ -18880,6 +18880,7 @@
     "rhosa",
     "rhosp",
     "rhub",
+    "rhymer",
     "rhype",
     "ri2",
     "riAFTBART",
