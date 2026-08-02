@@ -1,6 +1,6 @@
 {
-  "lastUpdated": "2026-08-01T06:21:20.190Z",
-  "totalPackages": 24487,
+  "lastUpdated": "2026-08-02T05:46:38.232Z",
+  "totalPackages": 24488,
   "packages": [
     "AATtools",
     "ABACUS",
@@ -19853,6 +19853,7 @@
     "repsd",
     "repsim",
     "reptiledb.data",
+    "reptiledbr",
     "repurrrsive",
     "reqres",
     "request",
