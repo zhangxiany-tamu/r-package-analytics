@@ -1,7 +1,7 @@
 {
-  "lastUpdated": "2026-08-09T04:09:44.621Z",
-  "totalPackages": 24693,
-  "processedPackages": 26338,
+  "lastUpdated": "2026-08-16T03:39:13.777Z",
+  "totalPackages": 24717,
+  "processedPackages": 26364,
   "authorData": {
     "AATtools": {
       "author": "Sercan Kahveci [aut, cre]",
@@ -158030,6 +158030,162 @@
       "maintainer": "Nan Xiao <me@nanx.me>",
       "title": "Round-Trip-Safe Double-Precision Formatting",
       "lastUpdated": "2026-08-09T04:09:44.621Z"
+    },
+    "DropCens": {
+      "author": "Okechukwu J. Obulezi [aut, cre]",
+      "maintainer": "Okechukwu J. Obulezi <oj.obulezi@unizik.edu.ng>",
+      "title": "Distributionally Robust Progressive Type-II Censoring Inference",
+      "lastUpdated": "2026-08-16T03:39:13.777Z"
+    },
+    "FINN": {
+      "author": "Yannek Käber [aut, cre] (ORCID:\n<https://orcid.org/0000-0002-7041-9849>),\nMaximilian Pichler [aut] (ORCID:\n<https://orcid.org/0000-0003-2252-8327>)",
+      "maintainer": "Yannek Käber <y.kaeber@posteo.de>",
+      "title": "Forest Informed Neural Networks",
+      "lastUpdated": "2026-08-16T03:39:13.777Z"
+    },
+    "FPScausal": {
+      "author": "Nicole Fontana [aut, cre],\nSimone Ciardulli [aut]",
+      "maintainer": "Nicole Fontana <nicole.fontana@polimi.it>",
+      "title": "Functional Propensity Score for Causal Inference",
+      "lastUpdated": "2026-08-16T03:39:13.777Z"
+    },
+    "FusionForests": {
+      "author": "Tijn Jacobs [aut, cre] (ORCID: <https://orcid.org/0009-0003-6188-9296>)",
+      "maintainer": "Tijn Jacobs <t.jacobs@vu.nl>",
+      "title": "Bayesian Tree Ensembles for Data Fusion and Causal Inference",
+      "lastUpdated": "2026-08-16T03:39:13.777Z"
+    },
+    "GLHD": {
+      "author": "Wenlong Li [aut, cre],\nJian-Feng Yang [aut],\nPeter Chien [aut]",
+      "maintainer": "Wenlong Li <wlli1@bjtu.edu.cn>",
+      "title": "Grouped Latin Hypercube Designs with Controlled Correlations",
+      "lastUpdated": "2026-08-16T03:39:13.777Z"
+    },
+    "IntegMultiReg": {
+      "author": "Sinian Zhang [aut],\nJianfeng Wang [aut],\nThierry Chekouo [aut, cre] (ORCID:\n<https://orcid.org/0000-0002-3594-9182>)",
+      "maintainer": "Thierry Chekouo <tchekouo@umn.edu>",
+      "title": "Integrative Bayesian Multiple Regression for Multi-Platform\nBiomarkers",
+      "lastUpdated": "2026-08-16T03:39:13.777Z"
+    },
+    "MiCT": {
+      "author": "Iris Eekhout [aut] (Original package author),\nBerend Terluin [aut],\nYong-Hao Pua [aut, cre]",
+      "maintainer": "Yong-Hao Pua <gmspuyh@duke-nus.edu.sg>",
+      "title": "Minimal Important Change and Threshold Estimation",
+      "lastUpdated": "2026-08-16T03:39:13.777Z"
+    },
+    "ModToppLeone": {
+      "author": "Shikhar Tyagi [aut, cre] (ORCID:\n<https://orcid.org/0000-0003-1606-0844>),\nAbhishek Tyagi [aut],\nArvind Pandey [aut],\nBhupendra Singh [aut],\nVrijesh Tripathi [aut]",
+      "maintainer": "Shikhar Tyagi <shikhar1093tyagi@gmail.com>",
+      "title": "Modified Topp-Leone Distribution: Properties, Estimation, and\nApplications",
+      "lastUpdated": "2026-08-16T03:39:13.777Z"
+    },
+    "NeutroBasicDesignsAnalysis": {
+      "author": "Neethu R.S. [aut, ctb],\nBoyina Devi Priyanka [aut, ctb],\nCini Varghese [aut, ctb],\nSusheel Kumar Sarkar [aut, ctb],\nMohd Harun [aut, ctb],\nVinaykumar L.N. [aut, cre],\nAnindita Datta [aut, ctb]",
+      "maintainer": "Vinaykumar L.N. <vinaymandya123@gmail.com>",
+      "title": "Neutrosophic Analysis of Completely Randomized Designs and\nRandomized Complete Block Designs",
+      "lastUpdated": "2026-08-16T03:39:13.777Z"
+    },
+    "PINNProgCens": {
+      "author": "Okechukwu J. Obulezi [aut, cre]",
+      "maintainer": "Okechukwu J. Obulezi <oj.obulezi@unizik.edu.ng>",
+      "title": "Physics-Informed Neural Networks for Progressive Censoring",
+      "lastUpdated": "2026-08-16T03:39:13.777Z"
+    },
+    "PLSsemEngine": {
+      "author": "Manuel Soto-Perez [aut, cre]",
+      "maintainer": "Manuel Soto-Perez <msoto@up.edu.mx>",
+      "title": "Transparent PLS-SEM Estimation for Composite-Based Reflective\nModels",
+      "lastUpdated": "2026-08-16T03:39:13.777Z"
+    },
+    "ProgVine": {
+      "author": "Okechukwu J. Obulezi [aut, cre]",
+      "maintainer": "Okechukwu J. Obulezi <oj.obulezi@unizik.edu.ng>",
+      "title": "Progressive Regularized Vine Copula for Masked Competing Risks",
+      "lastUpdated": "2026-08-16T03:39:13.777Z"
+    },
+    "bscm": {
+      "author": "Jouni Helske [aut, cre] (ORCID:\n<https://orcid.org/0000-0001-7130-793X>)",
+      "maintainer": "Jouni Helske <jouni.helske@iki.fi>",
+      "title": "Bayesian Synthetic Control Models",
+      "lastUpdated": "2026-08-16T03:39:13.777Z"
+    },
+    "exactGMH": {
+      "author": "Tri Zahra Ningsih [aut, cre],\nAman [aut],\nAhmad Nasrulloh [aut],\nHera Hastuti [aut],\nSuci Kurnia Putri [aut]",
+      "maintainer": "Tri Zahra Ningsih <trizahra10019@gmail.com>",
+      "title": "Exact and Permutation-Based Mantel Tests for Differential Item\nFunctioning in Dichotomous and Polytomous Items",
+      "lastUpdated": "2026-08-16T03:39:13.777Z"
+    },
+    "expoquimR": {
+      "author": "Raúl Aguilar Elena [aut, cre] (ORCID:\n<https://orcid.org/0000-0001-8656-8155>),\nAna Delgado-Garcia [aut] (ORCID:\n<https://orcid.org/0009-0003-7079-5507>),\nAlejandro Guillem-Riquelme [aut] (ORCID:\n<https://orcid.org/0000-0002-6373-5237>)",
+      "maintainer": "Raúl Aguilar Elena <raguilar@universidadviu.com>",
+      "title": "Qualitative and Quantitative Assessment of Occupational Chemical\nExposure Risk",
+      "lastUpdated": "2026-08-16T03:39:13.777Z"
+    },
+    "gghotelling": {
+      "author": "January Weiner [aut, cre, cph] (ORCID:\n<https://orcid.org/0000-0003-1438-7819>)",
+      "maintainer": "January Weiner <january.weiner@gmail.com>",
+      "title": "Hotelling's T² Ellipses and Outlier Detection for 'ggplot2'",
+      "lastUpdated": "2026-08-16T03:39:13.777Z"
+    },
+    "gofLorenz": {
+      "author": "Shikhar Tyagi [aut, cre] (ORCID:\n<https://orcid.org/0000-0003-1606-0844>),\nArvind Pandey [aut],\nBhupendra Singh [aut],\nVrijesh Tripathi [aut]",
+      "maintainer": "Shikhar Tyagi <shikhar1093tyagi@gmail.com>",
+      "title": "Goodness-of-Fit Tests for Location-Scale Distributions via\nLorenz Curve",
+      "lastUpdated": "2026-08-16T03:39:13.777Z"
+    },
+    "gp3bayes": {
+      "author": "Stefanos Balaskas [aut, cre, cph] (ORCID:\n<https://orcid.org/0000-0003-2444-9796>)",
+      "maintainer": "Stefanos Balaskas <s.balaskas@ac.upatras.gr>",
+      "title": "Contract-First Bayesian Workflows for Hierarchical Behavioural\nData",
+      "lastUpdated": "2026-08-16T03:39:13.777Z"
+    },
+    "metabodeconplus": {
+      "author": "Tobias Schmidt [aut, cre, cph],\nMartina Haeckl [aut, cph],\nYanren Linda Hu [ctb],\nWolfram Gronwald [aut, cph]",
+      "maintainer": "Tobias Schmidt <tobias.schmidt331@gmail.com>",
+      "title": "Deconvolution, Alignment and Model Fitting of 1d NMR Spectra",
+      "lastUpdated": "2026-08-16T03:39:13.777Z"
+    },
+    "netsimhelpers": {
+      "author": "Ria H. A. Hoekstra [aut, cre],\nSacha Epskamp [aut]",
+      "maintainer": "Ria H. A. Hoekstra <h.a.hoekstra@uva.nl>",
+      "title": "Helper Functions for Simulation Studies in Network Psychometrics",
+      "lastUpdated": "2026-08-16T03:39:13.777Z"
+    },
+    "palettecore": {
+      "author": "Heidi Helena Andersén [aut, cre] (ORCID:\n<https://orcid.org/0000-0001-5923-5865>)",
+      "maintainer": "Heidi Helena Andersén <andersenheidihelena@gmail.com>",
+      "title": "Derive, Optimise and Audit a Scientific Colour Palette from One\nSeed Colour",
+      "lastUpdated": "2026-08-16T03:39:13.777Z"
+    },
+    "phontrast": {
+      "author": "Grant M. Berry [aut, cre]",
+      "maintainer": "Grant M. Berry <berry.grant@gmail.com>",
+      "title": "Contrast and Separation Metrics for Phonological Categories",
+      "lastUpdated": "2026-08-16T03:39:13.777Z"
+    },
+    "qvivid": {
+      "author": "Sanmi (Oluwasanmi) Adenaiye [aut, cre, cph]",
+      "maintainer": "Sanmi (Oluwasanmi) Adenaiye <dradenaiyesanmi@gmail.com>",
+      "title": "Fast Quantum Simulation and Vivid Visualizations",
+      "lastUpdated": "2026-08-16T03:39:13.777Z"
+    },
+    "rapsimng.decide.core": {
+      "author": "Bangou Zheng [aut, cre]",
+      "maintainer": "Bangou Zheng <zheng.bangyou@gmail.com>",
+      "title": "Decision-Oriented Analysis Core for APSIM Next Generation\nOutputs",
+      "lastUpdated": "2026-08-16T03:39:13.777Z"
+    },
+    "ratingtables": {
+      "author": "Greg Sollenberger [aut, cre, cph]",
+      "maintainer": "Greg Sollenberger <yagreg7@yahoo.com>",
+      "title": "Table-Driven Insurance Rating",
+      "lastUpdated": "2026-08-16T03:39:13.777Z"
+    },
+    "smartcor": {
+      "author": "M. Harshvardhan [aut, cre, cph],\nPritam Ranjan [aut, cph]",
+      "maintainer": "M. Harshvardhan <harshvardhan@aus.edu>",
+      "title": "Automatic Correlation Method Selection Based on Variable Types",
+      "lastUpdated": "2026-08-16T03:39:13.777Z"
     }
   }
 }
