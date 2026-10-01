@@ -1,7 +1,7 @@
 {
-  "lastUpdated": "2026-09-27T08:40:36.967Z",
-  "totalPackages": 25205,
-  "processedPackages": 26872,
+  "lastUpdated": "2026-10-01T10:57:36.697Z",
+  "totalPackages": 25284,
+  "processedPackages": 26964,
   "authorData": {
     "AATtools": {
       "author": "Sercan Kahveci [aut, cre]",
@@ -161234,6 +161234,558 @@
       "maintainer": "Alejandro Verri Kozlowski <averri@fi.uba.ar>",
       "title": "Access 'Zotero' Libraries",
       "lastUpdated": "2026-09-27T08:40:36.967Z"
+    },
+    "ACRER": {
+      "author": "Georgios Martakis [aut, cre],\nJan Bervaes [ctb] (deceased),\nBert van der Werf [ctb] (ORCID:\n<https://orcid.org/0000-0003-3072-5937>)",
+      "maintainer": "Georgios Martakis <georgios.martakis@gmail.com>",
+      "title": "Accessibility for Recreation in R",
+      "lastUpdated": "2026-10-01T10:57:36.696Z"
+    },
+    "Blaunet": {
+      "author": "Cheng Wang [aut, cre],\nMichael Genkin [aut],\nGeorge Berry [aut],\nLiyuan Chen [aut],\nMatthew Brashears [aut]",
+      "maintainer": "Cheng Wang <chengwang@wayne.edu>",
+      "title": "Calculate and Analyze Blau Statuses for Measuring Social\nDistance",
+      "lastUpdated": "2026-10-01T10:57:36.696Z"
+    },
+    "CPHazard": {
+      "author": "Vasudha Upadhyay [aut, cre],\nDr. Savitri Joshi [aut, cph],\nKeerthan Aithal [aut]",
+      "maintainer": "Vasudha Upadhyay <vasudhyay@gmail.com>",
+      "title": "Hazard Change Point Models for Different Lifetime Distributions",
+      "lastUpdated": "2026-10-01T10:57:36.696Z"
+    },
+    "CrossDomainAdjust": {
+      "author": "Weikaixin Kong [aut, cre]",
+      "maintainer": "Weikaixin Kong <weikaixin.kong@aalto.fi>",
+      "title": "Lambda-Controlled Cross-Domain Feature Adjustment",
+      "lastUpdated": "2026-10-01T10:57:36.696Z"
+    },
+    "DPSynth": {
+      "author": "Mukul Bijalwan [aut, cre],\nGunjan Aggarwal [aut],\nMukul Jain [aut]",
+      "maintainer": "Mukul Bijalwan <mukulbijalwan555@gmail.com>",
+      "title": "Differentially Private Synthetic Data with Guaranteed Utility",
+      "lastUpdated": "2026-10-01T10:57:36.696Z"
+    },
+    "DeltaTools": {
+      "author": "Michael Matheny [aut, cph] (ORCID:\n<https://orcid.org/0000-0003-3217-4147>),\nFrederic Resnic [aut, cph] (ORCID:\n<https://orcid.org/0000-0002-4105-4529>),\nHenry Ssemaganda [aut, cph] (ORCID:\n<https://orcid.org/0009-0001-2877-3465>),\nJejo Koola [aut, cph] (ORCID: <https://orcid.org/0000-0001-5171-8475>),\nAmy Perkins [aut, cph, cre] (ORCID:\n<https://orcid.org/0000-0001-9052-3558>)",
+      "maintainer": "Amy Perkins <amy.perkins@vumc.org>",
+      "title": "DELTA Analytic Tools and Learning Curve Analysis",
+      "lastUpdated": "2026-10-01T10:57:36.696Z"
+    },
+    "ERRI": {
+      "author": "Anbukkani Perumal [aut],\nMrinmoy Ray [aut],\nChiranjit Mazumder [aut, cre, cph]",
+      "maintainer": "Chiranjit Mazumder <majumder.chira@icar.org.in>",
+      "title": "Economic Resilience and Recovery Index",
+      "lastUpdated": "2026-10-01T10:57:36.696Z"
+    },
+    "FARM": {
+      "author": "Ramón Christen [aut, cre] (ORCID:\n<https://orcid.org/0000-0002-3963-0785>)",
+      "maintainer": "Ramón Christen <hiroshima@bluewin.ch>",
+      "title": "Forward Angular Relevance Measure",
+      "lastUpdated": "2026-10-01T10:57:36.696Z"
+    },
+    "FCGR": {
+      "author": "Antonio Meneses [aut, cre],\nSalvador Naya [ctb],\nJavier Tarrio-Saavedra [ctb],\nIgnacio Lopez-Ullibarri [ctb]",
+      "maintainer": "Antonio Meneses <antoniomenesesfreire@hotmail.com>",
+      "title": "Fatigue Crack Growth in Reliability",
+      "lastUpdated": "2026-10-01T10:57:36.696Z"
+    },
+    "FSSgam": {
+      "author": "Rebecca Fisher [aut, cre],\nAustralian Institute of Marine Science [cph]",
+      "maintainer": "Rebecca Fisher <r.fisher@aims.gov.au>",
+      "title": "Full Subsets Multiple Regression Using GAMs",
+      "lastUpdated": "2026-10-01T10:57:36.696Z"
+    },
+    "GTFShift": {
+      "author": "Gonçalo F. Matos [aut, cre] (ORCID:\n<https://orcid.org/0009-0001-3489-1732>),\nRosa Félix [aut] (ORCID: <https://orcid.org/0000-0002-5642-6006>),\nMiguel Relvas Pires [ctb]",
+      "maintainer": "Gonçalo F. Matos <goncaloafmatos@tecnico.pt>",
+      "title": "Explore and Analyse General Transit Feed Specification (GTFS)\nFiles with a Focus on Urban Mobility",
+      "lastUpdated": "2026-10-01T10:57:36.696Z"
+    },
+    "HanNLP": {
+      "author": "Jonghyeon Park [aut, cre],\nHeewon Jeon [aut],\nTaekyung Kim [ctb],\nSemantic Web Research Center, KAIST [cph] (Copyright details and\nthird-party contributors are documented in inst/COPYRIGHTS.)",
+      "maintainer": "Jonghyeon Park <jng.hyn.park@gmail.com>",
+      "title": "Korean Morphological Analysis and Hangul Utilities",
+      "lastUpdated": "2026-10-01T10:57:36.696Z"
+    },
+    "ISPAT3D": {
+      "author": "Sagnik Bhadury [aut, cre]",
+      "maintainer": "Sagnik Bhadury <bhadury@umich.edu>",
+      "title": "Spatial Conditional Association Networks in Registered Tumor\nVolumes",
+      "lastUpdated": "2026-10-01T10:57:36.696Z"
+    },
+    "MIML": {
+      "author": "Neelesh Kumar [aut, cre],\nAtanu Bhattacharjee [aut],\nGajendra K. Vishwakarma [aut],\nTanmoy Majumdar [aut]",
+      "maintainer": "Neelesh Kumar <neelesh2302@gmail.com>",
+      "title": "Machine Learning Imputation, Clustering and Survival Analysis\nfor Longitudinal Proteomic Data",
+      "lastUpdated": "2026-10-01T10:57:36.696Z"
+    },
+    "Mobius": {
+      "author": "Michail Tsagris [aut, cre]",
+      "maintainer": "Michail Tsagris <mtsagris@uoc.gr>",
+      "title": "Mobius Transport for Directional Data",
+      "lastUpdated": "2026-10-01T10:57:36.696Z"
+    },
+    "R4VN": {
+      "author": "Thai Thanh Truc [aut, cre]",
+      "maintainer": "Thai Thanh Truc <thaithanhtruc@gmail.com>",
+      "title": "Health Data Analysis and Publication-Ready Reporting",
+      "lastUpdated": "2026-10-01T10:57:36.696Z"
+    },
+    "ROI.plugin.coinclp": {
+      "author": "Sam Lovick [aut, cre]",
+      "maintainer": "Sam Lovick <sam@lovickconsulting.com>",
+      "title": "'COIN-OR' 'Clp' Plugin for the 'R' Optimization Infrastructure",
+      "lastUpdated": "2026-10-01T10:57:36.696Z"
+    },
+    "SIVMethod": {
+      "author": "Yuhuai Chen [aut, cre],\nChaohua Dong [aut],\nJiti Gao [aut],\nLinton Oliver [aut],\nBin Peng [aut]",
+      "maintainer": "Yuhuai Chen <yuhuai.chen0351@gmail.com>",
+      "title": "Identification, Estimation and Inference Based on Structural\nError Projection",
+      "lastUpdated": "2026-10-01T10:57:36.697Z"
+    },
+    "SurveyNCD": {
+      "author": "Sujon Mia [aut, cre],\nMd. Atiqul Islam [ctb] (Professor & Academic Mentor, Department of\nStatistics)",
+      "maintainer": "Sujon Mia <sujonsgc@gmail.com>",
+      "title": "Survey-Weighted Analysis of Self-Reported Health Indicators",
+      "lastUpdated": "2026-10-01T10:57:36.697Z"
+    },
+    "SyncERdata": {
+      "author": "Katleen Wils [aut, cre]",
+      "maintainer": "Katleen Wils <katleen.wils@ugent.be>",
+      "title": "Example Datasets for 'SyncER'",
+      "lastUpdated": "2026-10-01T10:57:36.697Z"
+    },
+    "TSQLEM": {
+      "author": "Mohammad Hattab [aut, cre, cph] (ORCID:\n<https://orcid.org/0000-0003-0100-740X>)",
+      "maintainer": "Mohammad Hattab <mwhattab@unm.edu>",
+      "title": "Two Stage Estimation for Generalized Structural Equation Models",
+      "lastUpdated": "2026-10-01T10:57:36.697Z"
+    },
+    "VeraCrop": {
+      "author": "Abolfazl Derakhshan [aut, cph],\nElham Elahifard [aut, cre],\nAghajan Bahadori [ctb],\nShaban Zarei [ctb],\nHossein Norouzi [ctb]",
+      "maintainer": "Elham Elahifard <e.elahifard@asnrukh.ac.ir>",
+      "title": "Yield Gap Analysis Using Comparative Performance Analysis",
+      "lastUpdated": "2026-10-01T10:57:36.697Z"
+    },
+    "WISP.data": {
+      "author": "Alessandro Oggioni [aut, cre, fnd] (ORCID:\n<https://orcid.org/0000-0002-7997-219X>),\nNicola Ghirardi [aut] (ORCID: <https://orcid.org/0000-0002-5006-9853>)",
+      "maintainer": "Alessandro Oggioni <alessandro.oggioni@cnr.it>",
+      "title": "Management and Analysis of WISPstation Hyperspectral Data",
+      "lastUpdated": "2026-10-01T10:57:36.697Z"
+    },
+    "accmv": {
+      "author": "Gang Cheng [aut, cre],\nYen-Chi Chen [aut],\nMaureen A. Smith [aut],\nYing-Qi Zhao [aut]",
+      "maintainer": "Gang Cheng <mathchenggang@gmail.com>",
+      "title": "Inference with Available Complete-Case Missing Values",
+      "lastUpdated": "2026-10-01T10:57:36.697Z"
+    },
+    "admetshiny": {
+      "author": "Xavier Clemente Garcia Cevallos [aut, cre] (ORCID:\n<https://orcid.org/0000-0002-3284-2363>)",
+      "maintainer": "Xavier Clemente Garcia Cevallos <xgarcia@unicauca.edu.co>",
+      "title": "Interactive ADMET and Drug-Likeness Analysis of Small Molecules",
+      "lastUpdated": "2026-10-01T10:57:36.697Z"
+    },
+    "autoslider.trade": {
+      "author": "Joe Zhu [aut, cre]",
+      "maintainer": "Joe Zhu <sha.joe.zhu@gmail.com>",
+      "title": "Slide Automation for Trading Tables, Listings and Figures",
+      "lastUpdated": "2026-10-01T10:57:36.697Z"
+    },
+    "bedrock": {
+      "author": "Andri Signorell [aut, cre] (ORCID:\n<https://orcid.org/0000-0003-4311-1969>),\nR Core Team [ctb],\nHans W. Borchers [ctb],\nDaniel Chessel [ctb],\nNicholas Cooper [ctb],\nStephane Dray [ctb],\nMartin Elff [ctb],\nMichael Friendly [ctb],\nFriedrich Leisch [ctb],\nThomas Lumley [ctb],\nMartin Maechler [ctb],\nNick Sabbe [ctb],\nKarline Soetaert [ctb],\nTerry Therneau [ctb],\nKevin Ushey [ctb],\nJeremy VanDerWal [ctb],\nBill Venables [ctb],\nGregory R. Warnes [ctb],\nDaniel Wollschlaeger [ctb],\nThomas W. Yee [ctb]",
+      "maintainer": "Andri Signorell <andri@signorell.net>",
+      "title": "Base Functions for the 'DescToolsX' Ecosystem",
+      "lastUpdated": "2026-10-01T10:57:36.697Z"
+    },
+    "bgns": {
+      "author": "Aditya Kshirsagar [aut, cre]",
+      "maintainer": "Aditya Kshirsagar <adityaksh4@gmail.com>",
+      "title": "Biweight Graph and Network Statistics",
+      "lastUpdated": "2026-10-01T10:57:36.697Z"
+    },
+    "cWise": {
+      "author": "Yuki Atsusaka [aut, cre],\nKolbe Dumas [aut]",
+      "maintainer": "Yuki Atsusaka <atsusaka@uh.edu>",
+      "title": "Crosswise Models for Sensitive Survey Questions",
+      "lastUpdated": "2026-10-01T10:57:36.697Z"
+    },
+    "cagedr": {
+      "author": "Andre Leite [aut, cre] (ORCID: <https://orcid.org/0000-0002-4718-9766>),\nMarcos Wasiliew [aut],\nHugo Vasconcelos [aut] (ORCID: <https://orcid.org/0000-0001-6249-0920>),\nCarlos Amorim [aut] (ORCID: <https://orcid.org/0000-0001-6315-8305>),\nDiogo Bezerra [aut] (ORCID: <https://orcid.org/0000-0002-1216-8674>),\nJúlia Nascimento Barreto [aut]",
+      "maintainer": "Andre Leite <leite@castlab.org>",
+      "title": "Access Novo CAGED Microdata from the Brazilian Ministry of\nLabour",
+      "lastUpdated": "2026-10-01T10:57:36.697Z"
+    },
+    "cardiovagal": {
+      "author": "Amy Perry [aut, cre]",
+      "maintainer": "Amy Perry <amy.perry@umconnect.umt.edu>",
+      "title": "Automatic Equivalence Testing for Cross-Species Cardiovagal\nHomeostasis",
+      "lastUpdated": "2026-10-01T10:57:36.697Z"
+    },
+    "chat.api": {
+      "author": "Troy Hernandez [aut, cre] (ORCID:\n<https://orcid.org/0009-0005-4248-604X>),\ncornball.ai [cph]",
+      "maintainer": "Troy Hernandez <troy@cornball.ai>",
+      "title": "Transport-Agnostic Chat Contract",
+      "lastUpdated": "2026-10-01T10:57:36.697Z"
+    },
+    "cidian": {
+      "author": "Hao Cheng [aut, cre, cph]",
+      "maintainer": "Hao Cheng <Yousa-Mirage@foxmail.com>",
+      "title": "Read and Parse Chinese Input-Method Dictionaries",
+      "lastUpdated": "2026-10-01T10:57:36.697Z"
+    },
+    "classbound": {
+      "author": "Vaibhav Manihar [aut, cre],\nNatalia da Silva [aut] (ORCID: <https://orcid.org/0000-0002-6031-7451>),\nIgnacio Alvarez-Castro [aut] (ORCID:\n<https://orcid.org/0000-0003-1633-2432>)",
+      "maintainer": "Vaibhav Manihar <vaibhav.manihar@gmail.com>",
+      "title": "Visualization for Classification Decision Boundaries",
+      "lastUpdated": "2026-10-01T10:57:36.697Z"
+    },
+    "clis": {
+      "author": "Raydonal Ospina [aut, cre] (ORCID:\n<https://orcid.org/0000-0002-9884-9090>)",
+      "maintainer": "Raydonal Ospina <raydonal@de.ufpe.br>",
+      "title": "Conformal Local Influence Screening for Bounded-Response\nRegression",
+      "lastUpdated": "2026-10-01T10:57:36.697Z"
+    },
+    "cncleanr": {
+      "author": "Haotian Liu [aut, cre, cph]",
+      "maintainer": "Haotian Liu <wyvern06@163.com>",
+      "title": "Parse Compact Numbers in Chinese Data",
+      "lastUpdated": "2026-10-01T10:57:36.697Z"
+    },
+    "contentvalidR": {
+      "author": "Joshua Uhalt [aut, cre]",
+      "maintainer": "Joshua Uhalt <Josh.Uhalt@gmail.com>",
+      "title": "Tools for Substantive and Content Validity Pretesting",
+      "lastUpdated": "2026-10-01T10:57:36.697Z"
+    },
+    "countryscales": {
+      "author": "Stefan Moog [aut, cre],\nscales authors [aut] (Authors of included code from the scales package),\nPosit, PBC [cph] (Copyright holder of included code from the scales\npackage)",
+      "maintainer": "Stefan Moog <moogs@gmx.de>",
+      "title": "Country Scales",
+      "lastUpdated": "2026-10-01T10:57:36.697Z"
+    },
+    "datapond": {
+      "author": "Ian Nason [aut, cre]",
+      "maintainer": "Ian Nason <ign.nason@gmail.com>",
+      "title": "Query Curated 'DuckDB' Databases Built from Public Data",
+      "lastUpdated": "2026-10-01T10:57:36.697Z"
+    },
+    "debiasedInference": {
+      "author": "Gang Cheng [aut, cre],\nYen-Chi Chen [aut]",
+      "maintainer": "Gang Cheng <mathchenggang@gmail.com>",
+      "title": "Bootstrap Inference with Debiased Nonparametric Estimators",
+      "lastUpdated": "2026-10-01T10:57:36.697Z"
+    },
+    "ecoGLMM": {
+      "author": "André Felipe Carneiro dos Santos [aut, cre] (ORCID:\n<https://orcid.org/0009-0000-8596-1975>),\nBruna Martins Bezerra [aut] (ORCID:\n<https://orcid.org/0000-0003-3039-121X>),\nBárbara Lins Caldas de Moraes [aut] (ORCID:\n<https://orcid.org/0000-0002-1804-9828>)",
+      "maintainer": "André Felipe Carneiro dos Santos <andre.fcsantos@ufpe.br>",
+      "title": "Reproducible Ecological Generalized Linear Mixed Model Pipelines",
+      "lastUpdated": "2026-10-01T10:57:36.697Z"
+    },
+    "escapeR": {
+      "author": "Tiago Marques [aut, cre],\nOpenAI Codex [ctb]",
+      "maintainer": "Tiago Marques <tiago.marques@st-andrews.ac.uk>",
+      "title": "Escape Room Adventures for Learning R in Ecological Statistics",
+      "lastUpdated": "2026-10-01T10:57:36.697Z"
+    },
+    "estbanr": {
+      "author": "Andre Leite [aut, cre] (ORCID: <https://orcid.org/0000-0002-4718-9766>),\nMarcos Wasiliew [aut],\nHugo Vasconcelos [aut] (ORCID: <https://orcid.org/0000-0001-6249-0920>),\nCarlos Amorim [aut] (ORCID: <https://orcid.org/0000-0001-6315-8305>),\nDiogo Bezerra [aut] (ORCID: <https://orcid.org/0000-0002-1216-8674>),\nJúlia Nascimento Barreto [aut]",
+      "maintainer": "Andre Leite <leite@castlab.org>",
+      "title": "Brazilian Monthly Banking Statistics by Municipality (ESTBAN)",
+      "lastUpdated": "2026-10-01T10:57:36.697Z"
+    },
+    "eyeprocess": {
+      "author": "Stefanos Balaskas [aut, cre] (ORCID:\n<https://orcid.org/0000-0003-2444-9796>)",
+      "maintainer": "Stefanos Balaskas <s.balaskas@ac.upatras.gr>",
+      "title": "Harmonize Eye-Tracking, Pupillometry, Biometrics, and\nPsychometric Process Data",
+      "lastUpdated": "2026-10-01T10:57:36.697Z"
+    },
+    "fastsae": {
+      "author": "Ridson Al Farizal P [aut, cre, cph] (ORCID:\n<https://orcid.org/0000-0003-0617-0214>),\nAzka Ubaidillah [aut] (ORCID: <https://orcid.org/0000-0002-3597-0459>)",
+      "maintainer": "Ridson Al Farizal P <alfrzlp@gmail.com>",
+      "title": "Fast Implementation of Small Area Estimation Methods",
+      "lastUpdated": "2026-10-01T10:57:36.697Z"
+    },
+    "fireData": {
+      "author": "Robin Gounder [aut, cre] (ORCID:\n<https://orcid.org/0009-0008-7755-7081>),\nPaul Spende [aut],\nKevin McGinley [ctb]",
+      "maintainer": "Robin Gounder <robin@gounder.com>",
+      "title": "Connect to 'Google Firebase'",
+      "lastUpdated": "2026-10-01T10:57:36.697Z"
+    },
+    "geoaddSAE2": {
+      "author": "Amalyah Rizky Khairunnisa Sutarto [aut, cre],\nNovi Hidayat Pusponegoro [aut, ths]",
+      "maintainer": "Amalyah Rizky Khairunnisa Sutarto <222212489@stis.ac.id>",
+      "title": "Geoadditive Small Area Estimation for Area-Level Model",
+      "lastUpdated": "2026-10-01T10:57:36.697Z"
+    },
+    "geoidep": {
+      "author": "antony barja [aut, cre, cph] (ORCID:\n<https://orcid.org/0000-0001-5921-2858>)",
+      "maintainer": "antony barja <geografo.pe@gmail.com>",
+      "title": "Download Geographic Data on Various Topics Provided and Managed\nby the Spatial Data Infrastructure of Peru",
+      "lastUpdated": "2026-10-01T10:57:36.697Z"
+    },
+    "gfpop": {
+      "author": "Vincent Runge [aut, cre],\nToby Hocking [aut],\nGuillem Rigaill [aut],\nDaniel Grose [aut],\nGaetano Romano [aut],\nFatemeh Afghah [aut],\nPaul Fearnhead [aut],\nMichel Koskas [ctb],\nArnaud Liehrmann [ctb]",
+      "maintainer": "Vincent Runge <vincent.runge@univ-evry.fr>",
+      "title": "Graph-Constrained Functional Pruning Optimal Partitioning",
+      "lastUpdated": "2026-10-01T10:57:36.697Z"
+    },
+    "harf": {
+      "author": "Cesaire J. K. Fouodo [aut, cre],\nJan Kapar [aut],\nMarvin N. Wright [aut]",
+      "maintainer": "Cesaire J. K. Fouodo <fouodo@leibniz-bips.de>",
+      "title": "Adversarial Random Forests for Omics Synthesis",
+      "lastUpdated": "2026-10-01T10:57:36.697Z"
+    },
+    "hobbs": {
+      "author": "Mike Kleinsasser [aut, cre]",
+      "maintainer": "Mike Kleinsasser <mjkleinsa@gmail.com>",
+      "title": "High Dimensional Bayesian Omnibus Sampler",
+      "lastUpdated": "2026-10-01T10:57:36.697Z"
+    },
+    "insectecol": {
+      "author": "Wangyao Li [aut, cre, cph]",
+      "maintainer": "Wangyao Li <1561941342@qq.com>",
+      "title": "Insect Ecology Data Analysis Toolkit",
+      "lastUpdated": "2026-10-01T10:57:36.697Z"
+    },
+    "ivue": {
+      "author": "Pawel Gajer [aut, cre]",
+      "maintainer": "Pawel Gajer <pgajer@gmail.com>",
+      "title": "Interactive 3D Visualization of Data and Graphs",
+      "lastUpdated": "2026-10-01T10:57:36.697Z"
+    },
+    "latexr": {
+      "author": "Rodrigo Borges [aut, cre],\nTomas Capretto [aut, ctb]",
+      "maintainer": "Rodrigo Borges <rodrigo@borges.net.br>",
+      "title": "Translate 'LaTeX' Formulas to R Code",
+      "lastUpdated": "2026-10-01T10:57:36.697Z"
+    },
+    "limpidR": {
+      "author": "Chanikya Naidu [aut, cre]",
+      "maintainer": "Chanikya Naidu <thefisherieschanikyaneeti@gmail.com>",
+      "title": "Reproducible Analysis of Freshwater Microplastic Data",
+      "lastUpdated": "2026-10-01T10:57:36.697Z"
+    },
+    "lwbgt": {
+      "author": "Yifei Zheng [aut, cre, cph] (ORCID:\n<https://orcid.org/0009-0001-4858-2025>),\nJames C. Liljegren [ctb],\nNels Larson [ctb],\nUChicago Argonne, LLC [cph]",
+      "maintainer": "Yifei Zheng <zyf0717@gmail.com>",
+      "title": "Reference-Compatible Outdoor Wet Bulb Globe Temperature",
+      "lastUpdated": "2026-10-01T10:57:36.697Z"
+    },
+    "mSigSpectra": {
+      "author": "Steve Rozen [aut, cre],\nNanhai Jiang [aut],\nArnoud Boot [aut],\nMo Liu [aut],\nYang Wu [aut],\nMi Ni Huang [aut],\nJia Geng Chang [aut]",
+      "maintainer": "Steve Rozen <steverozen@pm.me>",
+      "title": "Build Mutational-Spectrum Catalogs from Variant Call Format\nFiles",
+      "lastUpdated": "2026-10-01T10:57:36.697Z"
+    },
+    "mariposa": {
+      "author": "Yannick Diehl [aut, cre]",
+      "maintainer": "Yannick Diehl <yannick.diehl@gmail.com>",
+      "title": "'SPSS'-Compatible Statistical Tools for Survey Data",
+      "lastUpdated": "2026-10-01T10:57:36.697Z"
+    },
+    "mdbx": {
+      "author": "Pedro Baltazar [aut, cre, cph],\nLeonid Yuriev [ctb, cph] (Vendored 'libmdbx' library in\nsrc/vendor/libmdbx; see inst/COPYRIGHTS.),\nHoward Chu [ctb, cph] (Author of LMDB, from which libmdbx derives; see\ninst/COPYRIGHTS.),\nSymas Corporation [cph] (Copyright holder of LMDB; see\ninst/COPYRIGHTS.),\nMartin Hedenfalk [ctb, cph] (Author of btree.c, from which LMDB\nderives; see inst/COPYRIGHTS.)",
+      "maintainer": "Pedro Baltazar <pedrobtz@gmail.com>",
+      "title": "Bindings to the 'libmdbx' Embedded Key-Value Store",
+      "lastUpdated": "2026-10-01T10:57:36.697Z"
+    },
+    "mizu": {
+      "author": "Charlie Gao [aut, cre] (ORCID: <https://orcid.org/0000-0002-0750-061X>),\nPosit Software, PBC [cph, fnd] (ROR: <https://ror.org/03wc8by49>)",
+      "maintainer": "Charlie Gao <charlie.gao@posit.co>",
+      "title": "Single-Producer Single-Consumer Channels",
+      "lastUpdated": "2026-10-01T10:57:36.697Z"
+    },
+    "mvPred": {
+      "author": "Norman Matloff [aut],\nCynthia Mascarenhas [aut],\nBilly Ouattara [aut, cre],\nAlekya Veluri [aut]",
+      "maintainer": "Billy Ouattara <ouattarabilly33@hotmail.com>",
+      "title": "Methods for Handling Missing Values in Linear Modeling",
+      "lastUpdated": "2026-10-01T10:57:36.697Z"
+    },
+    "myman": {
+      "author": "Dirk Eddelbuettel [aut, cre] (ORCID:\n<https://orcid.org/0000-0001-6419-907X>)",
+      "maintainer": "Dirk Eddelbuettel <edd@debian.org>",
+      "title": "Draw from Sequence of 'My Man' Posts by Kevin Kruse",
+      "lastUpdated": "2026-10-01T10:57:36.697Z"
+    },
+    "netOP": {
+      "author": "Sayan Chakrabarty [aut, cre] (ORCID:\n<https://orcid.org/0000-0003-2372-2076>)",
+      "maintainer": "Sayan Chakrabarty <sayanc@umich.edu>",
+      "title": "Network Data Operations and Overlapping Partitions Based Methods\nfor Large Networks",
+      "lastUpdated": "2026-10-01T10:57:36.697Z"
+    },
+    "pagerankr": {
+      "author": "Bart Turczynski [aut, cre] (ORCID:\n<https://orcid.org/0000-0002-8788-7980>)",
+      "maintainer": "Bart Turczynski <bartek@turczynski.pl>",
+      "title": "Modular Toolkit for PageRank Calculation",
+      "lastUpdated": "2026-10-01T10:57:36.697Z"
+    },
+    "pediatric.zcalc": {
+      "author": "Andreas Mändle [aut, cre],\nTimm Intemann [aut],\nZülal Bekerecioglu [aut]",
+      "maintainer": "Andreas Mändle <maendle@leibniz-bips.de>",
+      "title": "Z-Score Calculator for Biomarkers: Childhood to Young Adulthood",
+      "lastUpdated": "2026-10-01T10:57:36.697Z"
+    },
+    "pkgcheck": {
+      "author": "Mark Padgham [aut, cre] (ORCID:\n<https://orcid.org/0000-0003-2172-5265>),\nMaëlle Salmon [aut],\nJacob Wujciak-Jens [aut] (ORCID:\n<https://orcid.org/0000-0002-7281-3989>),\nKelli F. Johnson [ctb] (ORCID: <https://orcid.org/0000-0002-5149-451X>),\nEunseop Kim [aut] (ORCID: <https://orcid.org/0009-0000-2138-788X>),\nKatrina Brock [ctb] (ORCID: <https://orcid.org/0009-0003-4678-9545>),\nAndy Teucher [aut] (ORCID: <https://orcid.org/0000-0002-7840-692X>),\nEric R. Scott [aut] (ORCID: <https://orcid.org/0000-0002-7430-7879>)",
+      "maintainer": "Mark Padgham <mark.padgham@email.com>",
+      "title": "Package Checks for 'rOpenSci'",
+      "lastUpdated": "2026-10-01T10:57:36.697Z"
+    },
+    "presto": {
+      "author": "Ilya Korsunsky [aut] (ORCID: <https://orcid.org/0000-0003-4848-3948>),\nAparna Nathan [aut],\nNghia Millard [aut] (ORCID: <https://orcid.org/0000-0002-0518-7674>),\nSoumya Raychaudhuri [aut] (ORCID:\n<https://orcid.org/0000-0002-1901-8265>),\nKamil Slowikowski [cre, ctb] (ORCID:\n<https://orcid.org/0000-0002-2843-6370>),\nAustin Hartman [ctb] (ORCID: <https://orcid.org/0000-0001-7278-1852>)",
+      "maintainer": "Kamil Slowikowski <kslowikowski@gmail.com>",
+      "title": "Fast Functions for Differential Expression Using Wilcoxon and\nAUC",
+      "lastUpdated": "2026-10-01T10:57:36.697Z"
+    },
+    "qio": {
+      "author": "Pedro Baltazar [aut, cre, cph],\nJohan HG Natter [aut, cph] (carquet source code (MIT license)),\nvctrs authors [ctb, cph] (qio_s3_register() helper (MIT license))",
+      "maintainer": "Pedro Baltazar <pedrobtz@gmail.com>",
+      "title": "Read and Write 'Apache Parquet' Files",
+      "lastUpdated": "2026-10-01T10:57:36.697Z"
+    },
+    "qpmR": {
+      "author": "Mustapha Mohammed [aut, cre]",
+      "maintainer": "Mustapha Mohammed <muswaseja@gmail.com>",
+      "title": "Quarterly Projection Models for Monetary Policy Analysis",
+      "lastUpdated": "2026-10-01T10:57:36.697Z"
+    },
+    "rReGSPTT": {
+      "author": "Harsh Tripathi [aut, cre],\nMahendra Saha [aut]",
+      "maintainer": "Harsh Tripathi <rsearchstat21@gmail.com>",
+      "title": "Repetitive Group Acceptance Sampling Inspection Plans for Time\nTruncated Life Test",
+      "lastUpdated": "2026-10-01T10:57:36.697Z"
+    },
+    "raisr": {
+      "author": "Andre Leite [aut, cre] (ORCID: <https://orcid.org/0000-0002-4718-9766>),\nMarcos Wasiliew [aut],\nHugo Vasconcelos [aut] (ORCID: <https://orcid.org/0000-0001-6249-0920>),\nCarlos Amorim [aut] (ORCID: <https://orcid.org/0000-0001-6315-8305>),\nDiogo Bezerra [aut] (ORCID: <https://orcid.org/0000-0002-1216-8674>),\nJúlia Nascimento Barreto [aut]",
+      "maintainer": "Andre Leite <leite@castlab.org>",
+      "title": "Access 'RAIS' Microdata from the Brazilian Ministry of Labour",
+      "lastUpdated": "2026-10-01T10:57:36.697Z"
+    },
+    "rbiogeme": {
+      "author": "Michel Bierlaire [aut, cre]",
+      "maintainer": "Michel Bierlaire <michel.bierlaire@epfl.ch>",
+      "title": "Interface to 'Biogeme'",
+      "lastUpdated": "2026-10-01T10:57:36.697Z"
+    },
+    "saebenchmarking": {
+      "author": "Fiona Audia Nauli Sihombing [aut, cre, cph],\nAzka Ubaidillah [aut]",
+      "maintainer": "Fiona Audia Nauli Sihombing <fionasihombing95@gmail.com>",
+      "title": "Benchmarking Small Area Estimates and Their Mean Squared Errors",
+      "lastUpdated": "2026-10-01T10:57:36.697Z"
+    },
+    "scFlex": {
+      "author": "Mohamed N. Hassan [aut, cre]",
+      "maintainer": "Mohamed N. Hassan <m.nhassan@hotmail.com>",
+      "title": "Flexible Conversion Between Single-Cell Data Objects",
+      "lastUpdated": "2026-10-01T10:57:36.697Z"
+    },
+    "searchlight": {
+      "author": "Mustapha Wasseja [aut, cre],\nSarah Hamed [aut],\nSouci Frissa [aut],\nBlack Thrive Global [cph, fnd]",
+      "maintainer": "Mustapha Wasseja <mustapha.wasseja.mohammed@gmail.com>",
+      "title": "Audited Analysis of Police Stop and Search Records",
+      "lastUpdated": "2026-10-01T10:57:36.697Z"
+    },
+    "sensorLeak": {
+      "author": "Divya Umai Raja [aut, cre, cph],\nSanjana Sujil [aut, cph]",
+      "maintainer": "Divya Umai Raja <iamuayvid@gmail.com>",
+      "title": "Leakage Detection for Environmental Sensor Data",
+      "lastUpdated": "2026-10-01T10:57:36.697Z"
+    },
+    "shinysnap": {
+      "author": "Nan Xiao [aut, cre, cph] (ORCID:\n<https://orcid.org/0000-0002-0250-5673>)",
+      "maintainer": "Nan Xiao <me@nanx.me>",
+      "title": "Save and Restore the State of 'shiny' Applications",
+      "lastUpdated": "2026-10-01T10:57:36.697Z"
+    },
+    "simPreg": {
+      "author": "Siri N. Skodvin [aut, cre],\nMiriam Gjerdevik [ctb],\nHakon K. Gjessing [ctb]",
+      "maintainer": "Siri N. Skodvin <siri.skodvin@gmail.com>",
+      "title": "Simulate Pregnancy Data with Time-Varying Exposure",
+      "lastUpdated": "2026-10-01T10:57:36.697Z"
+    },
+    "spscsfa": {
+      "author": "Kai Sun [aut, cre]",
+      "maintainer": "Kai Sun <ksun1@shu.edu.cn>",
+      "title": "Semiparametric Smooth-Coefficient Stochastic Frontier Analysis",
+      "lastUpdated": "2026-10-01T10:57:36.697Z"
+    },
+    "ssPilot": {
+      "author": "Joel Dadiboe [aut, cre, cph],\nMarcio Diniz [aut, rev, cph]",
+      "maintainer": "Joel Dadiboe <joeldadiboe@gmail.com>",
+      "title": "Sample Size Calculation for External Pilot Studies for a\nContinuous Endpoint",
+      "lastUpdated": "2026-10-01T10:57:36.697Z"
+    },
+    "stabplot": {
+      "author": "Mahdi Nouraie [aut, cre],\nSamuel Muller [aut]",
+      "maintainer": "Mahdi Nouraie <mahdinouraie20@gmail.com>",
+      "title": "Stability Plots for Lasso Stability Selection",
+      "lastUpdated": "2026-10-01T10:57:36.697Z"
+    },
+    "summary2joint": {
+      "author": "Xuekui Zhang [aut, cre] (ORCID:\n<https://orcid.org/0000-0003-4728-2343>)",
+      "maintainer": "Xuekui Zhang <ubcxzhang@gmail.com>",
+      "title": "Joint Distribution Estimation from Marginal Study Summaries",
+      "lastUpdated": "2026-10-01T10:57:36.697Z"
+    },
+    "svpChange": {
+      "author": "Vincent Runge [aut, cre, cph],\nAlexandre Combeau [aut],\nGaetano Romano [aut],\nAnica Kostic [ctb]",
+      "maintainer": "Vincent Runge <vincent.runge@univ-evry.fr>",
+      "title": "Smallest Valid Partitioning for Change-Point Detection",
+      "lastUpdated": "2026-10-01T10:57:36.697Z"
+    },
+    "svyLocAdj": {
+      "author": "K. Shuvo Bakar [aut, cre] (ORCID:\n<https://orcid.org/0000-0003-3215-4496>),\nJahidur Rahman Khan [ctb] (ORCID:\n<https://orcid.org/0000-0002-3029-6303>),\nBernard Baffour [ctb] (ORCID: <https://orcid.org/0000-0002-9820-2617>)",
+      "maintainer": "K. Shuvo Bakar <shuvo.bakar@gmail.com>",
+      "title": "Modelling Survey Data (E.g., DHS) with Adjustment for Location\nPerturbations",
+      "lastUpdated": "2026-10-01T10:57:36.697Z"
+    },
+    "tera": {
+      "author": "Kenneth Blake Vernon [aut, cre, cph] (ORCID:\n<https://orcid.org/0000-0003-0098-5092>)",
+      "maintainer": "Kenneth Blake Vernon <kenneth.b.vernon@gmail.com>",
+      "title": "Generate Text and Documents with the Tera Templating Engine",
+      "lastUpdated": "2026-10-01T10:57:36.697Z"
+    },
+    "transfRgov": {
+      "author": "Rodrigo Borges [aut, cre]",
+      "maintainer": "Rodrigo Borges <rodrigo@borges.net.br>",
+      "title": "Acquisition and Reading of Brazilian Federal Government Fund\nTransfers",
+      "lastUpdated": "2026-10-01T10:57:36.697Z"
+    },
+    "trialdiff": {
+      "author": "Hirujan Rangaraj [aut, cre]",
+      "maintainer": "Hirujan Rangaraj <hirujanrangaraj@gmail.com>",
+      "title": "Clinical Trial Data-Cut Change Detection and Impact Assessment",
+      "lastUpdated": "2026-10-01T10:57:36.697Z"
+    },
+    "uSDT": {
+      "author": "Ricardo Rey-Sáez [aut, cre] (ORCID:\n<https://orcid.org/0000-0001-6739-2035>),\nFrancisco Garre-Frutos [aut] (ORCID:\n<https://orcid.org/0000-0001-9810-186X>),\nAlicia Franco-Martínez [aut] (ORCID:\n<https://orcid.org/0000-0002-9710-1240>),\nMiguel Vadillo [aut] (ORCID: <https://orcid.org/0000-0001-8421-816X>)",
+      "maintainer": "Ricardo Rey-Sáez <ricardoreysaez95@gmail.com>",
+      "title": "Hierarchical Signal Detection Theory Models for Unconscious\nProcessing",
+      "lastUpdated": "2026-10-01T10:57:36.697Z"
+    },
+    "winn": {
+      "author": "Tanmay Tanna [aut, cre, cph]",
+      "maintainer": "Tanmay Tanna <tanmay@tanmaytanna.com>",
+      "title": "White Noise Normalization for Mass Spectrometry Profiling Data",
+      "lastUpdated": "2026-10-01T10:57:36.697Z"
+    },
+    "wowi": {
+      "author": "Tomás Zaba [aut, cre, cph] (ORCID:\n<https://orcid.org/0000-0002-7079-3574>)",
+      "maintainer": "Tomás Zaba <tomas.zaba@outlook.com>",
+      "title": "Detect Spatial Clusters of High Rates of Acute Malnutrition",
+      "lastUpdated": "2026-10-01T10:57:36.697Z"
+    },
+    "xmlrectr": {
+      "author": "Lorenzo Isella [aut, cre]",
+      "maintainer": "Lorenzo Isella <lorenzo.isella@gmail.com>",
+      "title": "Rectangle Arbitrary 'XML' into Analysis-Friendly Tables",
+      "lastUpdated": "2026-10-01T10:57:36.697Z"
+    },
+    "xtifedml": {
+      "author": "Binzhi Chen [aut] (ORCID: <https://orcid.org/0000-0002-5094-7740>),\nAnnalivia Polselli [aut, cre] (ORCID:\n<https://orcid.org/0009-0002-7579-7926>)",
+      "maintainer": "Annalivia Polselli <apolselli.econ@gmail.com>",
+      "title": "Double Machine Learning for Static Panel Models with Interactive\nFixed Effects",
+      "lastUpdated": "2026-10-01T10:57:36.697Z"
     }
   }
 }
