@@ -106,8 +106,8 @@
   },
   {
     "package": "ADAM",
-    "totalDownloads": 27356,
-    "totalDistinctIPs": 13859,
+    "totalDownloads": 27357,
+    "totalDistinctIPs": 13860,
     "firstYear": 2018,
     "lastYear": 2026
   },
@@ -225,8 +225,8 @@
   },
   {
     "package": "affyILM",
-    "totalDownloads": 52600,
-    "totalDistinctIPs": 29526,
+    "totalDownloads": 52601,
+    "totalDistinctIPs": 29527,
     "firstYear": 2010,
     "lastYear": 2026
   },
@@ -568,8 +568,8 @@
   },
   {
     "package": "ANCOMBC",
-    "totalDownloads": 171995,
-    "totalDistinctIPs": 85967,
+    "totalDownloads": 171997,
+    "totalDistinctIPs": 85969,
     "firstYear": 2020,
     "lastYear": 2026
   },
@@ -638,22 +638,22 @@
   },
   {
     "package": "annotate",
-    "totalDownloads": 5083094,
-    "totalDistinctIPs": 2492864,
+    "totalDownloads": 5083097,
+    "totalDistinctIPs": 2492867,
     "firstYear": 2009,
     "lastYear": 2026
   },
   {
     "package": "AnnotationDbi",
-    "totalDownloads": 9180027,
-    "totalDistinctIPs": 4323759,
+    "totalDownloads": 9180031,
+    "totalDistinctIPs": 4323763,
     "firstYear": 2009,
     "lastYear": 2026
   },
   {
     "package": "AnnotationFilter",
-    "totalDownloads": 1498371,
-    "totalDistinctIPs": 844213,
+    "totalDownloads": 1498372,
+    "totalDistinctIPs": 844214,
     "firstYear": 2017,
     "lastYear": 2026
   },
@@ -673,8 +673,8 @@
   },
   {
     "package": "AnnotationHub",
-    "totalDownloads": 1775932,
-    "totalDistinctIPs": 976445,
+    "totalDownloads": 1775933,
+    "totalDistinctIPs": 976446,
     "firstYear": 2013,
     "lastYear": 2026
   },
@@ -799,8 +799,8 @@
   },
   {
     "package": "APL",
-    "totalDownloads": 20697,
-    "totalDistinctIPs": 11663,
+    "totalDownloads": 20698,
+    "totalDistinctIPs": 11664,
     "firstYear": 2022,
     "lastYear": 2026
   },
@@ -1254,8 +1254,8 @@
   },
   {
     "package": "BaseSpaceR",
-    "totalDownloads": 44722,
-    "totalDistinctIPs": 24348,
+    "totalDownloads": 44723,
+    "totalDistinctIPs": 24349,
     "firstYear": 2013,
     "lastYear": 2026
   },
@@ -1289,8 +1289,8 @@
   },
   {
     "package": "basilisk",
-    "totalDownloads": 366744,
-    "totalDistinctIPs": 209677,
+    "totalDownloads": 366746,
+    "totalDistinctIPs": 209679,
     "firstYear": 2020,
     "lastYear": 2026
   },
@@ -1359,8 +1359,8 @@
   },
   {
     "package": "BayesSpace",
-    "totalDownloads": 49793,
-    "totalDistinctIPs": 25937,
+    "totalDownloads": 49794,
+    "totalDistinctIPs": 25938,
     "firstYear": 2020,
     "lastYear": 2026
   },
@@ -1653,8 +1653,8 @@
   },
   {
     "package": "Biobase",
-    "totalDownloads": 12268495,
-    "totalDistinctIPs": 5466145,
+    "totalDownloads": 12268501,
+    "totalDistinctIPs": 5466150,
     "firstYear": 2009,
     "lastYear": 2026
   },
@@ -1695,8 +1695,8 @@
   },
   {
     "package": "BiocBaseUtils",
-    "totalDownloads": 564302,
-    "totalDistinctIPs": 372587,
+    "totalDownloads": 564304,
+    "totalDistinctIPs": 372589,
     "firstYear": 2022,
     "lastYear": 2026
   },
@@ -1758,15 +1758,15 @@
   },
   {
     "package": "BiocFileCache",
-    "totalDownloads": 3621473,
-    "totalDistinctIPs": 1851907,
+    "totalDownloads": 3621478,
+    "totalDistinctIPs": 1851910,
     "firstYear": 2017,
     "lastYear": 2026
   },
   {
     "package": "BiocGenerics",
-    "totalDownloads": 13617251,
-    "totalDistinctIPs": 6088079,
+    "totalDownloads": 13617261,
+    "totalDistinctIPs": 6088086,
     "firstYear": 2011,
     "lastYear": 2026
   },
@@ -1807,8 +1807,8 @@
   },
   {
     "package": "BiocIO",
-    "totalDownloads": 2297531,
-    "totalDistinctIPs": 1130948,
+    "totalDownloads": 2297532,
+    "totalDistinctIPs": 1130949,
     "firstYear": 2020,
     "lastYear": 2026
   },
@@ -1821,15 +1821,15 @@
   },
   {
     "package": "biocmake",
-    "totalDownloads": 113167,
-    "totalDistinctIPs": 80875,
+    "totalDownloads": 113168,
+    "totalDistinctIPs": 80876,
     "firstYear": 2025,
     "lastYear": 2026
   },
   {
     "package": "BiocNeighbors",
-    "totalDownloads": 1794331,
-    "totalDistinctIPs": 745402,
+    "totalDownloads": 1794332,
+    "totalDistinctIPs": 745403,
     "firstYear": 2018,
     "lastYear": 2026
   },
@@ -1849,8 +1849,8 @@
   },
   {
     "package": "BiocParallel",
-    "totalDownloads": 9707743,
-    "totalDistinctIPs": 4228552,
+    "totalDownloads": 9707752,
+    "totalDistinctIPs": 4228558,
     "firstYear": 2012,
     "lastYear": 2026
   },
@@ -1884,8 +1884,8 @@
   },
   {
     "package": "BiocSingular",
-    "totalDownloads": 1629735,
-    "totalDistinctIPs": 865056,
+    "totalDownloads": 1629736,
+    "totalDistinctIPs": 865057,
     "firstYear": 2019,
     "lastYear": 2026
   },
@@ -1912,8 +1912,8 @@
   },
   {
     "package": "BiocVersion",
-    "totalDownloads": 11708495,
-    "totalDistinctIPs": 4848944,
+    "totalDownloads": 11708505,
+    "totalDistinctIPs": 4848951,
     "firstYear": 2018,
     "lastYear": 2026
   },
@@ -2017,8 +2017,8 @@
   },
   {
     "package": "biomaRt",
-    "totalDownloads": 5508792,
-    "totalDistinctIPs": 2500041,
+    "totalDownloads": 5508794,
+    "totalDistinctIPs": 2500043,
     "firstYear": 2009,
     "lastYear": 2026
   },
@@ -2108,8 +2108,8 @@
   },
   {
     "package": "Biostrings",
-    "totalDownloads": 10387196,
-    "totalDistinctIPs": 4409857,
+    "totalDownloads": 10387205,
+    "totalDistinctIPs": 4409863,
     "firstYear": 2009,
     "lastYear": 2026
   },
@@ -2374,8 +2374,8 @@
   },
   {
     "package": "BSgenome",
-    "totalDownloads": 3032256,
-    "totalDistinctIPs": 1404031,
+    "totalDownloads": 3032257,
+    "totalDistinctIPs": 1404032,
     "firstYear": 2009,
     "lastYear": 2026
   },
@@ -2402,8 +2402,8 @@
   },
   {
     "package": "BufferedMatrix",
-    "totalDownloads": 51607,
-    "totalDistinctIPs": 30612,
+    "totalDownloads": 51608,
+    "totalDistinctIPs": 30613,
     "firstYear": 2009,
     "lastYear": 2026
   },
@@ -2437,8 +2437,8 @@
   },
   {
     "package": "bumphunter",
-    "totalDownloads": 635190,
-    "totalDistinctIPs": 310687,
+    "totalDownloads": 635191,
+    "totalDistinctIPs": 310688,
     "firstYear": 2012,
     "lastYear": 2026
   },
@@ -2514,8 +2514,8 @@
   },
   {
     "package": "CAGEr",
-    "totalDownloads": 61704,
-    "totalDistinctIPs": 34066,
+    "totalDownloads": 61705,
+    "totalDistinctIPs": 34067,
     "firstYear": 2013,
     "lastYear": 2026
   },
@@ -3179,8 +3179,8 @@
   },
   {
     "package": "ChIPComp",
-    "totalDownloads": 32552,
-    "totalDistinctIPs": 16466,
+    "totalDownloads": 32553,
+    "totalDistinctIPs": 16467,
     "firstYear": 2015,
     "lastYear": 2026
   },
@@ -3200,8 +3200,8 @@
   },
   {
     "package": "ChIPpeakAnno",
-    "totalDownloads": 351666,
-    "totalDistinctIPs": 150729,
+    "totalDownloads": 351668,
+    "totalDistinctIPs": 150730,
     "firstYear": 2009,
     "lastYear": 2026
   },
@@ -3347,8 +3347,8 @@
   },
   {
     "package": "cigarillo",
-    "totalDownloads": 351587,
-    "totalDistinctIPs": 186434,
+    "totalDownloads": 351589,
+    "totalDistinctIPs": 186436,
     "firstYear": 2025,
     "lastYear": 2026
   },
@@ -3431,8 +3431,8 @@
   },
   {
     "package": "clevRvis",
-    "totalDownloads": 15523,
-    "totalDistinctIPs": 8016,
+    "totalDownloads": 15524,
+    "totalDistinctIPs": 8017,
     "firstYear": 2023,
     "lastYear": 2026
   },
@@ -3557,8 +3557,8 @@
   },
   {
     "package": "clusterProfiler",
-    "totalDownloads": 2858064,
-    "totalDistinctIPs": 1487918,
+    "totalDownloads": 2858065,
+    "totalDistinctIPs": 1487919,
     "firstYear": 2011,
     "lastYear": 2026
   },
@@ -3571,8 +3571,8 @@
   },
   {
     "package": "ClusterSignificance",
-    "totalDownloads": 29018,
-    "totalDistinctIPs": 15549,
+    "totalDownloads": 29019,
+    "totalDistinctIPs": 15550,
     "firstYear": 2016,
     "lastYear": 2026
   },
@@ -3809,8 +3809,8 @@
   },
   {
     "package": "cogeqc",
-    "totalDownloads": 19788,
-    "totalDistinctIPs": 10538,
+    "totalDownloads": 19789,
+    "totalDistinctIPs": 10539,
     "firstYear": 2022,
     "lastYear": 2026
   },
@@ -4075,8 +4075,8 @@
   },
   {
     "package": "CopyNumber450k",
-    "totalDownloads": 9810,
-    "totalDistinctIPs": 6362,
+    "totalDownloads": 9811,
+    "totalDistinctIPs": 6363,
     "firstYear": 2014,
     "lastYear": 2026
   },
@@ -4516,8 +4516,8 @@
   },
   {
     "package": "cummeRbund",
-    "totalDownloads": 604697,
-    "totalDistinctIPs": 137266,
+    "totalDownloads": 604698,
+    "totalDistinctIPs": 137267,
     "firstYear": 2011,
     "lastYear": 2026
   },
@@ -4544,8 +4544,8 @@
   },
   {
     "package": "CVE",
-    "totalDownloads": 8952,
-    "totalDistinctIPs": 5348,
+    "totalDownloads": 8953,
+    "totalDistinctIPs": 5349,
     "firstYear": 2016,
     "lastYear": 2026
   },
@@ -4712,8 +4712,8 @@
   },
   {
     "package": "daMA",
-    "totalDownloads": 52080,
-    "totalDistinctIPs": 29767,
+    "totalDownloads": 52081,
+    "totalDistinctIPs": 29768,
     "firstYear": 2009,
     "lastYear": 2026
   },
@@ -5076,8 +5076,8 @@
   },
   {
     "package": "DelayedArray",
-    "totalDownloads": 9241741,
-    "totalDistinctIPs": 3651526,
+    "totalDownloads": 9241748,
+    "totalDistinctIPs": 3651533,
     "firstYear": 2016,
     "lastYear": 2026
   },
@@ -5090,8 +5090,8 @@
   },
   {
     "package": "DelayedMatrixStats",
-    "totalDownloads": 2232135,
-    "totalDistinctIPs": 1142951,
+    "totalDownloads": 2232136,
+    "totalDistinctIPs": 1142952,
     "firstYear": 2017,
     "lastYear": 2026
   },
@@ -5244,15 +5244,15 @@
   },
   {
     "package": "DESeq2",
-    "totalDownloads": 4903589,
-    "totalDistinctIPs": 2101551,
+    "totalDownloads": 4903594,
+    "totalDistinctIPs": 2101556,
     "firstYear": 2013,
     "lastYear": 2026
   },
   {
     "package": "DEsingle",
-    "totalDownloads": 47935,
-    "totalDistinctIPs": 27646,
+    "totalDownloads": 47937,
+    "totalDistinctIPs": 27647,
     "firstYear": 2018,
     "lastYear": 2026
   },
@@ -5293,8 +5293,8 @@
   },
   {
     "package": "DEXSeq",
-    "totalDownloads": 377535,
-    "totalDistinctIPs": 177738,
+    "totalDownloads": 377536,
+    "totalDistinctIPs": 177739,
     "firstYear": 2011,
     "lastYear": 2026
   },
@@ -5328,8 +5328,8 @@
   },
   {
     "package": "DiffBind",
-    "totalDownloads": 336880,
-    "totalDistinctIPs": 144767,
+    "totalDownloads": 336882,
+    "totalDistinctIPs": 144768,
     "firstYear": 2011,
     "lastYear": 2026
   },
@@ -5398,8 +5398,8 @@
   },
   {
     "package": "diggit",
-    "totalDownloads": 30786,
-    "totalDistinctIPs": 16582,
+    "totalDownloads": 30787,
+    "totalDistinctIPs": 16583,
     "firstYear": 2015,
     "lastYear": 2026
   },
@@ -5426,15 +5426,15 @@
   },
   {
     "package": "dir.expiry",
-    "totalDownloads": 458899,
-    "totalDistinctIPs": 280882,
+    "totalDownloads": 458902,
+    "totalDistinctIPs": 280885,
     "firstYear": 2021,
     "lastYear": 2026
   },
   {
     "package": "DirichletMultinomial",
-    "totalDownloads": 586467,
-    "totalDistinctIPs": 293515,
+    "totalDownloads": 586469,
+    "totalDistinctIPs": 293516,
     "firstYear": 2012,
     "lastYear": 2026
   },
@@ -5454,8 +5454,8 @@
   },
   {
     "package": "distinct",
-    "totalDownloads": 31660,
-    "totalDistinctIPs": 17749,
+    "totalDownloads": 31662,
+    "totalDistinctIPs": 17750,
     "firstYear": 2020,
     "lastYear": 2026
   },
@@ -5468,8 +5468,8 @@
   },
   {
     "package": "divergence",
-    "totalDownloads": 21250,
-    "totalDistinctIPs": 10679,
+    "totalDownloads": 21251,
+    "totalDistinctIPs": 10680,
     "firstYear": 2019,
     "lastYear": 2026
   },
@@ -5650,8 +5650,8 @@
   },
   {
     "package": "DOSE",
-    "totalDownloads": 2657567,
-    "totalDistinctIPs": 1465505,
+    "totalDownloads": 2657570,
+    "totalDistinctIPs": 1465508,
     "firstYear": 2011,
     "lastYear": 2026
   },
@@ -5699,8 +5699,8 @@
   },
   {
     "package": "dreamlet",
-    "totalDownloads": 22780,
-    "totalDistinctIPs": 12199,
+    "totalDownloads": 22791,
+    "totalDistinctIPs": 12200,
     "firstYear": 2023,
     "lastYear": 2026
   },
@@ -5720,8 +5720,8 @@
   },
   {
     "package": "DropletUtils",
-    "totalDownloads": 377697,
-    "totalDistinctIPs": 190879,
+    "totalDownloads": 377700,
+    "totalDistinctIPs": 190881,
     "firstYear": 2018,
     "lastYear": 2026
   },
@@ -5916,8 +5916,8 @@
   },
   {
     "package": "EBImage",
-    "totalDownloads": 704617,
-    "totalDistinctIPs": 358569,
+    "totalDownloads": 704618,
+    "totalDistinctIPs": 358570,
     "firstYear": 2009,
     "lastYear": 2026
   },
@@ -5979,8 +5979,8 @@
   },
   {
     "package": "edgeR",
-    "totalDownloads": 4801387,
-    "totalDistinctIPs": 2316213,
+    "totalDownloads": 4801392,
+    "totalDistinctIPs": 2316217,
     "firstYear": 2009,
     "lastYear": 2026
   },
@@ -6140,15 +6140,15 @@
   },
   {
     "package": "EnrichmentBrowser",
-    "totalDownloads": 95303,
-    "totalDistinctIPs": 55531,
+    "totalDownloads": 95306,
+    "totalDistinctIPs": 55532,
     "firstYear": 2014,
     "lastYear": 2026
   },
   {
     "package": "enrichplot",
-    "totalDownloads": 2740982,
-    "totalDistinctIPs": 1407836,
+    "totalDownloads": 2740991,
+    "totalDistinctIPs": 1407841,
     "firstYear": 2018,
     "lastYear": 2026
   },
@@ -6168,8 +6168,8 @@
   },
   {
     "package": "ensembldb",
-    "totalDownloads": 1741612,
-    "totalDistinctIPs": 884506,
+    "totalDownloads": 1741613,
+    "totalDistinctIPs": 884507,
     "firstYear": 2015,
     "lastYear": 2026
   },
@@ -6315,8 +6315,8 @@
   },
   {
     "package": "epivizr",
-    "totalDownloads": 51358,
-    "totalDistinctIPs": 28631,
+    "totalDownloads": 51359,
+    "totalDistinctIPs": 28632,
     "firstYear": 2013,
     "lastYear": 2026
   },
@@ -6441,8 +6441,8 @@
   },
   {
     "package": "exomeCopy",
-    "totalDownloads": 70182,
-    "totalDistinctIPs": 44397,
+    "totalDownloads": 70183,
+    "totalDistinctIPs": 44398,
     "firstYear": 2011,
     "lastYear": 2026
   },
@@ -6469,8 +6469,8 @@
   },
   {
     "package": "ExperimentHub",
-    "totalDownloads": 905367,
-    "totalDistinctIPs": 542595,
+    "totalDownloads": 905370,
+    "totalDistinctIPs": 542597,
     "firstYear": 2016,
     "lastYear": 2026
   },
@@ -6763,8 +6763,8 @@
   },
   {
     "package": "fgsea",
-    "totalDownloads": 2683135,
-    "totalDistinctIPs": 1465740,
+    "totalDownloads": 2683136,
+    "totalDistinctIPs": 1465741,
     "firstYear": 2016,
     "lastYear": 2026
   },
@@ -6826,8 +6826,8 @@
   },
   {
     "package": "FitHiC",
-    "totalDownloads": 27592,
-    "totalDistinctIPs": 14345,
+    "totalDownloads": 27593,
+    "totalDistinctIPs": 14346,
     "firstYear": 2016,
     "lastYear": 2026
   },
@@ -7624,8 +7624,8 @@
   },
   {
     "package": "genefilter",
-    "totalDownloads": 4384238,
-    "totalDistinctIPs": 2108154,
+    "totalDownloads": 4384241,
+    "totalDistinctIPs": 2108157,
     "firstYear": 2009,
     "lastYear": 2026
   },
@@ -7687,8 +7687,8 @@
   },
   {
     "package": "geneplotter",
-    "totalDownloads": 2851617,
-    "totalDistinctIPs": 1423595,
+    "totalDownloads": 2851618,
+    "totalDistinctIPs": 1423596,
     "firstYear": 2009,
     "lastYear": 2026
   },
@@ -7869,8 +7869,8 @@
   },
   {
     "package": "GenomeInfoDb",
-    "totalDownloads": 11403296,
-    "totalDistinctIPs": 4608725,
+    "totalDownloads": 11403299,
+    "totalDistinctIPs": 4608727,
     "firstYear": 2014,
     "lastYear": 2026
   },
@@ -7890,8 +7890,8 @@
   },
   {
     "package": "GenomicAlignments",
-    "totalDownloads": 5401141,
-    "totalDistinctIPs": 2287268,
+    "totalDownloads": 5401142,
+    "totalDistinctIPs": 2287269,
     "firstYear": 2013,
     "lastYear": 2026
   },
@@ -7918,8 +7918,8 @@
   },
   {
     "package": "GenomicFeatures",
-    "totalDownloads": 4631265,
-    "totalDistinctIPs": 2005464,
+    "totalDownloads": 4631266,
+    "totalDistinctIPs": 2005465,
     "firstYear": 2009,
     "lastYear": 2026
   },
@@ -7967,8 +7967,8 @@
   },
   {
     "package": "GenomicRanges",
-    "totalDownloads": 10242153,
-    "totalDistinctIPs": 4302706,
+    "totalDownloads": 10242162,
+    "totalDistinctIPs": 4302713,
     "firstYear": 2010,
     "lastYear": 2026
   },
@@ -8093,8 +8093,8 @@
   },
   {
     "package": "GEOquery",
-    "totalDownloads": 2609062,
-    "totalDistinctIPs": 1086734,
+    "totalDownloads": 2609063,
+    "totalDistinctIPs": 1086735,
     "firstYear": 2009,
     "lastYear": 2026
   },
@@ -8268,8 +8268,8 @@
   },
   {
     "package": "ggtree",
-    "totalDownloads": 2860585,
-    "totalDistinctIPs": 1470766,
+    "totalDownloads": 2860587,
+    "totalDistinctIPs": 1470768,
     "firstYear": 2015,
     "lastYear": 2026
   },
@@ -8338,8 +8338,8 @@
   },
   {
     "package": "GladiaTOX",
-    "totalDownloads": 22674,
-    "totalDistinctIPs": 11202,
+    "totalDownloads": 22675,
+    "totalDistinctIPs": 11203,
     "firstYear": 2019,
     "lastYear": 2026
   },
@@ -8464,8 +8464,8 @@
   },
   {
     "package": "GOexpress",
-    "totalDownloads": 48934,
-    "totalDistinctIPs": 28377,
+    "totalDownloads": 48935,
+    "totalDistinctIPs": 28378,
     "firstYear": 2014,
     "lastYear": 2026
   },
@@ -8478,8 +8478,8 @@
   },
   {
     "package": "GOfuncR",
-    "totalDownloads": 50310,
-    "totalDistinctIPs": 25963,
+    "totalDownloads": 50312,
+    "totalDistinctIPs": 25964,
     "firstYear": 2017,
     "lastYear": 2026
   },
@@ -8513,8 +8513,8 @@
   },
   {
     "package": "GOSemSim",
-    "totalDownloads": 2411120,
-    "totalDistinctIPs": 1412334,
+    "totalDownloads": 2411123,
+    "totalDistinctIPs": 1412337,
     "firstYear": 2009,
     "lastYear": 2026
   },
@@ -8667,8 +8667,8 @@
   },
   {
     "package": "graph",
-    "totalDownloads": 3799699,
-    "totalDistinctIPs": 2206678,
+    "totalDownloads": 3799703,
+    "totalDistinctIPs": 2206680,
     "firstYear": 2009,
     "lastYear": 2026
   },
@@ -8695,8 +8695,8 @@
   },
   {
     "package": "graphite",
-    "totalDownloads": 475413,
-    "totalDistinctIPs": 303147,
+    "totalDownloads": 475417,
+    "totalDistinctIPs": 303149,
     "firstYear": 2011,
     "lastYear": 2026
   },
@@ -8786,8 +8786,8 @@
   },
   {
     "package": "GSEABase",
-    "totalDownloads": 1550734,
-    "totalDistinctIPs": 927153,
+    "totalDownloads": 1550737,
+    "totalDistinctIPs": 927154,
     "firstYear": 2009,
     "lastYear": 2026
   },
@@ -8849,8 +8849,8 @@
   },
   {
     "package": "GSVA",
-    "totalDownloads": 931441,
-    "totalDistinctIPs": 517096,
+    "totalDownloads": 931443,
+    "totalDistinctIPs": 517097,
     "firstYear": 2011,
     "lastYear": 2026
   },
@@ -8933,8 +8933,8 @@
   },
   {
     "package": "h5mread",
-    "totalDownloads": 382319,
-    "totalDistinctIPs": 221508,
+    "totalDownloads": 382322,
+    "totalDistinctIPs": 221510,
     "firstYear": 2025,
     "lastYear": 2026
   },
@@ -9017,8 +9017,8 @@
   },
   {
     "package": "HDF5Array",
-    "totalDownloads": 2406983,
-    "totalDistinctIPs": 1062080,
+    "totalDownloads": 2406984,
+    "totalDistinctIPs": 1062081,
     "firstYear": 2016,
     "lastYear": 2026
   },
@@ -9409,8 +9409,8 @@
   },
   {
     "package": "HubPub",
-    "totalDownloads": 44442,
-    "totalDistinctIPs": 17796,
+    "totalDownloads": 44444,
+    "totalDistinctIPs": 17797,
     "firstYear": 2021,
     "lastYear": 2026
   },
@@ -9675,8 +9675,8 @@
   },
   {
     "package": "illuminaio",
-    "totalDownloads": 669381,
-    "totalDistinctIPs": 357389,
+    "totalDownloads": 669382,
+    "totalDistinctIPs": 357390,
     "firstYear": 2012,
     "lastYear": 2026
   },
@@ -9836,8 +9836,8 @@
   },
   {
     "package": "impute",
-    "totalDownloads": 2175521,
-    "totalDistinctIPs": 1134621,
+    "totalDownloads": 2175522,
+    "totalDistinctIPs": 1134622,
     "firstYear": 2009,
     "lastYear": 2026
   },
@@ -9962,8 +9962,8 @@
   },
   {
     "package": "interactiveDisplayBase",
-    "totalDownloads": 1077611,
-    "totalDistinctIPs": 630940,
+    "totalDownloads": 1077612,
+    "totalDistinctIPs": 630941,
     "firstYear": 2014,
     "lastYear": 2026
   },
@@ -10046,8 +10046,8 @@
   },
   {
     "package": "IPO",
-    "totalDownloads": 40568,
-    "totalDistinctIPs": 22952,
+    "totalDownloads": 40569,
+    "totalDistinctIPs": 22953,
     "firstYear": 2016,
     "lastYear": 2026
   },
@@ -10060,8 +10060,8 @@
   },
   {
     "package": "IRanges",
-    "totalDownloads": 12837947,
-    "totalDistinctIPs": 5721033,
+    "totalDownloads": 12837957,
+    "totalDistinctIPs": 5721040,
     "firstYear": 2009,
     "lastYear": 2026
   },
@@ -10158,8 +10158,8 @@
   },
   {
     "package": "iSEEu",
-    "totalDownloads": 27759,
-    "totalDistinctIPs": 14840,
+    "totalDownloads": 27760,
+    "totalDistinctIPs": 14841,
     "firstYear": 2020,
     "lastYear": 2026
   },
@@ -10221,8 +10221,8 @@
   },
   {
     "package": "IsoformSwitchAnalyzeR",
-    "totalDownloads": 70379,
-    "totalDistinctIPs": 35512,
+    "totalDownloads": 70380,
+    "totalDistinctIPs": 35513,
     "firstYear": 2017,
     "lastYear": 2026
   },
@@ -10389,8 +10389,8 @@
   },
   {
     "package": "KEGGgraph",
-    "totalDownloads": 838373,
-    "totalDistinctIPs": 547770,
+    "totalDownloads": 838376,
+    "totalDistinctIPs": 547771,
     "firstYear": 2009,
     "lastYear": 2026
   },
@@ -10424,8 +10424,8 @@
   },
   {
     "package": "KEGGREST",
-    "totalDownloads": 5424481,
-    "totalDistinctIPs": 2508021,
+    "totalDownloads": 5424485,
+    "totalDistinctIPs": 2508025,
     "firstYear": 2013,
     "lastYear": 2026
   },
@@ -10557,15 +10557,15 @@
   },
   {
     "package": "lemur",
-    "totalDownloads": 18303,
-    "totalDistinctIPs": 9358,
+    "totalDownloads": 18305,
+    "totalDistinctIPs": 9359,
     "firstYear": 2023,
     "lastYear": 2026
   },
   {
     "package": "les",
-    "totalDownloads": 45910,
-    "totalDistinctIPs": 26342,
+    "totalDownloads": 45911,
+    "totalDistinctIPs": 26343,
     "firstYear": 2010,
     "lastYear": 2026
   },
@@ -10578,8 +10578,8 @@
   },
   {
     "package": "lfa",
-    "totalDownloads": 64263,
-    "totalDistinctIPs": 37882,
+    "totalDownloads": 64265,
+    "totalDistinctIPs": 37883,
     "firstYear": 2015,
     "lastYear": 2026
   },
@@ -10592,8 +10592,8 @@
   },
   {
     "package": "limma",
-    "totalDownloads": 8096407,
-    "totalDistinctIPs": 3899676,
+    "totalDownloads": 8096411,
+    "totalDistinctIPs": 3899679,
     "firstYear": 2009,
     "lastYear": 2026
   },
@@ -10711,8 +10711,8 @@
   },
   {
     "package": "lisaClust",
-    "totalDownloads": 26249,
-    "totalDistinctIPs": 14160,
+    "totalDownloads": 26250,
+    "totalDistinctIPs": 14161,
     "firstYear": 2021,
     "lastYear": 2026
   },
@@ -10725,8 +10725,8 @@
   },
   {
     "package": "LMGene",
-    "totalDownloads": 36445,
-    "totalDistinctIPs": 23262,
+    "totalDownloads": 36446,
+    "totalDistinctIPs": 23263,
     "firstYear": 2009,
     "lastYear": 2026
   },
@@ -11222,8 +11222,8 @@
   },
   {
     "package": "MatrixGenerics",
-    "totalDownloads": 6261353,
-    "totalDistinctIPs": 2738771,
+    "totalDownloads": 6261360,
+    "totalDistinctIPs": 2738778,
     "firstYear": 2020,
     "lastYear": 2026
   },
@@ -11691,8 +11691,8 @@
   },
   {
     "package": "metapod",
-    "totalDownloads": 597726,
-    "totalDistinctIPs": 305376,
+    "totalDownloads": 597727,
+    "totalDistinctIPs": 305377,
     "firstYear": 2020,
     "lastYear": 2026
   },
@@ -11796,8 +11796,8 @@
   },
   {
     "package": "MethReg",
-    "totalDownloads": 21430,
-    "totalDistinctIPs": 10914,
+    "totalDownloads": 21431,
+    "totalDistinctIPs": 10915,
     "firstYear": 2020,
     "lastYear": 2026
   },
@@ -12104,8 +12104,8 @@
   },
   {
     "package": "midasHLA",
-    "totalDownloads": 20583,
-    "totalDistinctIPs": 9263,
+    "totalDownloads": 20584,
+    "totalDistinctIPs": 9264,
     "firstYear": 2021,
     "lastYear": 2026
   },
@@ -12160,8 +12160,8 @@
   },
   {
     "package": "minfi",
-    "totalDownloads": 1015515,
-    "totalDistinctIPs": 303147,
+    "totalDownloads": 1015516,
+    "totalDistinctIPs": 303148,
     "firstYear": 2011,
     "lastYear": 2026
   },
@@ -12496,8 +12496,8 @@
   },
   {
     "package": "MOFA2",
-    "totalDownloads": 90777,
-    "totalDistinctIPs": 45375,
+    "totalDownloads": 90779,
+    "totalDistinctIPs": 45376,
     "firstYear": 2020,
     "lastYear": 2026
   },
@@ -12510,8 +12510,8 @@
   },
   {
     "package": "mogsa",
-    "totalDownloads": 44694,
-    "totalDistinctIPs": 25959,
+    "totalDownloads": 44695,
+    "totalDistinctIPs": 25960,
     "firstYear": 2015,
     "lastYear": 2026
   },
@@ -12874,8 +12874,8 @@
   },
   {
     "package": "MSnbase",
-    "totalDownloads": 663837,
-    "totalDistinctIPs": 315529,
+    "totalDownloads": 663839,
+    "totalDistinctIPs": 315530,
     "firstYear": 2011,
     "lastYear": 2026
   },
@@ -13056,8 +13056,8 @@
   },
   {
     "package": "MultiAssayExperiment",
-    "totalDownloads": 625392,
-    "totalDistinctIPs": 375465,
+    "totalDownloads": 625393,
+    "totalDistinctIPs": 375466,
     "firstYear": 2016,
     "lastYear": 2026
   },
@@ -13196,8 +13196,8 @@
   },
   {
     "package": "multtest",
-    "totalDownloads": 2823627,
-    "totalDistinctIPs": 1352925,
+    "totalDownloads": 2823629,
+    "totalDistinctIPs": 1352927,
     "firstYear": 2009,
     "lastYear": 2026
   },
@@ -13784,8 +13784,8 @@
   },
   {
     "package": "octad",
-    "totalDownloads": 16847,
-    "totalDistinctIPs": 9120,
+    "totalDownloads": 16848,
+    "totalDistinctIPs": 9121,
     "firstYear": 2022,
     "lastYear": 2026
   },
@@ -13938,8 +13938,8 @@
   },
   {
     "package": "Omixer",
-    "totalDownloads": 18918,
-    "totalDistinctIPs": 9900,
+    "totalDownloads": 18919,
+    "totalDistinctIPs": 9901,
     "firstYear": 2020,
     "lastYear": 2026
   },
@@ -14155,8 +14155,8 @@
   },
   {
     "package": "orthogene",
-    "totalDownloads": 46383,
-    "totalDistinctIPs": 28534,
+    "totalDownloads": 46385,
+    "totalDistinctIPs": 28536,
     "firstYear": 2021,
     "lastYear": 2026
   },
@@ -14470,15 +14470,15 @@
   },
   {
     "package": "pathVar",
-    "totalDownloads": 15623,
-    "totalDistinctIPs": 9770,
+    "totalDownloads": 15624,
+    "totalDistinctIPs": 9771,
     "firstYear": 2015,
     "lastYear": 2026
   },
   {
     "package": "pathview",
-    "totalDownloads": 754857,
-    "totalDistinctIPs": 472033,
+    "totalDownloads": 754860,
+    "totalDistinctIPs": 472034,
     "firstYear": 2013,
     "lastYear": 2026
   },
@@ -14540,8 +14540,8 @@
   },
   {
     "package": "pcaMethods",
-    "totalDownloads": 929836,
-    "totalDistinctIPs": 537027,
+    "totalDownloads": 929837,
+    "totalDistinctIPs": 537028,
     "firstYear": 2009,
     "lastYear": 2026
   },
@@ -14708,8 +14708,8 @@
   },
   {
     "package": "pfamAnalyzeR",
-    "totalDownloads": 25760,
-    "totalDistinctIPs": 15066,
+    "totalDownloads": 25761,
+    "totalDistinctIPs": 15067,
     "firstYear": 2023,
     "lastYear": 2026
   },
@@ -14834,8 +14834,8 @@
   },
   {
     "package": "philr",
-    "totalDownloads": 45979,
-    "totalDistinctIPs": 25635,
+    "totalDownloads": 45980,
+    "totalDistinctIPs": 25636,
     "firstYear": 2016,
     "lastYear": 2026
   },
@@ -14855,8 +14855,8 @@
   },
   {
     "package": "PhosR",
-    "totalDownloads": 31035,
-    "totalDistinctIPs": 16970,
+    "totalDownloads": 31036,
+    "totalDistinctIPs": 16971,
     "firstYear": 2020,
     "lastYear": 2026
   },
@@ -14974,8 +14974,8 @@
   },
   {
     "package": "PIUMA",
-    "totalDownloads": 14520,
-    "totalDistinctIPs": 7426,
+    "totalDownloads": 14521,
+    "totalDistinctIPs": 7427,
     "firstYear": 2024,
     "lastYear": 2026
   },
@@ -15345,8 +15345,8 @@
   },
   {
     "package": "preprocessCore",
-    "totalDownloads": 3166930,
-    "totalDistinctIPs": 1813735,
+    "totalDownloads": 3166932,
+    "totalDistinctIPs": 1813737,
     "firstYear": 2009,
     "lastYear": 2026
   },
@@ -15394,8 +15394,8 @@
   },
   {
     "package": "PROcess",
-    "totalDownloads": 79454,
-    "totalDistinctIPs": 43352,
+    "totalDownloads": 79455,
+    "totalDistinctIPs": 43353,
     "firstYear": 2009,
     "lastYear": 2026
   },
@@ -15457,8 +15457,8 @@
   },
   {
     "package": "pRoloc",
-    "totalDownloads": 105242,
-    "totalDistinctIPs": 52932,
+    "totalDownloads": 105244,
+    "totalDistinctIPs": 52933,
     "firstYear": 2012,
     "lastYear": 2026
   },
@@ -15569,8 +15569,8 @@
   },
   {
     "package": "ProtGenerics",
-    "totalDownloads": 1684870,
-    "totalDistinctIPs": 972793,
+    "totalDownloads": 1684871,
+    "totalDistinctIPs": 972794,
     "firstYear": 2015,
     "lastYear": 2026
   },
@@ -15674,8 +15674,8 @@
   },
   {
     "package": "pwalign",
-    "totalDownloads": 348532,
-    "totalDistinctIPs": 223036,
+    "totalDownloads": 348534,
+    "totalDistinctIPs": 223038,
     "firstYear": 2024,
     "lastYear": 2026
   },
@@ -15828,8 +15828,8 @@
   },
   {
     "package": "quantiseqr",
-    "totalDownloads": 57296,
-    "totalDistinctIPs": 38342,
+    "totalDownloads": 57298,
+    "totalDistinctIPs": 38343,
     "firstYear": 2021,
     "lastYear": 2026
   },
@@ -15891,15 +15891,15 @@
   },
   {
     "package": "qusage",
-    "totalDownloads": 88751,
-    "totalDistinctIPs": 51865,
+    "totalDownloads": 88752,
+    "totalDistinctIPs": 51866,
     "firstYear": 2013,
     "lastYear": 2026
   },
   {
     "package": "qvalue",
-    "totalDownloads": 2731100,
-    "totalDistinctIPs": 1648508,
+    "totalDownloads": 2731103,
+    "totalDistinctIPs": 1648511,
     "firstYear": 2009,
     "lastYear": 2026
   },
@@ -16374,8 +16374,8 @@
   },
   {
     "package": "ReactomePA",
-    "totalDownloads": 682950,
-    "totalDistinctIPs": 267481,
+    "totalDownloads": 682951,
+    "totalDistinctIPs": 267482,
     "firstYear": 2012,
     "lastYear": 2026
   },
@@ -16528,8 +16528,8 @@
   },
   {
     "package": "regioneR",
-    "totalDownloads": 365745,
-    "totalDistinctIPs": 194677,
+    "totalDownloads": 365746,
+    "totalDistinctIPs": 194678,
     "firstYear": 2015,
     "lastYear": 2026
   },
@@ -16556,15 +16556,15 @@
   },
   {
     "package": "regutools",
-    "totalDownloads": 22816,
-    "totalDistinctIPs": 11884,
+    "totalDownloads": 22817,
+    "totalDistinctIPs": 11885,
     "firstYear": 2020,
     "lastYear": 2026
   },
   {
     "package": "REMP",
-    "totalDownloads": 31355,
-    "totalDistinctIPs": 16143,
+    "totalDownloads": 31356,
+    "totalDistinctIPs": 16144,
     "firstYear": 2017,
     "lastYear": 2026
   },
@@ -16752,8 +16752,8 @@
   },
   {
     "package": "Rgraphviz",
-    "totalDownloads": 2054385,
-    "totalDistinctIPs": 1182968,
+    "totalDownloads": 2054388,
+    "totalDistinctIPs": 1182969,
     "firstYear": 2009,
     "lastYear": 2026
   },
@@ -16780,8 +16780,8 @@
   },
   {
     "package": "rhdf5",
-    "totalDownloads": 3675109,
-    "totalDistinctIPs": 1824429,
+    "totalDownloads": 3675113,
+    "totalDistinctIPs": 1824432,
     "firstYear": 2011,
     "lastYear": 2026
   },
@@ -16794,15 +16794,15 @@
   },
   {
     "package": "rhdf5filters",
-    "totalDownloads": 2551087,
-    "totalDistinctIPs": 1297756,
+    "totalDownloads": 2551090,
+    "totalDistinctIPs": 1297758,
     "firstYear": 2020,
     "lastYear": 2026
   },
   {
     "package": "Rhdf5lib",
-    "totalDownloads": 3551452,
-    "totalDistinctIPs": 1815968,
+    "totalDownloads": 3551454,
+    "totalDistinctIPs": 1815970,
     "firstYear": 2017,
     "lastYear": 2026
   },
@@ -16815,15 +16815,15 @@
   },
   {
     "package": "Rhisat2",
-    "totalDownloads": 45758,
-    "totalDistinctIPs": 26051,
+    "totalDownloads": 45760,
+    "totalDistinctIPs": 26052,
     "firstYear": 2019,
     "lastYear": 2026
   },
   {
     "package": "Rhtslib",
-    "totalDownloads": 4326780,
-    "totalDistinctIPs": 1818860,
+    "totalDownloads": 4326784,
+    "totalDistinctIPs": 1818863,
     "firstYear": 2015,
     "lastYear": 2026
   },
@@ -16892,8 +16892,8 @@
   },
   {
     "package": "Rigraphlib",
-    "totalDownloads": 46789,
-    "totalDistinctIPs": 33790,
+    "totalDownloads": 46790,
+    "totalDistinctIPs": 33791,
     "firstYear": 2025,
     "lastYear": 2026
   },
@@ -17249,8 +17249,8 @@
   },
   {
     "package": "rols",
-    "totalDownloads": 98831,
-    "totalDistinctIPs": 55745,
+    "totalDownloads": 98833,
+    "totalDistinctIPs": 55746,
     "firstYear": 2012,
     "lastYear": 2026
   },
@@ -17312,8 +17312,8 @@
   },
   {
     "package": "rpx",
-    "totalDownloads": 93031,
-    "totalDistinctIPs": 51401,
+    "totalDownloads": 93033,
+    "totalDistinctIPs": 51402,
     "firstYear": 2014,
     "lastYear": 2026
   },
@@ -17368,8 +17368,8 @@
   },
   {
     "package": "Rsamtools",
-    "totalDownloads": 5978229,
-    "totalDistinctIPs": 2511065,
+    "totalDownloads": 5978232,
+    "totalDistinctIPs": 2511067,
     "firstYear": 2010,
     "lastYear": 2026
   },
@@ -17480,8 +17480,8 @@
   },
   {
     "package": "RTNsurvival",
-    "totalDownloads": 27823,
-    "totalDistinctIPs": 14304,
+    "totalDownloads": 27824,
+    "totalDistinctIPs": 14305,
     "firstYear": 2017,
     "lastYear": 2026
   },
@@ -17508,8 +17508,8 @@
   },
   {
     "package": "rtracklayer",
-    "totalDownloads": 5619078,
-    "totalDistinctIPs": 2293807,
+    "totalDownloads": 5619079,
+    "totalDistinctIPs": 2293808,
     "firstYear": 2009,
     "lastYear": 2026
   },
@@ -17606,8 +17606,8 @@
   },
   {
     "package": "S4Arrays",
-    "totalDownloads": 3486485,
-    "totalDistinctIPs": 1733335,
+    "totalDownloads": 3486495,
+    "totalDistinctIPs": 1733343,
     "firstYear": 2023,
     "lastYear": 2026
   },
@@ -17620,15 +17620,15 @@
   },
   {
     "package": "S4Vectors",
-    "totalDownloads": 12871870,
-    "totalDistinctIPs": 5460387,
+    "totalDownloads": 12871884,
+    "totalDistinctIPs": 5460396,
     "firstYear": 2014,
     "lastYear": 2026
   },
   {
     "package": "safe",
-    "totalDownloads": 129715,
-    "totalDistinctIPs": 78798,
+    "totalDownloads": 129718,
+    "totalDistinctIPs": 78799,
     "firstYear": 2009,
     "lastYear": 2026
   },
@@ -17746,8 +17746,8 @@
   },
   {
     "package": "satuRn",
-    "totalDownloads": 37595,
-    "totalDistinctIPs": 21596,
+    "totalDownloads": 37596,
+    "totalDistinctIPs": 21597,
     "firstYear": 2021,
     "lastYear": 2026
   },
@@ -17781,8 +17781,8 @@
   },
   {
     "package": "SC3",
-    "totalDownloads": 110165,
-    "totalDistinctIPs": 59242,
+    "totalDownloads": 110166,
+    "totalDistinctIPs": 59243,
     "firstYear": 2016,
     "lastYear": 2026
   },
@@ -17830,8 +17830,8 @@
   },
   {
     "package": "scAnnotatR",
-    "totalDownloads": 24644,
-    "totalDistinctIPs": 12823,
+    "totalDownloads": 24646,
+    "totalDistinctIPs": 12824,
     "firstYear": 2021,
     "lastYear": 2026
   },
@@ -17991,8 +17991,8 @@
   },
   {
     "package": "scde",
-    "totalDownloads": 91652,
-    "totalDistinctIPs": 51326,
+    "totalDownloads": 91654,
+    "totalDistinctIPs": 51327,
     "firstYear": 2015,
     "lastYear": 2026
   },
@@ -18271,8 +18271,8 @@
   },
   {
     "package": "scrapper",
-    "totalDownloads": 53937,
-    "totalDistinctIPs": 37382,
+    "totalDownloads": 53938,
+    "totalDistinctIPs": 37383,
     "firstYear": 2024,
     "lastYear": 2026
   },
@@ -18306,8 +18306,8 @@
   },
   {
     "package": "scRepertoire",
-    "totalDownloads": 72266,
-    "totalDistinctIPs": 38623,
+    "totalDownloads": 72267,
+    "totalDistinctIPs": 38624,
     "firstYear": 2020,
     "lastYear": 2026
   },
@@ -18390,8 +18390,8 @@
   },
   {
     "package": "scuttle",
-    "totalDownloads": 1641260,
-    "totalDistinctIPs": 614756,
+    "totalDownloads": 1641262,
+    "totalDistinctIPs": 614758,
     "firstYear": 2020,
     "lastYear": 2026
   },
@@ -18572,8 +18572,8 @@
   },
   {
     "package": "Seqinfo",
-    "totalDownloads": 1048225,
-    "totalDistinctIPs": 534830,
+    "totalDownloads": 1048232,
+    "totalDistinctIPs": 534836,
     "firstYear": 2025,
     "lastYear": 2026
   },
@@ -18796,8 +18796,8 @@
   },
   {
     "package": "siggenes",
-    "totalDownloads": 668096,
-    "totalDistinctIPs": 389735,
+    "totalDownloads": 668098,
+    "totalDistinctIPs": 389737,
     "firstYear": 2009,
     "lastYear": 2026
   },
@@ -19006,8 +19006,8 @@
   },
   {
     "package": "SingleCellExperiment",
-    "totalDownloads": 2418234,
-    "totalDistinctIPs": 1147731,
+    "totalDownloads": 2418235,
+    "totalDistinctIPs": 1147732,
     "firstYear": 2017,
     "lastYear": 2026
   },
@@ -19034,8 +19034,8 @@
   },
   {
     "package": "SingleR",
-    "totalDownloads": 471858,
-    "totalDistinctIPs": 281117,
+    "totalDownloads": 471860,
+    "totalDistinctIPs": 281118,
     "firstYear": 2019,
     "lastYear": 2026
   },
@@ -19125,8 +19125,8 @@
   },
   {
     "package": "slingshot",
-    "totalDownloads": 284218,
-    "totalDistinctIPs": 137388,
+    "totalDownloads": 284219,
+    "totalDistinctIPs": 137389,
     "firstYear": 2018,
     "lastYear": 2026
   },
@@ -19265,8 +19265,8 @@
   },
   {
     "package": "SNPRelate",
-    "totalDownloads": 307531,
-    "totalDistinctIPs": 169204,
+    "totalDownloads": 307532,
+    "totalDistinctIPs": 169205,
     "firstYear": 2014,
     "lastYear": 2026
   },
@@ -19384,8 +19384,8 @@
   },
   {
     "package": "SparseArray",
-    "totalDownloads": 3525554,
-    "totalDistinctIPs": 1673014,
+    "totalDownloads": 3525564,
+    "totalDistinctIPs": 1673022,
     "firstYear": 2023,
     "lastYear": 2026
   },
@@ -19398,15 +19398,15 @@
   },
   {
     "package": "sparseMatrixStats",
-    "totalDownloads": 1908210,
-    "totalDistinctIPs": 985108,
+    "totalDownloads": 1908211,
+    "totalDistinctIPs": 985109,
     "firstYear": 2020,
     "lastYear": 2026
   },
   {
     "package": "sparsenetgls",
-    "totalDownloads": 20471,
-    "totalDistinctIPs": 10099,
+    "totalDownloads": 20472,
+    "totalDistinctIPs": 10100,
     "firstYear": 2018,
     "lastYear": 2026
   },
@@ -19580,8 +19580,8 @@
   },
   {
     "package": "SPIA",
-    "totalDownloads": 165960,
-    "totalDistinctIPs": 95539,
+    "totalDownloads": 165963,
+    "totalDistinctIPs": 95540,
     "firstYear": 2009,
     "lastYear": 2026
   },
@@ -20077,8 +20077,8 @@
   },
   {
     "package": "STRINGdb",
-    "totalDownloads": 236504,
-    "totalDistinctIPs": 143880,
+    "totalDownloads": 236505,
+    "totalDistinctIPs": 143881,
     "firstYear": 2013,
     "lastYear": 2026
   },
@@ -20147,8 +20147,8 @@
   },
   {
     "package": "SummarizedExperiment",
-    "totalDownloads": 9052191,
-    "totalDistinctIPs": 3632434,
+    "totalDownloads": 9052197,
+    "totalDistinctIPs": 3632440,
     "firstYear": 2015,
     "lastYear": 2026
   },
@@ -20224,8 +20224,8 @@
   },
   {
     "package": "sva",
-    "totalDownloads": 1303258,
-    "totalDistinctIPs": 746816,
+    "totalDownloads": 1303260,
+    "totalDistinctIPs": 746818,
     "firstYear": 2011,
     "lastYear": 2026
   },
@@ -20476,8 +20476,8 @@
   },
   {
     "package": "TCGAbiolinks",
-    "totalDownloads": 655085,
-    "totalDistinctIPs": 364447,
+    "totalDownloads": 655086,
+    "totalDistinctIPs": 364448,
     "firstYear": 2015,
     "lastYear": 2026
   },
@@ -20525,8 +20525,8 @@
   },
   {
     "package": "TEKRABber",
-    "totalDownloads": 21056,
-    "totalDistinctIPs": 11426,
+    "totalDownloads": 21057,
+    "totalDistinctIPs": 11427,
     "firstYear": 2022,
     "lastYear": 2026
   },
@@ -20609,8 +20609,8 @@
   },
   {
     "package": "TFutils",
-    "totalDownloads": 32315,
-    "totalDistinctIPs": 16445,
+    "totalDownloads": 32316,
+    "totalDistinctIPs": 16446,
     "firstYear": 2018,
     "lastYear": 2026
   },
@@ -20931,8 +20931,8 @@
   },
   {
     "package": "tradeSeq",
-    "totalDownloads": 141480,
-    "totalDistinctIPs": 53896,
+    "totalDownloads": 141481,
+    "totalDistinctIPs": 53897,
     "firstYear": 2019,
     "lastYear": 2026
   },
@@ -20952,8 +20952,8 @@
   },
   {
     "package": "TrajectoryUtils",
-    "totalDownloads": 259508,
-    "totalDistinctIPs": 129532,
+    "totalDownloads": 259509,
+    "totalDistinctIPs": 129533,
     "firstYear": 2021,
     "lastYear": 2026
   },
@@ -21057,8 +21057,8 @@
   },
   {
     "package": "treeio",
-    "totalDownloads": 2431687,
-    "totalDistinctIPs": 1388898,
+    "totalDownloads": 2431689,
+    "totalDistinctIPs": 1388900,
     "firstYear": 2016,
     "lastYear": 2026
   },
@@ -21141,8 +21141,8 @@
   },
   {
     "package": "trio",
-    "totalDownloads": 44999,
-    "totalDistinctIPs": 26236,
+    "totalDownloads": 45000,
+    "totalDistinctIPs": 26237,
     "firstYear": 2013,
     "lastYear": 2026
   },
@@ -21309,15 +21309,15 @@
   },
   {
     "package": "tximeta",
-    "totalDownloads": 217954,
-    "totalDistinctIPs": 100754,
+    "totalDownloads": 217955,
+    "totalDistinctIPs": 100755,
     "firstYear": 2018,
     "lastYear": 2026
   },
   {
     "package": "tximport",
-    "totalDownloads": 618628,
-    "totalDistinctIPs": 358773,
+    "totalDownloads": 618630,
+    "totalDistinctIPs": 358775,
     "firstYear": 2016,
     "lastYear": 2026
   },
@@ -21337,22 +21337,22 @@
   },
   {
     "package": "UCell",
-    "totalDownloads": 133073,
-    "totalDistinctIPs": 90101,
+    "totalDownloads": 133074,
+    "totalDistinctIPs": 90102,
     "firstYear": 2022,
     "lastYear": 2026
   },
   {
     "package": "UCSC.utils",
-    "totalDownloads": 1749083,
-    "totalDistinctIPs": 997525,
+    "totalDownloads": 1749087,
+    "totalDistinctIPs": 997528,
     "firstYear": 2024,
     "lastYear": 2026
   },
   {
     "package": "Ularcirc",
-    "totalDownloads": 25487,
-    "totalDistinctIPs": 13178,
+    "totalDownloads": 25488,
+    "totalDistinctIPs": 13179,
     "firstYear": 2018,
     "lastYear": 2026
   },
@@ -21365,8 +21365,8 @@
   },
   {
     "package": "uncoverappLib",
-    "totalDownloads": 21649,
-    "totalDistinctIPs": 11067,
+    "totalDownloads": 21650,
+    "totalDistinctIPs": 11068,
     "firstYear": 2020,
     "lastYear": 2026
   },
@@ -21407,8 +21407,8 @@
   },
   {
     "package": "updateObject",
-    "totalDownloads": 17156,
-    "totalDistinctIPs": 9227,
+    "totalDownloads": 17158,
+    "totalDistinctIPs": 9229,
     "firstYear": 2022,
     "lastYear": 2026
   },
@@ -21449,8 +21449,8 @@
   },
   {
     "package": "variancePartition",
-    "totalDownloads": 176100,
-    "totalDistinctIPs": 86759,
+    "totalDownloads": 176103,
+    "totalDistinctIPs": 86760,
     "firstYear": 2015,
     "lastYear": 2026
   },
@@ -21540,8 +21540,8 @@
   },
   {
     "package": "veloviz",
-    "totalDownloads": 15334,
-    "totalDistinctIPs": 8429,
+    "totalDownloads": 15335,
+    "totalDistinctIPs": 8430,
     "firstYear": 2021,
     "lastYear": 2026
   },
@@ -21638,8 +21638,8 @@
   },
   {
     "package": "vsclust",
-    "totalDownloads": 17960,
-    "totalDistinctIPs": 9367,
+    "totalDownloads": 17961,
+    "totalDistinctIPs": 9368,
     "firstYear": 2022,
     "lastYear": 2026
   },
@@ -21876,8 +21876,8 @@
   },
   {
     "package": "XVector",
-    "totalDownloads": 10528032,
-    "totalDistinctIPs": 4562579,
+    "totalDownloads": 10528042,
+    "totalDistinctIPs": 4562586,
     "firstYear": 2013,
     "lastYear": 2026
   },
@@ -21918,22 +21918,22 @@
   },
   {
     "package": "ZarrArray",
-    "totalDownloads": 5464,
-    "totalDistinctIPs": 3115,
+    "totalDownloads": 5466,
+    "totalDistinctIPs": 3116,
     "firstYear": 2026,
     "lastYear": 2026
   },
   {
     "package": "zellkonverter",
-    "totalDownloads": 194508,
-    "totalDistinctIPs": 106025,
+    "totalDownloads": 194510,
+    "totalDistinctIPs": 106027,
     "firstYear": 2020,
     "lastYear": 2026
   },
   {
     "package": "zenith",
-    "totalDownloads": 23900,
-    "totalDistinctIPs": 12534,
+    "totalDownloads": 23903,
+    "totalDistinctIPs": 12535,
     "firstYear": 2022,
     "lastYear": 2026
   },
@@ -21960,8 +21960,8 @@
   },
   {
     "package": "zlibbioc",
-    "totalDownloads": 9640730,
-    "totalDistinctIPs": 4275272,
+    "totalDownloads": 9640733,
+    "totalDistinctIPs": 4275274,
     "firstYear": 2011,
     "lastYear": 2026
   },
