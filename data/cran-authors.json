@@ -1,7 +1,7 @@
 {
-  "lastUpdated": "2026-10-01T10:57:36.697Z",
-  "totalPackages": 25284,
-  "processedPackages": 26964,
+  "lastUpdated": "2026-10-04T08:58:09.401Z",
+  "totalPackages": 25301,
+  "processedPackages": 26980,
   "authorData": {
     "AATtools": {
       "author": "Sercan Kahveci [aut, cre]",
@@ -161786,6 +161786,102 @@
       "maintainer": "Annalivia Polselli <apolselli.econ@gmail.com>",
       "title": "Double Machine Learning for Static Panel Models with Interactive\nFixed Effects",
       "lastUpdated": "2026-10-01T10:57:36.697Z"
+    },
+    "PBGoF": {
+      "author": "Hongxiang Li [aut, cre],\nTsung Fei Khang [aut]",
+      "maintainer": "Hongxiang Li <hxli@ynnu.edu.cn>",
+      "title": "Parametric Bootstrap Tests for the Skew-Normal Distribution",
+      "lastUpdated": "2026-10-04T08:58:09.401Z"
+    },
+    "PDRobust": {
+      "author": "Huan Wang [aut, cre],\nYilin Zhang [aut]",
+      "maintainer": "Huan Wang <whhuan42@gmail.com>",
+      "title": "Robust Longitudinal Effects Under Truncation by Death",
+      "lastUpdated": "2026-10-04T08:58:09.401Z"
+    },
+    "TEMPO": {
+      "author": "Marian Necula [aut, cre],\nBogdan Oancea [aut],\nAna Maria Tiru [aut]",
+      "maintainer": "Marian Necula <marian.necula00@gmail.com>",
+      "title": "Tools for Romania's National Institute of Statistics Tempo Data",
+      "lastUpdated": "2026-10-04T08:58:09.401Z"
+    },
+    "UlavalSSD": {
+      "author": "Aurélien Nicosia [aut, cre]",
+      "maintainer": "Aurélien Nicosia <nicosia.aurelien@gmail.com>",
+      "title": "Quebec Data and Tools for Introductory Data Science",
+      "lastUpdated": "2026-10-04T08:58:09.401Z"
+    },
+    "daisytools": {
+      "author": "Silas Ørting [aut, cre] (ORCID:\n<https://orcid.org/0000-0002-3081-1547>)",
+      "maintainer": "Silas Ørting <silas@di.ku.dk>",
+      "title": "Reading and Visualizing Output from 'Daisy' Simulations",
+      "lastUpdated": "2026-10-04T08:58:09.401Z"
+    },
+    "eduResearchR": {
+      "author": "Jorge Luis Marmanillo Santana [aut, cre] (ORCID:\n<https://orcid.org/0009-0003-4485-0744>),\nChristian Kleiber [ctb] (Author of the AER package; original source for\nCASchools and CollegeDistance.),\nJohn Fox [ctb] (Author of the carData package; original source for\nEducationLiteracy, ExamScores, and FirstYearGPA.),\nDouglas Bates [ctb] (Author of the MEMSS package; original source for\nMathAchieve.),\nThomas Lumley [ctb] (Author of the survey package; original source for\napipop.),\nJeremy Finn [ctb] (Principal investigator; original source for STARplus\n(Project STAR).),\nAndrew Raudenbush [ctb] (Researcher; original source for the classroom\ndataset.)",
+      "maintainer": "Jorge Luis Marmanillo Santana <jlmarmanillo@gmail.com>",
+      "title": "A Collection of Educational Datasets for Research and\nStatistical Analysis",
+      "lastUpdated": "2026-10-04T08:58:09.401Z"
+    },
+    "famnesia": {
+      "author": "Magnus Dehli Vigeland [aut, cre] (ORCID:\n<https://orcid.org/0000-0002-9134-4962>)",
+      "maintainer": "Magnus Dehli Vigeland <m.d.vigeland@medisin.uio.no>",
+      "title": "Anonymising Familias Files",
+      "lastUpdated": "2026-10-04T08:58:09.401Z"
+    },
+    "likingInitiative": {
+      "author": "Kianté Fernandez [aut, cre, cph]",
+      "maintainer": "Kianté Fernandez <kiantefernan@gmail.com>",
+      "title": "Access the Liking Rating Database",
+      "lastUpdated": "2026-10-04T08:58:09.401Z"
+    },
+    "mudnester": {
+      "author": "Nicolas Smoll [aut, cre] (ORCID:\n<https://orcid.org/0000-0002-6923-9701>),\nModerna [fnd] (Support for this package's development was provided via\nthe Moderna Global Research Fellowship)",
+      "maintainer": "Nicolas Smoll <nicolas.smoll@health.qld.gov.au>",
+      "title": "Surveillance Data Cleaning and Preparation for Public Health",
+      "lastUpdated": "2026-10-04T08:58:09.401Z"
+    },
+    "pubformat": {
+      "author": "RJ Ballotti [aut, cre]",
+      "maintainer": "RJ Ballotti <rballotti@coastal.edu>",
+      "title": "Publication-Ready Formatting for Statistical Results",
+      "lastUpdated": "2026-10-04T08:58:09.401Z"
+    },
+    "rMDSPTT": {
+      "author": "Harsh Tripathi [aut, cre]",
+      "maintainer": "Harsh Tripathi <rsearchstat21@gmail.com>",
+      "title": "Multiple Dependent State Sampling Inspection Plan for Time\nTruncated Life Test",
+      "lastUpdated": "2026-10-04T08:58:09.401Z"
+    },
+    "rumenGP": {
+      "author": "Arlan Araujo Rodrigues [aut, cre],\nHilario Cuquetto Mantovani [aut]",
+      "maintainer": "Arlan Araujo Rodrigues <araujorodrig@wisc.edu>",
+      "title": "Rumen Gas Production Modeling, Comparison, and Visualization",
+      "lastUpdated": "2026-10-04T08:58:09.401Z"
+    },
+    "shinyHierarchy": {
+      "author": "Luis Rodriguez [aut, cre]",
+      "maintainer": "Luis Rodriguez <devmazter92@gmail.com>",
+      "title": "Hierarchical Input Component for Shiny",
+      "lastUpdated": "2026-10-04T08:58:09.401Z"
+    },
+    "timesift": {
+      "author": "Gilles Colling [aut, cre, cph] (ORCID:\n<https://orcid.org/0000-0003-3070-6066>)",
+      "maintainer": "Gilles Colling <gilles.colling051@gmail.com>",
+      "title": "Learn Predictive Representations of Time-Varying Data",
+      "lastUpdated": "2026-10-04T08:58:09.401Z"
+    },
+    "yaleBraille": {
+      "author": "Mike Wininger [aut, cre] (ORCID:\n<https://orcid.org/0000-0002-7871-3292>),\nliblouis contributors [ctb, cph] (Authors of the bundled liblouis C\nlibrary (https://liblouis.io))",
+      "maintainer": "Mike Wininger <michael.wininger@yale.edu>",
+      "title": "Generate Braille-Enabled Graphics",
+      "lastUpdated": "2026-10-04T08:58:09.401Z"
+    },
+    "zujson": {
+      "author": "Pedro Baltazar [aut, cre, cph],\nYaoYuan [ctb, cph] (author of the bundled yyjson library)",
+      "maintainer": "Pedro Baltazar <pedrobtz@gmail.com>",
+      "title": "Lightweight JSON Parsing and Serialization",
+      "lastUpdated": "2026-10-04T08:58:09.401Z"
     }
   }
 }
